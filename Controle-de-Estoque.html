@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="ipt_nome_do_produto"> Insira o nome do produto<br>
+    <input type="number" id="ipt_numero_do_produto"> Insira o número do produto<br>
+    <input type="number" id="ipt_qtd_de_estoque_do_produto"> Insira a quantidade de produto em estoque<br>
+
+    <div>
+
+        <button onclick="cadastrarProduto()">Cadastrar Produto</button>
+        <button onclick="ReporEstoque()">Repor Estoque</button>
+        <button onclick="VenderProduto()">Vender Produto</button>
+
+    </div><br>
+    <button onclick="ExibirRelatorio()">Exibir Relatorio</button>
+</body>
+
+</html>
+<script>
+    const vetor_nome = [];
+    const vetor_estoque = [];
+    const vetor_numero_produto = [];
+
+
+    var nome_do_produto
+    var qtd_em_estoque
+    var numero_do_produto
+
+    
+    function cadastrarProduto() {
+
+        var nome_do_produto = ipt_nome_do_produto.value;
+        var qtd_em_estoque = Number(ipt_qtd_de_estoque_do_produto.value);
+        var numero_do_produto = Number(ipt_numero_do_produto.value);
+
+        if ((nome_do_produto == "") || (qtd_em_estoque == "") || (numero_do_produto == "")) {
+
+            alert(`Preencha todos os campos para cadastrar o produto!`);
+            return;
+        }
+
+
+        for (i = 0; i <= vetor_numero_produto.length; i++) {
+
+
+            if (numero_do_produto === vetor_numero_produto[i]) {
+                alert(`Produto ${numero_do_produto} já cadastrado!`)
+                return;
+            }
+            else {
+                alert(`Produto ${nome_do_produto} cadastrado com sucesso!`)
+
+            }
+            break;
+        }
+        vetor_nome.push(nome_do_produto);
+        vetor_estoque.push(qtd_em_estoque);
+        vetor_numero_produto.push(numero_do_produto);
+
+    }
+
+
+
+    function ReporEstoque() {
+
+        var nome_do_produto = ipt_nome_do_produto.value;
+        var qtd_em_estoque = Number(ipt_qtd_de_estoque_do_produto.value);
+        var numero_do_produto = Number(ipt_numero_do_produto.value);
+        var numeroExistente;
+        var nomeExistente;
+        
+        
+        
+        for (i = 0; i <= vetor_numero_produto.length; i++) {
+            if(numero_do_produto == vetor_numero_produto[i]) {
+                
+               numeroExistente = vetor_numero_produto[i];
+            
+            }
+
+        }
+
+        for (o = 0; o <= vetor_nome.length; o++) {
+         if(nome_do_produto == vetor_nome[o]) {
+               
+                nomeExistente = vetor_nome[o];
+            }
+
+
+        }
+        
+        if(numeroExistente == undefined || nomeExistente == undefined) {
+            alert(`Estoque não inserido!`)
+            return;
+        }
+        else {
+            alert(`Estoque do produto ${nome_do_produto} atualizado com sucesso!`)
+        }
+        vetor_estoque.push(qtd_em_estoque);
+    }
+
+function VenderProduto() {
+    
+}
+
+
+</script>
