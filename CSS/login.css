@@ -1,0 +1,115 @@
+
+main{
+    min-width: 200vh;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.container-main {
+    display: flex;
+    flex-direction: row;
+    min-width: 200vh;
+    min-height: 90vh;
+}
+
+.parte-direita {
+    background-color: #D2FF69;
+    flex:1;
+    height: auto;
+   
+}
+
+.parte-esquerda {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+   flex: 1;
+    height: auto;
+   
+}
+
+.conteudo-and-inputs {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        flex-wrap: nowrap;
+        align-items: center;
+}
+
+.conteudo-and-inputs h1 {
+    align-self: center;
+    font-style: italic;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: black;
+    font-size: 90px;
+    font-weight: 800;
+}
+.conteudo-and-inputs input{
+    width: 300px;
+    height: 60px;
+    border-radius: 35px;
+    text-align: start;
+    margin:10px;
+    font-size: large;
+    font-style: italic;
+    text-indent: 20px;
+}
+
+.botao-and-text{
+    display: flex;
+    flex-direction: column;
+    margin:30px;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    align-items: center;
+
+}
+
+.botao-and-text button{
+    width: 180px;
+    height: 75px;
+    border-radius: 35px;
+    font-size: 40px;
+    font-weight: 900;
+    background-color: #D2FF69;
+}
+
+.botao-and-text h3{
+    font-size: 25px;
+    font-weight: 100;
+    font-style: italic;
+    align-self: center;
+    margin-top: 40px;
+    
+}
+
+.ancoras-Login{
+    width: 211px;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: center;
+}
+.ancoras-Login img{
+    width:50px;
+    height: auto;
+  padding: 10px;
+    align-self: center;
+    justify-self: center;
+}
+
+.parte-esquerda a{
+    font-size: 25px;
+    font-weight: 100;
+    font-style: italic;
+    align-self: center;
+    margin-top: 40px;
+    text-decoration: none;
+    color:black;
+}
+
