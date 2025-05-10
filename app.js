@@ -8,7 +8,7 @@ var caminho_env = ambiente_processo === 'producao' ? '.env' : '.env.dev';
 //  sintaxe do ternario é condição ? valor_se_verdadeiro : valor_se_falso
 
 
-require('dotnev').config({ path: caminho_env});
+require('dotenv').config({ path: caminho_env});
 
 var express = require('express');
 var cors = require("cors");
@@ -18,11 +18,12 @@ var HOST_APP = process.env.APP_HOST;
 
 var app = express();
 
-var inexRouter = require('./src/routes/index');
-var usuarioRouter = require('./src/routes/usuario');
+var indexRouter = require('./src/routes/index');
+var usuarioRouter = require('./src/routes/usuarios');
 var avisosRouter = require('./src/routes/avisos');
 var medidasRouter = require('./src/routes/medidas');
 var aquariosRouter = require('./src/routes/empresas');
+var empresasRouter = require('./src/routes/empresas')
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
@@ -30,7 +31,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
 
-app.use('/', indexRouter);
+app.use('/index', indexRouter);
 app.use('/usuarios' , usuarioRouter);
 app.use('/avisos' , avisosRouter);
 app.use('/medidas' , medidasRouter);
