@@ -44,7 +44,7 @@ main {
 }
 
 .conteudo-and-inputs h1 {
-    /*align-self: center;*/
+    gap: 50px;
     font-style: italic;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: black;
@@ -101,8 +101,10 @@ main {
     align-items: center;
     align-self: center;
     justify-content: center;
+    gap: 20px
 
 }
+
 
 .ancoras-Login img {
     width: 90px;
@@ -110,6 +112,15 @@ main {
     padding: 10px;
     align-self: center;
     justify-self: center;
+    transition: box-shadow 0.3s ease;
+    border-radius: 50%;
+    
+
+   
+}
+.ancoras-Login img:hover{
+   
+    box-shadow: 0 0 40px 20px #D2FF69; 
 }
 
 .parte-esquerda a {

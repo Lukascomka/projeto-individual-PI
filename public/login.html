@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../CSS/globals.css" />
     <link rel="stylesheet" href="../CSS/login.css">
-    <link rel="shortcut icon" href="../img/favicon.ico"/>
+    <link rel="shortcut icon" href=".//assets/img/favicon.ico"/>
+    <script src="./js/sessao.js"></script>
+    <script src="./js/alerta.js"></script>
+
     <title>Login</title>
 </head>
 
@@ -24,21 +27,31 @@
 
                     <div class="botao-and-text">
                         <button onclick="botaoLogin()">Login</button>
-                        <div id="div_erros_login"></div>
+                        <div class="alerta_erro">
+                            <div class="card_erro" id="cardErro">
+                                <span id="mensagem_erro"></span>
+                            </div>
+                        </div>
+                        
+                        <div id="div_aguardar" class="loading-div">
+                            <img src="../public/assets/circle-loading.gif" id="loading-gif" />
+                          </div>
+
+
                         <h3>Ou continue com</h3>
                         <div class="ancoras-Login">
                             <a href="">
-                                <img src="../img/github.png" alt="">
+                                <img src=".//assets/img/github.png" alt="">
                             </a>
                             <a href="">
-                                <img src="../img/facebook_1384005.png" alt="">
+                                <img src=".//assets/img/facebook_1384005.png" alt="">
                             </a>
                             <a href="">
-                                <img src="../img/google-social" alt="">
+                                <img src=".//assets/img/google-social" alt="">
                             </a>
                             
                         </div>
-                        <h3><a href="./cadastro.html">Cadastre-se Agora</a></h3>
+                        <h3><a href="cadastro.html">Cadastre-se Agora</a></h3>
                     </div>
 
 

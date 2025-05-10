@@ -25,6 +25,11 @@ a {
   text-decoration: none;
 }
 
+.alerta_erro{
+  display: flex;
+  justify-content: flex-end;
+}
+
 .card_erro {
   display: none;
   background-color: #fff;
@@ -40,4 +45,25 @@ a {
 .card_erro #mensagem_erro{
   font-weight: 500;
   font-size: 20px;
+}
+
+
+.loading-div {
+  width: 50px;
+  display: none;
+}
+
+.loading-div img {
+  height: 50px;
+  width: 50px;
+}
+.loading-div {
+  width: 50px;
+  margin: auto;
+  display: none;
+}
+
+.loading-div img {
+  height: 50px;
+  width: 50px;
 }

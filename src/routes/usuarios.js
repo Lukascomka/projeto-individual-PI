@@ -13,3 +13,6 @@ router.post("/autenticar", function (req, res) {
 });
 
 module.exports = router;
+
+
+// basicamente o html faz o papel da view do backend, o routes pega essas informações e traça as rotas agora, como mandar para controleller
