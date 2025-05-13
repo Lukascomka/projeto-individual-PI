@@ -74,7 +74,7 @@
 }
 
 .main-title {
-  font-size: 60px;
+  font-size: 100px;
   font-weight: 800;
   font-style: italic;
   margin-bottom: 20px;
@@ -133,7 +133,7 @@
 }
 
 .section-title {
-  font-size: 60px;
+  font-size: 90px;
   font-weight: 800;
   font-style: italic;
   margin-bottom: 40px;
@@ -151,7 +151,7 @@
 }
 
 .nostalgia-text {
-  font-size: 24px;
+  font-size: 35px;
   font-style: italic;
   line-height: 1.5;
 }
@@ -174,8 +174,8 @@
 }
 
 .connect-title {
-  font-size: 60px;
-  font-weight: 800;
+  font-size: 100px;
+  font-weight: 900;
   font-style: italic;
   margin-bottom: 40px;
 }
@@ -187,7 +187,7 @@
 }
 
 .connect-text {
-  font-size: 24px;
+  font-size: 35px;
   font-style: italic;
   line-height: 1.5;
   max-width: 60%;
