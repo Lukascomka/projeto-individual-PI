@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/img/favicon.ico">
     <link rel="stylesheet" href="./CSS/main.css">
     
     
@@ -29,46 +30,8 @@
         </nav>
         <div class="conteudo">
             <h1>Bem Vindo <span id="mensagem-bem-vindo"></span>👋</h1>
-                
-            <div class="posts">
-                <div class="post-header">
-                    <span>nome_post</span> 
-                </div>
-                <div class="post-conteudo">
-                    <span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur quae facilis impedit aliquam ab magni harum possimus assumenda iste, maxime aliquid modi et asperiores accusantium, voluptas eos sed odio autem!</span>
-                </div>
-                <div class="post-footer">
-                    <button>curtir</button>
-                </div>
-                <div class="post-header">
-                    <span>nome_post</span>
-                </div>
-                <div class="post-conteudo">
-                    <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui, suscipit quos laborum, nisi quia mollitia eos incidunt architecto veritatis sapiente temporibus reiciendis? Provident necessitatibus id debitis incidunt modi possimus corporis.</span>
-
-                </div>
-                <div class="post-footer">
-                    <button>Curtir</button>
-                </div>
-                <div class="post-header">
-                    <span>nome_post</span>
-                </div>
-                <div class="post-conteudo">
-                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit officiis enim impedit ea error magnam molestias suscipit sed nemo repudiandae, quod cumque accusantium fugit quam. Eligendi iusto amet non labore?</span>
-                </div>
-                <div class="post-footer">
-                    <button>Curtir</button>
-                </div>
-                <div class="post-header">
-                    <span>nome_post</span>
-                </div>
-                <div class="post-conteudo">
-                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Temporibus quia deleniti perferendis est vero, placeat debitis similique? Deleniti quibusdam minima corporis est officia error animi odit, placeat perferendis cum voluptates!</span>
-                </div>
-                <div class="post-footer">
-                    <button>Curtir</button>
-                </div>
-            </div>
+                <div class="posts"></div>
+            
             
                  <div id="redesocial"></div>
         </div>
@@ -125,9 +88,51 @@ for (let i = 0; i < divs.length; i++) {
 
 
 function homepage(){
-    redesocial.innerHTML = ``
+    const posts = document.querySelector(".posts");
+    posts.innerHTML = `<div class="posts">
+                <div class="post-header">
+                    <span>nome_post</span> 
+                </div>
+                <div class="post-conteudo">
+                    <span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur quae facilis impedit aliquam ab magni harum possimus assumenda iste, maxime aliquid modi et asperiores accusantium, voluptas eos sed odio autem!</span>
+                </div>
+                <div class="post-footer">
+                    <button>Curtir</button>
+                </div>
+                <div class="post-header">
+                    <span>nome_post</span>
+                </div>
+                <div class="post-conteudo">
+                    <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui, suscipit quos laborum, nisi quia mollitia eos incidunt architecto veritatis sapiente temporibus reiciendis? Provident necessitatibus id debitis incidunt modi possimus corporis.</span>
+
+                </div>
+                <div class="post-footer">
+                    <button>Curtir</button>
+                </div>
+                <div class="post-header">
+                    <span>nome_post</span>
+                </div>
+                <div class="post-conteudo">
+                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit officiis enim impedit ea error magnam molestias suscipit sed nemo repudiandae, quod cumque accusantium fugit quam. Eligendi iusto amet non labore?</span>
+                </div>
+                <div class="post-footer">
+                    <button>Curtir</button>
+                </div>
+                <div class="post-header">
+                    <span>nome_post</span>
+                </div>
+                <div class="post-conteudo">
+                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Temporibus quia deleniti perferendis est vero, placeat debitis similique? Deleniti quibusdam minima corporis est officia error animi odit, placeat perferendis cum voluptates!</span>
+                </div>
+                <div class="post-footer">
+                    <button>Curtir</button>
+                </div>
+            </div>`;
 
 
 }
+
+
+
 
 </script>
