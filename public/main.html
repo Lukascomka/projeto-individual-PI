@@ -5,11 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./CSS/main.css">
-    <title>Página Principal</title>
+    
+    
+    <title>Home Page</title>
 </head>
 
 <body>
 
+    
     <div class="container-main">
 
         <nav class="nav">
@@ -17,21 +20,114 @@
 
                 <span id="nome"></span>
                 
-                <div onclick=""><img src="./assets/img/home (1) 1.png" alt="">Home Page</div>
-                <div onclick=""><img src="./assets/img/sino.png" alt="">Mensagem</div>
-                <div onclick=""><img src="./assets/img/mensagens.png" alt="">Notificação</div>
-                <div onclick=""><img src="./assets/img/dashboard (1) 1.png" alt="">Jogos em alta</div>
+                <div onclick="homepage()"class="nav-selection"><img src="./assets/img/home (1) 1.png" alt="">Home Page</div>
+                <div onclick="" class="nav-selection"><img src="./assets/img/sino.png" alt="">Mensagem</div>
+                <div onclick="" class="nav-selection"><img src="./assets/img/mensagens.png" alt="">Notificação</div>
+                <div onclick="" class="nav-selection"><img src="./assets/img/dashboard (1) 1.png" alt="">Jogos em alta</div>
+                <div class="seta" ><img src="./assets/img/Frame 1.png" alt=""></div>
             </div>
         </nav>
         <div class="conteudo">
             <h1>Bem Vindo <span id="mensagem-bem-vindo"></span>👋</h1>
-            <img src="./assets/freepik__upload__30916-removebg-preview 1.png" alt="">
-            <h2>Ainda estamos em construção, não temos uma interação para essa página ainda. Desculpe</h2>
+                
+            <div class="posts">
+                <div class="post-header">
+                    <span>nome_post</span> 
+                </div>
+                <div class="post-conteudo">
+                    <span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur quae facilis impedit aliquam ab magni harum possimus assumenda iste, maxime aliquid modi et asperiores accusantium, voluptas eos sed odio autem!</span>
+                </div>
+                <div class="post-footer">
+                    <button>curtir</button>
+                </div>
+                <div class="post-header">
+                    <span>nome_post</span>
+                </div>
+                <div class="post-conteudo">
+                    <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui, suscipit quos laborum, nisi quia mollitia eos incidunt architecto veritatis sapiente temporibus reiciendis? Provident necessitatibus id debitis incidunt modi possimus corporis.</span>
+
+                </div>
+                <div class="post-footer">
+                    <button>Curtir</button>
+                </div>
+                <div class="post-header">
+                    <span>nome_post</span>
+                </div>
+                <div class="post-conteudo">
+                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit officiis enim impedit ea error magnam molestias suscipit sed nemo repudiandae, quod cumque accusantium fugit quam. Eligendi iusto amet non labore?</span>
+                </div>
+                <div class="post-footer">
+                    <button>Curtir</button>
+                </div>
+                <div class="post-header">
+                    <span>nome_post</span>
+                </div>
+                <div class="post-conteudo">
+                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Temporibus quia deleniti perferendis est vero, placeat debitis similique? Deleniti quibusdam minima corporis est officia error animi odit, placeat perferendis cum voluptates!</span>
+                </div>
+                <div class="post-footer">
+                    <button>Curtir</button>
+                </div>
+            </div>
+            
+                 <div id="redesocial"></div>
         </div>
-
-
+        
     </div>
-    <footer>
-    </footer>
+    
+            <footer class="footer">
+                <div class="social-icons">
+                  <img class="social-icon" src=".//assets/img/twitch.png" />
+                  <img class="social-icon" src=".//assets/img/github.png" />
+                  <img class="social-icon" src=".//assets/img/discord.png" />
+                </div>
+                <div class="footer-logo">
+                  <img class="footer-icon" src=".//assets/img/logo.png" />
+                  <div class="footer-text">Game-History</div>
+                </div>
+              </footer>
+    
 </body>
 </html>
+
+<script>
+
+    
+    const divs = document.getElementsByClassName('nav-selection');
+const imgNormal = [
+    './assets/img/home (1) 1.png',
+    './assets/img/sino.png',
+    './assets/img/mensagens.png',
+    './assets/img/dashboard (1) 1.png', 
+];
+
+const imgAtivas = [
+    './assets/img/ativo-home-page.png',
+    './assets/img/ativo-notificacoes.png' ,
+    './assets/img/ativo-mensagem.png' ,
+    './assets/img/ativo-dashboard.png' 
+];
+
+for (let i = 0; i < divs.length; i++) {
+    divs[i].addEventListener('click', function () {
+        
+        for (let o = 0; o < divs.length; o++) {
+            divs[o].classList.remove('ativo');
+            divs[o].querySelector('img').src = imgNormal[o];
+        }
+        
+        divs[i].classList.add('ativo');
+        divs[i].querySelector('img').src = imgAtivas[i];
+    });
+}
+
+
+
+
+function homepage(){
+    redesocial.innerHTML = ``
+
+
+}
+
+</script>

@@ -102,8 +102,13 @@ main {
     align-self: center;
     margin-top: 40px;
     
-    
-
+}
+h2{
+    font-size: 25px;
+    font-weight: 100;
+    font-style: italic;
+    align-self: center;
+    margin-top: 40px;
 }
 
 .botao-and-text h3:hover{
