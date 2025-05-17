@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/img/favicon.ico">
+    
     <link rel="stylesheet" href="./CSS/main.css">
+    <link rel="stylesheet" href="./assets/img/favicon.ico">
     
-    
-    <title>Home Page</title>
+    <title>.</title>
 </head>
 
 <body>
@@ -22,7 +22,7 @@
                 <span id="nome"></span>
                 
                 <div onclick="homepage()"class="nav-selection"><img src="./assets/img/home (1) 1.png" alt="">Home Page</div>
-                <div onclick="" class="nav-selection"><img src="./assets/img/sino.png" alt="">Mensagem</div>
+                <div onclick="mensagem()" class="nav-selection"><img src="./assets/img/sino.png" alt="">Mensagem</div>
                 <div onclick="" class="nav-selection"><img src="./assets/img/mensagens.png" alt="">Notificação</div>
                 <div onclick="" class="nav-selection"><img src="./assets/img/dashboard (1) 1.png" alt="">Jogos em alta</div>
                 <div class="seta" ><img src="./assets/img/Frame 1.png" alt=""></div>
@@ -31,7 +31,37 @@
         <div class="conteudo">
             <h1>Bem Vindo <span id="mensagem-bem-vindo"></span>👋</h1>
                 <div class="posts"></div>
-            
+                <div  class="class_mensagem">
+                    <div class="nome-mensagem">
+                        <h2>NOME_MENSAGEM</h2>
+                    </div>
+                    <div class="conteudo_mensagem">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Natus debitis voluptatem, laudantium aliquid ex necessitatibus id, quaerat veniam et iure, nobis officia quos quibusdam quod soluta minus est fugiat nostrum!
+                    </div>
+                    <button class="responder_mensagem">Responder</button>
+                    <div class="nome-mensagem">
+                        <h2>NOME_MENSAGEM</h2>
+                    </div>
+                    <div class="conteudo_mensagem">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Natus debitis voluptatem, laudantium aliquid ex necessitatibus id, quaerat veniam et iure, nobis officia quos quibusdam quod soluta minus est fugiat nostrum!
+                    </div>
+                    <button class="responder_mensagem">Responder</button>
+                    <div class="nome-mensagem">
+                        <h2>NOME_MENSAGEM</h2>
+                    </div>
+                    <div class="conteudo_mensagem">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Natus debitis voluptatem, laudantium aliquid ex necessitatibus id, quaerat veniam et iure, nobis officia quos quibusdam quod soluta minus est fugiat nostrum!
+                    </div>
+                    <button class="responder_mensagem">Responder</button>
+                    <div class="nome-mensagem">
+                        <h2>NOME_MENSAGEM</h2>
+                    </div>
+                    <div class="conteudo_mensagem">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Natus debitis voluptatem, laudantium aliquid ex necessitatibus id, quaerat veniam et iure, nobis officia quos quibusdam quod soluta minus est fugiat nostrum!
+                    </div>
+                    <button class="responder_mensagem">Responder</button>
+                </div>
+                    
             
                  <div id="redesocial"></div>
         </div>
@@ -89,7 +119,8 @@ for (let i = 0; i < divs.length; i++) {
 
 function homepage(){
     const posts = document.querySelector(".posts");
-    posts.innerHTML = `<div class="posts">
+    
+    posts.innerHTML = `
                 <div class="post-header">
                     <span>nome_post</span> 
                 </div>
@@ -131,8 +162,16 @@ function homepage(){
 
 
 }
+   
 
-
+function mensagem(){
+    const class_mensagem = document.querySelector(".class_mensagem");
+    const posts = document.querySelector(".posts");
+    posts.innerHTML = ""
+    class_mensagem.innerHTML = `
+               
+                `;
+}
 
 
 </script>
