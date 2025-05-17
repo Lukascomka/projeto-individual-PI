@@ -207,12 +207,13 @@ div .seta{
   align-items: stretch;
   margin: 15px 0;
   gap: 15px;
+  background-color:#FFFDF5;
 
  }
 
  .nome-mensagem{
   font-style:oblique;
-  color: #d1ff68;
+  color: #2563EB ;
   font-weight: 500;
   margin: 10px
  }
