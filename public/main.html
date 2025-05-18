@@ -4,95 +4,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link rel="stylesheet" href="./CSS/main.css">
     <link rel="stylesheet" href="./assets/img/favicon.ico">
-    
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
     <title>.</title>
 </head>
 
 <body>
 
-    
+
     <div class="container-main">
 
         <nav class="nav">
             <div class="conteudo-nav">
 
                 <span id="nome"></span>
-                
-                <div onclick="homepage()"class="nav-selection"><img src="./assets/img/home (1) 1.png" alt="">Home Page</div>
-                <div onclick="mensagem()" class="nav-selection"><img src="./assets/img/mensagens.png" alt="">Mensagem</div>
-                <div onclick="quiz()" class="nav-selection"><img src="./assets/img/game-controller_17846449.png" alt="">Quiz</div>
-                <div onclick="" class="nav-selection"><img src="./assets/img/dashboard (1) 1.png" alt="">Jogos em alta</div>
-                <div class="seta" ><a href="./login.html"><img src="./assets/img/Frame 1.png" alt=""></a></div>
+
+                <div onclick="homepage()" class="nav-selection"><img src="./assets/img/home (1) 1.png" alt="">Home Page
+                </div>
+                <div onclick="mensagem()" class="nav-selection"><img src="./assets/img/mensagens.png" alt="">Mensagem
+                </div>
+                <div onclick="quiz()" class="nav-selection"><img src="./assets/img/game-controller_17846449.png"
+                        alt="">Quiz</div>
+                <div onclick="jogosEmAlta()" class="nav-selection"><img src="./assets/img/dashboard (1) 1.png"
+                        alt="">Jogos em alta
+                </div>
+                <div class="seta"><a href="./login.html"><img src="./assets/img/Frame 1.png" alt=""></a></div>
             </div>
         </nav>
         <div class="conteudo">
-            <h1>Bem Vindo <span id="mensagem-bem-vindo"></span>👋</h1>
-                <div class="posts"></div>
-                <div  class="class_mensagem"></div>
-                    
-            
-                 <div id="redesocial"></div>
+            <div class="mensagem-bem-vindo-principal"></div>
+            <div class="posts"></div>
+            <div class="class_mensagem"></div>
+            <div class="class-quiz">
+        <div class="conteudo_options_console"></div>
+            </div>
+        <div class="dash">
+            </div>
         </div>
-        
     </div>
-    
-            <footer class="footer">
-                <div class="social-icons">
-                  <img class="social-icon" src=".//assets/img/twitch.png" />
-                  <img class="social-icon" src=".//assets/img/github.png" />
-                  <img class="social-icon" src=".//assets/img/discord.png" />
-                </div>
-                <div class="footer-logo">
-                  <img class="footer-icon" src=".//assets/img/logo.png" />
-                  <div class="footer-text">Game-History</div>
-                </div>
-              </footer>
-    
+        <div id="redesocial"></div>
+    </div>
+
+    </div>
+
+    <footer class="footer">
+        <div class="social-icons">
+            <img class="social-icon" src=".//assets/img/twitch.png" />
+            <img class="social-icon" src=".//assets/img/github.png" />
+            <img class="social-icon" src=".//assets/img/discord.png" />
+        </div>
+        <div class="footer-logo">
+            <img class="footer-icon" src=".//assets/img/logo.png" />
+            <div class="footer-radio">Game-History</div>
+        </div>
+    </footer>
+
 </body>
+
 </html>
 
 <script>
 
-    
+    let myChart1 = null;
+    let myChart2 = null;
+
     const divs = document.getElementsByClassName('nav-selection');
-const imgNormal = [
-    './assets/img/home (1) 1.png',
-    './assets/img/mensagens.png',
-    './assets/img/game-controller_17846449.png',
-    './assets/img/dashboard (1) 1.png', 
-];
+    const imgNormal = [
+        './assets/img/home (1) 1.png',
+        './assets/img/mensagens.png',
+        './assets/img/game-controller_17846449.png',
+        './assets/img/dashboard (1) 1.png',
+    ];
 
-const imgAtivas = [
-    './assets/img/ativo-home-page.png',
-    './assets/img/ativo-mensagem.png' ,
-    './assets/img/ativo-game-controller.png' ,
-    './assets/img/ativo-dashboard.png' 
-];
+    const imgAtivas = [
+        './assets/img/ativo-home-page.png',
+        './assets/img/ativo-mensagem.png',
+        './assets/img/ativo-game-controller.png',
+        './assets/img/ativo-dashboard.png'
+    ];
 
-for (let i = 0; i < divs.length; i++) {
-    divs[i].addEventListener('click', function () {
-        
-        for (let o = 0; o < divs.length; o++) {
-            divs[o].classList.remove('ativo');
-            divs[o].querySelector('img').src = imgNormal[o];
-        }
-        
-        divs[i].classList.add('ativo');
-        divs[i].querySelector('img').src = imgAtivas[i];
-    });
-}
-const class_mensagem = document.querySelector(".class_mensagem");
-const posts = document.querySelector(".posts");
+    for (let i = 0; i < divs.length; i++) {
+        divs[i].addEventListener('click', function () {
+
+            for (let o = 0; o < divs.length; o++) {
+                divs[o].classList.remove('ativo');
+                divs[o].querySelector('img').src = imgNormal[o];
+            }
+
+            divs[i].classList.add('ativo');
+            divs[i].querySelector('img').src = imgAtivas[i];
+        });
+    }
+    const class_mensagem = document.querySelector(".class_mensagem");
+    const posts = document.querySelector(".posts");
+    const msg_home = document.querySelector(".mensagem-bem-vindo-principal");
+    const dash = document.querySelector(".dash");
+    const div_escolha = document.querySelector(".conteudo_options_console");
+    let quiZ = document.querySelector(".class-quiz")
 
 
-function homepage(){
-    posts.innerHTML =""
-    class_mensagem.innerHTML=""
-    
-    posts.innerHTML = `
+
+
+    function homepage() {
+        reset();
+
+        msg_home.innerHTML = `<h1>Bem Vindo ${nome}👋</h1>`
+
+        posts.innerHTML = `
                 <div class="post-header">
                     <span>nome_post</span> 
                 </div>
@@ -132,16 +155,15 @@ function homepage(){
                 </div>
             </div>`;
 
+    }
 
-}
-   
 
-function mensagem(){
-   
-    posts.innerHTML =""
-    class_mensagem.innerHTML="" 
-  
-    class_mensagem.innerHTML = `<div class="nome-mensagem">
+    function mensagem() {
+        reset();
+
+        msg_home.innerHTML = `<h1>Essas são suas mensagens ${nome}👋</h1>`
+
+        class_mensagem.innerHTML = `<div class="nome-mensagem">
                         <h2>NOME_MENSAGEM</h2>
                     </div>
                     <div class="conteudo_mensagem">
@@ -172,13 +194,459 @@ function mensagem(){
                </div>
                
                 `;
-}
 
-function quiz(){
-    posts.innerHTML =""
-    class_mensagem.innerHTML=""
+    }
 
 
-}
+    function quiz() {
+        reset();
+
+        msg_home.innerHTML = `<h1>Bem vindo ao quiz ${nome} 🕹️</h1>`
+        document.querySelector(".class-quiz").innerHTML = `<div class="div_console">
+                    Escolha alguma plataforma para jogar  🎮
+                    <select onchange="optconsole()" id="optconsoleid">
+                        <option value="#"></option>
+                        <option value="playstation">PLAYSTATION</option>
+                        <option value="xbox">XBOX</option>
+                        <option value="fliperama">FLIPERAMA</option>
+                    </select>
+                    </div>
+                    <div class="conteudo_options_console"></div>
+                    `;
+
+
+
+    }
+
+
+
+
+
+    function optconsole() {
+        const select_option = document.getElementById('optconsoleid').value;
+        const div_escolha = document.querySelector(".conteudo_options_console");
+
+        if (select_option === '#') {
+            div_escolha.innerHTML = `Selecione uma plataforma para jogar!`
+            return;
+        }
+
+        if (select_option == 'playstation') {
+            div_escolha.innerHTML = ""
+            div_escolha.innerHTML += `
+
+                        <div class="sessao">
+                            <h2>Qual é o nome do personagem principal da série <span>God of War?</span></h2>
+                            <div class="opcoes">
+                                <input type="radio" name="grupo1" value="opcao1">Kratos
+                                <input type="radio" name="grupo1" value="opcao2">Ares
+                                <input type="radio" name="grupo1" value="opcao3">Atreus
+                                <input type="radio" name="grupo1" value="opcao4">Hades
+                            </div>
+                        </div>
+                        
+                        <div class="sessao">
+                            <h2>Quem é o protagonista da série Uncharted?</h2>
+                            <div class="opcoes">
+                                <input type="radio" name="grupo2" value="opcao1">Joel
+                                <input type="radio" name="grupo2" value="opcao2">Nathan Drake
+                                <input type="radio" name="grupo2" value="opcao3">Sully
+                                <input type="radio" name="grupo2" value="opcao4">Desmond
+                            </div>
+                        </div>
+
+                        <div class="sessao">
+                            <h2>Qual jogo se passa em um mundo pós-apocalíptico provocado por um fungo que existe no mundo real </h2>
+                            <div class="opcoes">
+                                <input type="radio" name="grupo3" value="opcao1">Days Gone
+                                <input type="radio"name="grupo3" value="opcao2">Fallout
+                                <input type="radio"name="grupo3" value="opcao3">The last of Us
+                                <input type="radio"name="grupo3" value="opcao4">Horizon
+                            </div>
+                        </div>
+
+                        <div class="sessao">
+                            <h2>Qual jogo se passa em um mundo pós-apocalíptico devido a revolução das maquinas?</h2>
+                            <div class="opcoes">
+                                <input type="radio" name="grupo4" value="opcao1">Call of Duty
+                                <input type="radio" name="grupo4" value="opcao2">Metal Slug
+                                <input type="radio" name="grupo4" value="opcao3">Sully
+                                <input type="radio" name="grupo4" value="opcao4">Horizon Zero Dawn
+                            </div>
+                        </div>
+
+                        <div class="sessao">
+    <h2>Qual jogo se passa em um mundo futurista onde androides lutam por liberdade?</h2>
+    <div class="opcoes">
+        <input type="radio" name="grupo5" value="opcao1">Detroit: Become Human
+        <input type="radio" name="grupo5" value="opcao2">Mass Effect
+        <input type="radio" name="grupo5" value="opcao3">Cyberpunk 2077
+        <input type="radio" name="grupo5" value="opcao4">Ghostrunner
+    </div>
+</div>
+
+
+                        <div class="sessao">
+                            <h2>Qual jogo retrata a vida de um especialista haker?</h2>
+                            <div class="opcoes">
+                                <input type="radio" name="grupo6" value="opcao1">Watch Dogs
+                                <input type="radio"name="grupo6" value="opcao2">Metal Slug
+                                <input type="radio"name="grupo6" value="opcao3">Bloodborne
+                                <input type="radio" name="grupo6" value="opcao4">Rachet & Clank
+                            </div>
+                        </div>
+
+                        <div class="sessao">
+                            <h2>Qual jogo de playstation se passa em um ambiente de faroeste? </h2>
+                            <div class="opcoes">
+                                <input type="radio" name="grupo7" value="opcao1">Sekiro
+                                <input type="radio"name="grupo7" value="opcao2">Far Cry6
+                                <input type="radio"name="grupo7" value="opcao3">It Takes Two
+                                <input type="radio"name="grupo7" value="opcao4">Red dead Redemption 2
+                            </div>
+                        </div>
+
+                        <div class="sessao">
+                            <h2>Qual personagem protagonista é um ex gangster que se torna policial e é promovido a detetive? </h2>
+                            <div class="opcoes">
+                                <input type="radio"name="grupo8" value="opcao1">Drive
+                                <input type="radio"name="grupo8" value="opcao2">winning eleven
+                                <input type="radio"name="grupo8" value="opcao3">True Crime
+                                <input type="radio"name="grupo8" value="opcao4">Pac-man
+                            </div>
+                        </div>
+
+                        <div class="sessao">
+                            <h2>Qual jogo de corrida tem o objetivo de fazer o protagonista se tornar o 1° piloto na "Black List"? </h2>
+                            <div class="opcoes">
+                                <input type="radio" name="grupo9" value="opcao1">Gran Turismo
+                                <input type="radio" name="grupo9" value="opcao2">Crash Nitro Kart
+                                <input type="radio" name="grupo9" value="opcao3">Midnight Club
+                                <input type="radio" name="grupo9" value="opcao4">Need For speed Most Wanted
+                            </div>
+                        </div>
+
+                        <div class="sessao">
+                            <h2>Qual jogo é ambientação em um internato e o nome do seu protagonista é Jimmy?</h2>
+                            <div class="opcoes">
+                                <input type="radio"name="grupo10" value="opcao1">Don't Sarve
+                                <input type="radio"name="grupo10" value="opcao2">Fallout 4
+                                <input type="radio"name="grupo10" value="opcao3">Death Stranding
+                                <input type="radio"name="grupo10" value="opcao4">Bully
+                            </div>
+                        </div>
+                        <button onclick="fimQuiz()" class="buttonQuiz">Terminar Quiz</button>
+        
+
+
+                    
+
+                    
+
+            `
+
+        }
+        else if (select_option == 'xbox') {
+            div_escolha.innerHTML = ""
+            div_escolha.innerHTML += `
+            <div class="sessao">
+    <h2>Qual é o protagonista da franquia Halo?</h2>
+    <div class="opcoes">
+        <input type="radio" name="grupo1" value="opcao1">Master Chief
+        <input type="radio" name="grupo1" value="opcao2">Cortana
+        <input type="radio" name="grupo1" value="opcao3">Spartan Locke
+        <input type="radio" name="grupo1" value="opcao4">Commander Shepard
+    </div>
+</div>
+
+<div class="sessao">
+    <h2>Qual jogo exclusivo do Xbox é focado em carros e corridas em mundo aberto?</h2>
+    <div class="opcoes">
+        <input type="radio" name="grupo2" value="opcao1">Forza Horizon
+        <input type="radio" name="grupo2" value="opcao2">Gran Turismo
+        <input type="radio" name="grupo2" value="opcao3">Need for Speed
+        <input type="radio" name="grupo2" value="opcao4">F1 2023
+    </div>
+</div>
+
+<div class="sessao">
+    <h2>Qual jogo de ação e aventura é protagonizado por Senua, uma guerreira celta?</h2>
+    <div class="opcoes">
+        <input type="radio" name="grupo3" value="opcao1">Hellblade: Senua's Sacrifice
+        <input type="radio" name="grupo3" value="opcao2">ReCore
+        <input type="radio" name="grupo3" value="opcao3">Gears 5
+        <input type="radio" name="grupo3" value="opcao4">Halo Infinite
+    </div>
+</div>
+
+<div class="sessao">
+    <h2>Qual franquia de tiro em terceira pessoa é conhecida por seu uso do sistema de cobertura e inimigos Locust?</h2>
+    <div class="opcoes">
+        <input type="radio" name="grupo4" value="opcao1">Gears of War
+        <input type="radio" name="grupo4" value="opcao2">Call of Duty
+        <input type="radio" name="grupo4" value="opcao3">The Division
+        <input type="radio" name="grupo4" value="opcao4">Battlefield
+    </div>
+</div>
+
+<div class="sessao">
+    <h2>Qual jogo exclusivo da Xbox permite criar mundos inteiros com blocos?</h2>
+    <div class="opcoes">
+        <input type="radio" name="grupo5" value="opcao1">Minecraft
+        <input type="radio" name="grupo5" value="opcao2">Roblox
+        <input type="radio" name="grupo5" value="opcao3">Terraria
+        <input type="radio" name="grupo5" value="opcao4">Lego Worlds
+    </div>
+</div>
+
+<div class="sessao">
+    <h2>Qual é o nome do jogo de plataforma estrelado por um esquilo sarcástico em um mundo adulto?</h2>
+    <div class="opcoes">
+        <input type="radio" name="grupo6" value="opcao1">Conker's Bad Fur Day
+        <input type="radio" name="grupo6" value="opcao2">Banjo-Kazooie
+        <input type="radio" name="grupo6" value="opcao3">Blinx: The Time Sweeper
+        <input type="radio" name="grupo6" value="opcao4">Viva Piñata
+    </div>
+</div>
+
+<div class="sessao">
+    <h2>Qual jogo exclusivo do Xbox coloca o jogador no controle de uma jovem chamada Kameo com poderes elementais?</h2>
+    <div class="opcoes">
+        <input type="radio" name="grupo7" value="opcao1">Kameo: Elements of Power
+        <input type="radio" name="grupo7" value="opcao2">Fable II
+        <input type="radio" name="grupo7" value="opcao3">Ori and the Blind Forest
+        <input type="radio" name="grupo7" value="opcao4">Blue Dragon
+    </div>
+</div>
+
+<div class="sessao">
+    <h2>Qual RPG exclusivo do Xbox foi criado por Peter Molyneux e permite fazer escolhas morais?</h2>
+    <div class="opcoes">
+        <input type="radio" name="grupo8" value="opcao1">Fable
+        <input type="radio" name="grupo8" value="opcao2">Mass Effect
+        <input type="radio" name="grupo8" value="opcao3">Dragon Age
+        <input type="radio" name="grupo8" value="opcao4">Elder Scrolls
+    </div>
+</div>
+
+<div class="sessao">
+    <h2>Qual jogo do Xbox tem uma mecânica baseada em manipular o tempo?</h2>
+    <div class="opcoes">
+        <input type="radio" name="grupo9" value="opcao1">Quantum Break
+        <input type="radio" name="grupo9" value="opcao2">Control
+        <input type="radio" name="grupo9" value="opcao3">Alan Wake
+        <input type="radio" name="grupo9" value="opcao4">Max Payne
+    </div>
+</div>
+
+<div class="sessao">
+    <h2>Qual jogo indie exclusivo da Xbox é conhecido por sua arte desenhada à mão e trilha sonora jazz?</h2>
+    <div class="opcoes">
+        <input type="radio" name="grupo10" value="opcao1">Cuphead
+        <input type="radio" name="grupo10" value="opcao2">Ori and the Will of the Wisps
+        <input type="radio" name="grupo10" value="opcao3">Hollow Knight
+        <input type="radio" name="grupo10" value="opcao4">Shovel Knight
+    </div>
+</div>
+<button onclick="fimQuiz()" class="buttonQuiz">Terminar Quiz</button>
+        
+
+            `
+
+        }
+        else if (select_option == 'fliperama') {
+            div_escolha.innerHTML = ""
+            div_escolha.innerHTML += `
+<div class="sessao">
+    <h2>Qual personagem é o principal representante da série Street Fighter?</h2>
+    <div class="opcoes">
+        <input type="radio" name="grupo1" value="opcao1">Ryu
+        <input type="radio" name="grupo1" value="opcao2">Scorpion
+        <input type="radio" name="grupo1" value="opcao3">Terry Bogard
+        <input type="radio" name="grupo1" value="opcao4">Liu Kang
+    </div>
+</div>
+
+<div class="sessao">
+    <h2>Qual jogo de luta criado pela Midway ficou famoso pela violência e "Fatalities"?</h2>
+    <div class="opcoes">
+        <input type="radio" name="grupo2" value="opcao1">Mortal Kombat
+        <input type="radio" name="grupo2" value="opcao2">Tekken
+        <input type="radio" name="grupo2" value="opcao3">Street Fighter
+        <input type="radio" name="grupo2" value="opcao4">Virtua Fighter
+    </div>
+</div>
+
+<div class="sessao">
+    <h2>Qual jogo de corrida de fliperama é conhecido por seu estilo futurista e trilha sonora eletrônica?</h2>
+    <div class="opcoes">
+        <input type="radio" name="grupo3" value="opcao1">F-Zero
+        <input type="radio" name="grupo3" value="opcao2">OutRun
+        <input type="radio" name="grupo3" value="opcao3">Cruis'n USA
+        <input type="radio" name="grupo3" value="opcao4">Daytona USA
+    </div>
+</div>
+
+<div class="sessao">
+    <h2>Qual jogo de plataforma com um gorila como vilão foi um dos primeiros sucessos da Nintendo nos fliperamas?</h2>
+    <div class="opcoes">
+        <input type="radio" name="grupo4" value="opcao1">Donkey Kong
+        <input type="radio" name="grupo4" value="opcao2">Mario Bros.
+        <input type="radio" name="grupo4" value="opcao3">Bubble Bobble
+        <input type="radio" name="grupo4" value="opcao4">Ghosts 'n Goblins
+    </div>
+</div>
+
+<div class="sessao">
+    <h2>Qual beat ‘em up clássico da Capcom permitia até 3 jogadores simultaneamente nas ruas de Metro City?</h2>
+    <div class="opcoes">
+        <input type="radio" name="grupo5" value="opcao1">Final Fight
+        <input type="radio" name="grupo5" value="opcao2">Double Dragon
+        <input type="radio" name="grupo5" value="opcao3">Cadillacs and Dinosaurs
+        <input type="radio" name="grupo5" value="opcao4">Golden Axe
+    </div>
+</div>
+
+<div class="sessao">
+    <h2>Qual jogo de fliperama da SNK tem como protagonista Terry Bogard?</h2>
+    <div class="opcoes">
+        <input type="radio" name="grupo6" value="opcao1">Fatal Fury
+        <input type="radio" name="grupo6" value="opcao2">Samurai Shodown
+        <input type="radio" name="grupo6" value="opcao3">The King of Fighters
+        <input type="radio" name="grupo6" value="opcao4">World Heroes
+    </div>
+</div>
+
+<div class="sessao">
+    <h2>Qual jogo da SEGA apresentava motos futuristas em pistas tridimensionais e ficou famoso nos arcades?</h2>
+    <div class="opcoes">
+        <input type="radio" name="grupo7" value="opcao1">Super Hang-On
+        <input type="radio" name="grupo7" value="opcao2">Road Rash
+        <input type="radio" name="grupo7" value="opcao3">Excitebike
+        <input type="radio" name="grupo7" value="opcao4">Enduro Racer
+    </div>
+</div>
+
+<div class="sessao">
+    <h2>Qual jogo arcade tem como objetivo principal comer todos os pontos e fugir dos fantasmas?</h2>
+    <div class="opcoes">
+        <input type="radio" name="grupo8" value="opcao1">Pac-Man
+        <input type="radio" name="grupo8" value="opcao2">Bomberman
+        <input type="radio" name="grupo8" value="opcao3">Dig Dug
+        <input type="radio" name="grupo8" value="opcao4">Q*bert
+    </div>
+</div>
+
+<div class="sessao">
+    <h2>Qual é o nome do jogo onde dois jogadores pilotam tanques e aviões em um estilo de guerra contra aliens?</h2>
+    <div class="opcoes">
+        <input type="radio" name="grupo9" value="opcao1">Metal Slug
+        <input type="radio" name="grupo9" value="opcao2">Contra
+        <input type="radio" name="grupo9" value="opcao3">1942
+        <input type="radio" name="grupo9" value="opcao4">Gunstar Heroes
+    </div>
+</div>
+
+<div class="sessao">
+    <h2>Qual jogo de fliperama coloca você na pele de cavaleiros em uma aventura medieval contra mortos-vivos?</h2>
+    <div class="opcoes">
+        <input type="radio" name="grupo10" value="opcao1">Ghosts 'n Goblins
+        <input type="radio" name="grupo10" value="opcao2">Golden Axe
+        <input type="radio" name="grupo10" value="opcao3">Altered Beast
+        <input type="radio" name="grupo10" value="opcao4">Castlevania
+    </div>
+</div>
+
+<button onclick="fimQuiz()" class="buttonQuiz">Terminar Quiz</button>
+        
+            `
+
+        }
+    }
+
+
+    function jogosEmAlta() {
+        reset();
+
+        msg_home.innerHTML = `<h1>Bem Vindo ${nome}👋</h1>`
+        dash.innerHTML = ` <div class="conteudo-dash">
+                    <canvas id="myChart"></canvas>
+                    <canvas id="myChart2"></canvas>
+                </div>`;
+
+        const ctx = document.getElementById('myChart');
+        const ctx2 = document.getElementById('myChart2');
+
+        myChart1 = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['PLAYSTATION', 'XBOX', 'FLIPERAMA'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Preferência de Plataformas'
+                    }
+                }
+            }
+        });
+
+        myChart2 = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['God of War', 'Halo', 'Street Fighter', 'Forza', 'Spider-Man', 'Mortal Kombat'],
+                datasets: [{
+                    label: 'Popularidade dos Jogos',
+                    data: [12, 19, 3, 5, 8, 10],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(153, 102, 255, 0.5)',
+                        'rgba(255, 159, 64, 0.5)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Jogos Mais Populares'
+                    }
+                }
+            }
+        });
+    }
+
+    function reset() {
+        msg_home.innerHTML = "";
+    posts.innerHTML = "";
+    class_mensagem.innerHTML = "";
+    div_escolha.innerHTML = "";
+    dash.innerHTML = "";
+    document.querySelector(".class-quiz").innerHTML = "";
+
+    }
+
 
 </script>
