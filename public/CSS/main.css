@@ -14,14 +14,14 @@ body {
 
 
 .container-main {
-      display: flex;
-      flex-direction: row;
-      background-color: #fff;
-      width: 100%;
-      max-height: none;
-      flex: 1;
-      overflow-y: auto;
-      gap: 25px;
+  display: flex;
+  flex-direction: row;
+  background-color: #fff;
+  width: 100%;
+  max-height: none;
+  flex: 1;
+  overflow-y: auto;
+  gap: 25px;
 }
 
 .nav {
@@ -260,15 +260,15 @@ div .seta img {
 }
 
 .div_console {
-    display: flex;
-    flex-direction: column;
-    font-size: 40px;
-    gap: 50px;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
-    font-size: 80px;
-    color: #2563EB;
+  display: flex;
+  flex-direction: column;
+  font-size: 40px;
+  gap: 50px;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 80px;
+  color: #2563EB;
 }
 
 
@@ -277,17 +277,17 @@ div .seta img {
   flex-direction: column;
   border: #000 solid 1px;
   border-radius: 10px;
-  margin:  10px;
+  margin: 10px;
   width: 100%;
-  min-height:none;
-  
+  min-height: none;
+
 }
 
 
 .sessao input {
   display: flex;
   flex-direction: column;
-  
+
 
 }
 
@@ -297,7 +297,7 @@ div .seta img {
   font-style: oblique;
   color: #2563EB;
   text-decoration: underline #d1ff68;
-  
+
 }
 
 .div_console select {
@@ -309,36 +309,37 @@ div .seta img {
   font-size: 40px;
 }
 
-.conteudo_options_console{
+.conteudo_options_console {
   font-size: 20px;
-    color: #000;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    font-style: italic;
-    height: auto;
-
-}
-.opcoes{
-  margin: 20px;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: center;
-    gap: 20px;
-}
-
-.dash{
+  color: #000;
   display: flex;
-    flex-direction: row;
-    margin: 15px 0;
-    gap: 15px;
-    background-color: #FFFDF5;
-    width: 100%;
-    justify-content: space-around;
+  flex-wrap: wrap;
+  flex-direction: column;
+  font-style: italic;
+  height: auto;
+
 }
 
-.conteudo-dash{
+.opcoes {
+  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  gap: 20px;
+}
+
+.dash {
+  display: flex;
+  flex-direction: row;
+  margin: 15px 0;
+  gap: 15px;
+  background-color: #FFFDF5;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.conteudo-dash {
   flex-direction: row;
   display: flex;
   justify-content: center;
@@ -346,12 +347,13 @@ div .seta img {
   width: 50%;
   margin: 10px;
 }
-.class-quiz{
+
+.class-quiz {
   display: flex;
   flex-direction: column;
 }
 
-.class-quiz button{
+.class-quiz button {
   width: 150px;
   height: 90px;
   align-self: center;
@@ -359,5 +361,28 @@ div .seta img {
   border-radius: 15px;
   font-size: 25px;
   font-style: oblique;
-  
+
 }
+
+.sessao input {
+  width: 400px;
+  height: 20px;
+  background-color: #d1ff68;
+  color: #000;
+  border-radius: 15px;
+  font-size: 20px;
+}
+
+.opcoes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.input {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+

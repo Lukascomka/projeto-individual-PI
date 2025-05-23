@@ -10,19 +10,17 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-
-    <title>.</title>
+    <title>Game History</title>
 </head>
 
 <body>
-
 
     <div class="container-main">
 
         <nav class="nav">
             <div class="conteudo-nav">
 
-                <span id="nome"></span>
+                <span id="nome">Usuário</span>
 
                 <div onclick="homepage()" class="nav-selection"><img src="./assets/img/home (1) 1.png" alt="">Home Page
                 </div>
@@ -41,13 +39,15 @@
             <div class="posts"></div>
             <div class="class_mensagem"></div>
             <div class="class-quiz">
-        <div class="conteudo_options_console"></div>
+                <div class="conteudo_options_console"></div>
+
+
             </div>
-        <div class="dash">
+            <div class="dash">
             </div>
         </div>
     </div>
-        <div id="redesocial"></div>
+    <div id="redesocial"></div>
     </div>
 
     </div>
@@ -72,6 +72,7 @@
 
     let myChart1 = null;
     let myChart2 = null;
+    let nome = "Jogador"; // Definindo um nome padrão
 
     const divs = document.getElementsByClassName('nav-selection');
     const imgNormal = [
@@ -100,6 +101,7 @@
             divs[i].querySelector('img').src = imgAtivas[i];
         });
     }
+
     const class_mensagem = document.querySelector(".class_mensagem");
     const posts = document.querySelector(".posts");
     const msg_home = document.querySelector(".mensagem-bem-vindo-principal");
@@ -107,8 +109,71 @@
     const div_escolha = document.querySelector(".conteudo_options_console");
     let quiZ = document.querySelector(".class-quiz")
 
+    // Variáveis do quiz - RESETADAS a cada novo quiz
+    let porcentagemFinalDeAcertos =0
+    let pontuacaoFinal = 0;
+    let quantidadeDeQuestoes = 10;
+    let tentativaIncorreta = 0;
+    let RespostaCorreta = 0;
+    let RespostaErrada = 0;
+    let respostaUsuario = [];
 
+    const respostaCerta = [
+        {
+            plataforma: 'playstation',
+            respostas: [
+                "Kratos",
+                "Nathan Drake",
+                "The last of Us",
+                "Horizon Zero Dawn",
+                "Detroit: Become Human",
+                "Watch Dogs",
+                "Red dead Redemption 2",
+                "True Crime",
+                "Need For speed Most Wanted",
+                "Bully"
+            ]
+        },
+        {
+            plataforma: 'xbox',
+            respostas: [
+                "Master Chief",
+                "Forza Horizon",
+                "Hellblade: Senua's Sacrifice",
+                "Gears of War",
+                "Minecraft",
+                "Conker's Bad Fur Day",
+                "Kameo: Elements of Power",
+                "Fable",
+                "Quantum Break",
+                "Cuphead"
+            ]
+        },
+        {
+            plataforma: 'fliperama',
+            respostas: [
+                "Ryu",
+                "Mortal Kombat",
+                "F-Zero",
+                "Donkey Kong",
+                "Final Fight",
+                "Fatal Fury",
+                "Super Hang-On",
+                "Pac-Man",
+                "Metal Slug",
+                "Ghosts 'n Goblins"
+            ]
+        }
+    ];
 
+    // Função para resetar variáveis do quiz
+    function resetQuizVariables() {
+        pontuacaoFinal = 0;
+        tentativaIncorreta = 0;
+        RespostaCorreta = 0;
+        RespostaErrada = 0;
+        respostaUsuario = [];
+    }
 
     function homepage() {
         reset();
@@ -200,6 +265,7 @@
 
     function quiz() {
         reset();
+        resetQuizVariables(); // Reset das variáveis do quiz
 
         msg_home.innerHTML = `<h1>Bem vindo ao quiz ${nome} 🕹️</h1>`
         document.querySelector(".class-quiz").innerHTML = `<div class="div_console">
@@ -213,357 +279,429 @@
                     </div>
                     <div class="conteudo_options_console"></div>
                     `;
-
-
-
     }
-
-
-
-
 
     function optconsole() {
         const select_option = document.getElementById('optconsoleid').value;
         const div_escolha = document.querySelector(".conteudo_options_console");
 
         if (select_option === '#') {
-            div_escolha.innerHTML = `Selecione uma plataforma para jogar!`
+            div_escolha.innerHTML = 'Selecione uma plataforma para jogar!';
             return;
         }
 
         if (select_option == 'playstation') {
             div_escolha.innerHTML = ""
             div_escolha.innerHTML += `
+                       <div class="sessao">                             
+    <h2>Qual é o nome do personagem principal da série <span>God of War?</span></h2>                             
+    <div class="opcoes">                                 
+        <input type="text" name="grupo1" id="respostaGrupoPlaystation1">                                 
+        <div class="input">                                 
+            <div class="nomedasopcoes">1ª Kratos</div>                                 
+            <div class="nomedasopcoes">2ª Ares</div>                                 
+            <div class="nomedasopcoes">3ª Atreus</div>                                 
+            <div class="nomedasopcoes">4ª Hades</div>                                 
+        </div>                             
+    </div>                         
+</div>                                                  
 
-                        <div class="sessao">
-                            <h2>Qual é o nome do personagem principal da série <span>God of War?</span></h2>
-                            <div class="opcoes">
-                                <input type="radio" name="grupo1" value="opcao1">Kratos
-                                <input type="radio" name="grupo1" value="opcao2">Ares
-                                <input type="radio" name="grupo1" value="opcao3">Atreus
-                                <input type="radio" name="grupo1" value="opcao4">Hades
-                            </div>
-                        </div>
-                        
-                        <div class="sessao">
-                            <h2>Quem é o protagonista da série Uncharted?</h2>
-                            <div class="opcoes">
-                                <input type="radio" name="grupo2" value="opcao1">Joel
-                                <input type="radio" name="grupo2" value="opcao2">Nathan Drake
-                                <input type="radio" name="grupo2" value="opcao3">Sully
-                                <input type="radio" name="grupo2" value="opcao4">Desmond
-                            </div>
-                        </div>
+<div class="sessao">                             
+    <h2>Quem é o protagonista da série Uncharted?</h2>                             
+    <div class="opcoes">                                 
+        <input type="text" name="grupo2" id="respostaGrupoPlaystation2">                                 
+        <div class="input">                                 
+            <div class="nomedasopcoes">1ª Joel</div>                                 
+            <div class="nomedasopcoes">2ª Nathan Drake</div>                                 
+            <div class="nomedasopcoes">3ª Sully</div>                                 
+            <div class="nomedasopcoes">4ª Desmond</div>                                 
+        </div>                             
+    </div>                         
+</div>                          
 
-                        <div class="sessao">
-                            <h2>Qual jogo se passa em um mundo pós-apocalíptico provocado por um fungo que existe no mundo real </h2>
-                            <div class="opcoes">
-                                <input type="radio" name="grupo3" value="opcao1">Days Gone
-                                <input type="radio"name="grupo3" value="opcao2">Fallout
-                                <input type="radio"name="grupo3" value="opcao3">The last of Us
-                                <input type="radio"name="grupo3" value="opcao4">Horizon
-                            </div>
-                        </div>
+<div class="sessao">                             
+    <h2>Qual jogo se passa em um mundo pós-apocalíptico provocado por um fungo que existe no mundo real?</h2>                             
+    <div class="opcoes">                                  
+        <input type="text" name="grupo3" id="respostaGrupoPlaystation3">                                 
+        <div class="input">                                 
+            <div class="nomedasopcoes">1ª Days Gone</div>                                 
+            <div class="nomedasopcoes">2ª Fallout</div>                                 
+            <div class="nomedasopcoes">3ª The last of Us</div>                                 
+            <div class="nomedasopcoes">4ª Horizon</div>                                 
+        </div>                             
+    </div>                         
+</div>                          
 
-                        <div class="sessao">
-                            <h2>Qual jogo se passa em um mundo pós-apocalíptico devido a revolução das maquinas?</h2>
-                            <div class="opcoes">
-                                <input type="radio" name="grupo4" value="opcao1">Call of Duty
-                                <input type="radio" name="grupo4" value="opcao2">Metal Slug
-                                <input type="radio" name="grupo4" value="opcao3">Sully
-                                <input type="radio" name="grupo4" value="opcao4">Horizon Zero Dawn
-                            </div>
-                        </div>
+<div class="sessao">                             
+    <h2>Qual jogo se passa em um mundo pós-apocalíptico devido a revolução das maquinas?</h2>                             
+    <div class="opcoes">                                  
+        <input type="text" name="grupo4" id="respostaGrupoPlaystation4">                                 
+        <div class="input">                                 
+            <div class="nomedasopcoes">1ª Call of Duty</div>                                 
+            <div class="nomedasopcoes">2ª Metal Slug</div>                                 
+            <div class="nomedasopcoes">3ª Sully</div>                                 
+            <div class="nomedasopcoes">4ª Horizon Zero Dawn</div>                                 
+        </div>                             
+    </div>                         
+</div> 
 
-                        <div class="sessao">
-    <h2>Qual jogo se passa em um mundo futurista onde androides lutam por liberdade?</h2>
-    <div class="opcoes">
-        <input type="radio" name="grupo5" value="opcao1">Detroit: Become Human
-        <input type="radio" name="grupo5" value="opcao2">Mass Effect
-        <input type="radio" name="grupo5" value="opcao3">Cyberpunk 2077
-        <input type="radio" name="grupo5" value="opcao4">Ghostrunner
-    </div>
-</div>
+<div class="sessao">     
+    <h2>Qual jogo se passa em um mundo futurista onde androides lutam por liberdade?</h2>     
+    <div class="opcoes">         
+        <input type="text" name="grupo5" id="respostaGrupoPlaystation5">         
+        <div class="input">
+            <div class="nomedasopcoes">1ª Detroit: Become Human</div>         
+            <div class="nomedasopcoes">2ª Mass Effect</div>         
+            <div class="nomedasopcoes">3ª Cyberpunk 2077</div>         
+            <div class="nomedasopcoes">4ª Ghostrunner</div>     
+        </div>
+    </div> 
+</div>                           
 
+<div class="sessao">                             
+    <h2>Qual jogo retrata a vida de um especialista hacker?</h2>                             
+    <div class="opcoes">                                 
+        <input type="text" name="grupo6" id="respostaGrupoPlaystation6">                                 
+        <div class="input">
+            <div class="nomedasopcoes">1ª Watch Dogs</div>                                 
+            <div class="nomedasopcoes">2ª Metal Slug</div>                                 
+            <div class="nomedasopcoes">3ª Bloodborne</div>                                 
+            <div class="nomedasopcoes">4ª Rachet & Clank</div>                             
+        </div>
+    </div>                         
+</div>                          
 
-                        <div class="sessao">
-                            <h2>Qual jogo retrata a vida de um especialista haker?</h2>
-                            <div class="opcoes">
-                                <input type="radio" name="grupo6" value="opcao1">Watch Dogs
-                                <input type="radio"name="grupo6" value="opcao2">Metal Slug
-                                <input type="radio"name="grupo6" value="opcao3">Bloodborne
-                                <input type="radio" name="grupo6" value="opcao4">Rachet & Clank
-                            </div>
-                        </div>
+<div class="sessao">                             
+    <h2>Qual jogo de playstation se passa em um ambiente de faroeste?</h2>                             
+    <div class="opcoes">                                 
+        <input type="text" name="grupo7" id="respostaGrupoPlaystation7">                                 
+        <div class="input">
+            <div class="nomedasopcoes">1ª Sekiro</div>                                 
+            <div class="nomedasopcoes">2ª Far Cry6</div>                                 
+            <div class="nomedasopcoes">3ª It Takes Two</div>                                 
+            <div class="nomedasopcoes">4ª Red dead Redemption 2</div>                             
+        </div>
+    </div>                         
+</div>                          
 
-                        <div class="sessao">
-                            <h2>Qual jogo de playstation se passa em um ambiente de faroeste? </h2>
-                            <div class="opcoes">
-                                <input type="radio" name="grupo7" value="opcao1">Sekiro
-                                <input type="radio"name="grupo7" value="opcao2">Far Cry6
-                                <input type="radio"name="grupo7" value="opcao3">It Takes Two
-                                <input type="radio"name="grupo7" value="opcao4">Red dead Redemption 2
-                            </div>
-                        </div>
+<div class="sessao">                             
+    <h2>Qual personagem protagonista é um ex gangster que se torna policial e é promovido a detetive?</h2>                             
+    <div class="opcoes">                                 
+        <input type="text" name="grupo8" id="respostaGrupoPlaystation8">                                 
+        <div class="input">
+            <div class="nomedasopcoes">1ª Drive</div>                                 
+            <div class="nomedasopcoes">2ª winning eleven</div>                                 
+            <div class="nomedasopcoes">3ª True Crime</div>                                 
+            <div class="nomedasopcoes">4ª Pac-man</div>                             
+        </div>
+    </div>                         
+</div>                          
 
-                        <div class="sessao">
-                            <h2>Qual personagem protagonista é um ex gangster que se torna policial e é promovido a detetive? </h2>
-                            <div class="opcoes">
-                                <input type="radio"name="grupo8" value="opcao1">Drive
-                                <input type="radio"name="grupo8" value="opcao2">winning eleven
-                                <input type="radio"name="grupo8" value="opcao3">True Crime
-                                <input type="radio"name="grupo8" value="opcao4">Pac-man
-                            </div>
-                        </div>
+<div class="sessao">                             
+    <h2>Qual jogo de corrida tem o objetivo de fazer o protagonista se tornar o 1° piloto na "Black List"?</h2>                             
+    <div class="opcoes">                                 
+        <input type="text" name="grupo9" id="respostaGrupoPlaystation9">                                 
+        <div class="input">
+            <div class="nomedasopcoes">1ª Gran Turismo</div>                                 
+            <div class="nomedasopcoes">2ª Crash Nitro Kart</div>                                 
+            <div class="nomedasopcoes">3ª Midnight Club</div>                                 
+            <div class="nomedasopcoes">4ª Need For speed Most Wanted</div>                             
+        </div>
+    </div>                         
+</div>                          
 
-                        <div class="sessao">
-                            <h2>Qual jogo de corrida tem o objetivo de fazer o protagonista se tornar o 1° piloto na "Black List"? </h2>
-                            <div class="opcoes">
-                                <input type="radio" name="grupo9" value="opcao1">Gran Turismo
-                                <input type="radio" name="grupo9" value="opcao2">Crash Nitro Kart
-                                <input type="radio" name="grupo9" value="opcao3">Midnight Club
-                                <input type="radio" name="grupo9" value="opcao4">Need For speed Most Wanted
-                            </div>
-                        </div>
+<div class="sessao">                             
+    <h2>Qual jogo é ambientado em um internato e o nome do seu protagonista é Jimmy?</h2>                             
+    <div class="opcoes">                                 
+        <input type="text" name="grupo10" id="respostaGrupoPlaystation10">                                 
+        <div class="input">
+            <div class="nomedasopcoes">1ª Don't Starve</div>                                 
+            <div class="nomedasopcoes">2ª Fallout 4</div>                                 
+            <div class="nomedasopcoes">3ª Death Stranding</div>                                 
+            <div class="nomedasopcoes">4ª Bully</div>                             
+        </div>
+    </div>                         
+</div>                         
 
-                        <div class="sessao">
-                            <h2>Qual jogo é ambientação em um internato e o nome do seu protagonista é Jimmy?</h2>
-                            <div class="opcoes">
-                                <input type="radio"name="grupo10" value="opcao1">Don't Sarve
-                                <input type="radio"name="grupo10" value="opcao2">Fallout 4
-                                <input type="radio"name="grupo10" value="opcao3">Death Stranding
-                                <input type="radio"name="grupo10" value="opcao4">Bully
-                            </div>
-                        </div>
-                        <button onclick="fimQuiz()" class="buttonQuiz">Terminar Quiz</button>
-        
-
-
-                    
-
-                    
-
-            `
+<button onclick="fimQuizPlaystation()" class="buttonQuiz">Terminar Quiz</button>
+`;
 
         }
         else if (select_option == 'xbox') {
             div_escolha.innerHTML = ""
             div_escolha.innerHTML += `
-            <div class="sessao">
-    <h2>Qual é o protagonista da franquia Halo?</h2>
-    <div class="opcoes">
-        <input type="radio" name="grupo1" value="opcao1">Master Chief
-        <input type="radio" name="grupo1" value="opcao2">Cortana
-        <input type="radio" name="grupo1" value="opcao3">Spartan Locke
-        <input type="radio" name="grupo1" value="opcao4">Commander Shepard
+    <div class="sessao">
+        <h2>Qual é o protagonista da franquia Halo?</h2>
+        <div class="opcoes">
+            <input type="text" name="grupo1" id="respostaGrupoXbox1">
+            <div class="input">
+                <div class="nomedasopcoes">1ª Master Chief</div>
+                <div class="nomedasopcoes">2ª Cortana</div>
+                <div class="nomedasopcoes">3ª Spartan Locke</div>
+                <div class="nomedasopcoes">4ª Commander Shepard</div>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="sessao">
-    <h2>Qual jogo exclusivo do Xbox é focado em carros e corridas em mundo aberto?</h2>
-    <div class="opcoes">
-        <input type="radio" name="grupo2" value="opcao1">Forza Horizon
-        <input type="radio" name="grupo2" value="opcao2">Gran Turismo
-        <input type="radio" name="grupo2" value="opcao3">Need for Speed
-        <input type="radio" name="grupo2" value="opcao4">F1 2023
+    <div class="sessao">
+        <h2>Qual jogo exclusivo do Xbox é focado em carros e corridas em mundo aberto?</h2>
+        <div class="opcoes">
+            <input type="text" name="grupo2" id="respostaGrupoXbox2">
+            <div class="input">
+                <div class="nomedasopcoes">1ª Forza Horizon</div>
+                <div class="nomedasopcoes">2ª Gran Turismo</div>
+                <div class="nomedasopcoes">3ª Need for Speed</div>
+                <div class="nomedasopcoes">4ª F1 2023</div>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="sessao">
-    <h2>Qual jogo de ação e aventura é protagonizado por Senua, uma guerreira celta?</h2>
-    <div class="opcoes">
-        <input type="radio" name="grupo3" value="opcao1">Hellblade: Senua's Sacrifice
-        <input type="radio" name="grupo3" value="opcao2">ReCore
-        <input type="radio" name="grupo3" value="opcao3">Gears 5
-        <input type="radio" name="grupo3" value="opcao4">Halo Infinite
+    <div class="sessao">
+        <h2>Qual jogo de ação e aventura é protagonizado por Senua, uma guerreira celta?</h2>
+        <div class="opcoes">
+            <input type="text" name="grupo3" id="respostaGrupoXbox3">
+            <div class="input">
+                <div class="nomedasopcoes">1ª Hellblade: Senua's Sacrifice</div>
+                <div class="nomedasopcoes">2ª ReCore</div>
+                <div class="nomedasopcoes">3ª Gears 5</div>
+                <div class="nomedasopcoes">4ª Halo Infinite</div>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="sessao">
-    <h2>Qual franquia de tiro em terceira pessoa é conhecida por seu uso do sistema de cobertura e inimigos Locust?</h2>
-    <div class="opcoes">
-        <input type="radio" name="grupo4" value="opcao1">Gears of War
-        <input type="radio" name="grupo4" value="opcao2">Call of Duty
-        <input type="radio" name="grupo4" value="opcao3">The Division
-        <input type="radio" name="grupo4" value="opcao4">Battlefield
+    <div class="sessao">
+        <h2>Qual franquia de tiro em terceira pessoa é conhecida por seu uso do sistema de cobertura e inimigos Locust?</h2>
+        <div class="opcoes">
+            <input type="text" name="grupo4" id="respostaGrupoXbox4">
+            <div class="input">
+                <div class="nomedasopcoes">1ª Gears of War</div>
+                <div class="nomedasopcoes">2ª Call of Duty</div>
+                <div class="nomedasopcoes">3ª The Division</div>
+                <div class="nomedasopcoes">4ª Battlefield</div>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="sessao">
-    <h2>Qual jogo exclusivo da Xbox permite criar mundos inteiros com blocos?</h2>
-    <div class="opcoes">
-        <input type="radio" name="grupo5" value="opcao1">Minecraft
-        <input type="radio" name="grupo5" value="opcao2">Roblox
-        <input type="radio" name="grupo5" value="opcao3">Terraria
-        <input type="radio" name="grupo5" value="opcao4">Lego Worlds
+    <div class="sessao">
+        <h2>Qual jogo exclusivo da Xbox permite criar mundos inteiros com blocos?</h2>
+        <div class="opcoes">
+            <input type="text" name="grupo5" id="respostaGrupoXbox5">
+            <div class="input">
+                <div class="nomedasopcoes">1ª Minecraft</div>
+                <div class="nomedasopcoes">2ª Roblox</div>
+                <div class="nomedasopcoes">3ª Terraria</div>
+                <div class="nomedasopcoes">4ª Lego Worlds</div>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="sessao">
-    <h2>Qual é o nome do jogo de plataforma estrelado por um esquilo sarcástico em um mundo adulto?</h2>
-    <div class="opcoes">
-        <input type="radio" name="grupo6" value="opcao1">Conker's Bad Fur Day
-        <input type="radio" name="grupo6" value="opcao2">Banjo-Kazooie
-        <input type="radio" name="grupo6" value="opcao3">Blinx: The Time Sweeper
-        <input type="radio" name="grupo6" value="opcao4">Viva Piñata
+    <div class="sessao">
+        <h2>Qual é o nome do jogo de plataforma estrelado por um esquilo sarcástico em um mundo adulto?</h2>
+        <div class="opcoes">
+            <input type="text" name="grupo6" id="respostaGrupoXbox6">
+            <div class="input">
+                <div class="nomedasopcoes">1ª Conker's Bad Fur Day</div>
+                <div class="nomedasopcoes">2ª Banjo-Kazooie</div>
+                <div class="nomedasopcoes">3ª Blinx: The Time Sweeper</div>
+                <div class="nomedasopcoes">4ª Viva Piñata</div>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="sessao">
-    <h2>Qual jogo exclusivo do Xbox coloca o jogador no controle de uma jovem chamada Kameo com poderes elementais?</h2>
-    <div class="opcoes">
-        <input type="radio" name="grupo7" value="opcao1">Kameo: Elements of Power
-        <input type="radio" name="grupo7" value="opcao2">Fable II
-        <input type="radio" name="grupo7" value="opcao3">Ori and the Blind Forest
-        <input type="radio" name="grupo7" value="opcao4">Blue Dragon
+    <div class="sessao">
+        <h2>Qual jogo exclusivo do Xbox coloca o jogador no controle de uma jovem chamada Kameo com poderes elementais?</h2>
+        <div class="opcoes">
+            <input type="text" name="grupo7" id="respostaGrupoXbox7">
+            <div class="input">
+                <div class="nomedasopcoes">1ª Kameo: Elements of Power</div>
+                <div class="nomedasopcoes">2ª Fable II</div>
+                <div class="nomedasopcoes">3ª Ori and the Blind Forest</div>
+                <div class="nomedasopcoes">4ª Blue Dragon</div>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="sessao">
-    <h2>Qual RPG exclusivo do Xbox foi criado por Peter Molyneux e permite fazer escolhas morais?</h2>
-    <div class="opcoes">
-        <input type="radio" name="grupo8" value="opcao1">Fable
-        <input type="radio" name="grupo8" value="opcao2">Mass Effect
-        <input type="radio" name="grupo8" value="opcao3">Dragon Age
-        <input type="radio" name="grupo8" value="opcao4">Elder Scrolls
+    <div class="sessao">
+        <h2>Qual RPG exclusivo do Xbox foi criado por Peter Molyneux e permite fazer escolhas morais?</h2>
+        <div class="opcoes">
+            <input type="text" name="grupo8" id="respostaGrupoXbox8">
+            <div class="input">
+                <div class="nomedasopcoes">1ª Fable</div>
+                <div class="nomedasopcoes">2ª Mass Effect</div>
+                <div class="nomedasopcoes">3ª Dragon Age</div>
+                <div class="nomedasopcoes">4ª Elder Scrolls</div>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="sessao">
-    <h2>Qual jogo do Xbox tem uma mecânica baseada em manipular o tempo?</h2>
-    <div class="opcoes">
-        <input type="radio" name="grupo9" value="opcao1">Quantum Break
-        <input type="radio" name="grupo9" value="opcao2">Control
-        <input type="radio" name="grupo9" value="opcao3">Alan Wake
-        <input type="radio" name="grupo9" value="opcao4">Max Payne
+    <div class="sessao">
+        <h2>Qual jogo do Xbox tem uma mecânica baseada em manipular o tempo?</h2>
+        <div class="opcoes">
+            <input type="text" name="grupo9" id="respostaGrupoXbox9">
+            <div class="input">
+                <div class="nomedasopcoes">1ª Quantum Break</div>
+                <div class="nomedasopcoes">2ª Control</div>
+                <div class="nomedasopcoes">3ª Alan Wake</div>
+                <div class="nomedasopcoes">4ª Max Payne</div>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="sessao">
-    <h2>Qual jogo indie exclusivo da Xbox é conhecido por sua arte desenhada à mão e trilha sonora jazz?</h2>
-    <div class="opcoes">
-        <input type="radio" name="grupo10" value="opcao1">Cuphead
-        <input type="radio" name="grupo10" value="opcao2">Ori and the Will of the Wisps
-        <input type="radio" name="grupo10" value="opcao3">Hollow Knight
-        <input type="radio" name="grupo10" value="opcao4">Shovel Knight
+    <div class="sessao">
+        <h2>Qual jogo indie exclusivo da Xbox é conhecido por sua arte desenhada à mão e trilha sonora jazz?</h2>
+        <div class="opcoes">
+            <input type="text" name="grupo10" id="respostaGrupoXbox10">
+            <div class="input">
+                <div class="nomedasopcoes">1ª Cuphead</div>
+                <div class="nomedasopcoes">2ª Ori and the Will of the Wisps</div>
+                <div class="nomedasopcoes">3ª Hollow Knight</div>
+                <div class="nomedasopcoes">4ª Shovel Knight</div>
+            </div>
+        </div>
     </div>
-</div>
-<button onclick="fimQuiz()" class="buttonQuiz">Terminar Quiz</button>
-        
-
-            `
+    <button onclick="fimQuizXbox()" class="buttonQuiz">Terminar Quiz</button>
+    <div class="FinalQuiz" id="FinalQuiz">
+    </div>`;
 
         }
         else if (select_option == 'fliperama') {
             div_escolha.innerHTML = ""
             div_escolha.innerHTML += `
-<div class="sessao">
-    <h2>Qual personagem é o principal representante da série Street Fighter?</h2>
-    <div class="opcoes">
-        <input type="radio" name="grupo1" value="opcao1">Ryu
-        <input type="radio" name="grupo1" value="opcao2">Scorpion
-        <input type="radio" name="grupo1" value="opcao3">Terry Bogard
-        <input type="radio" name="grupo1" value="opcao4">Liu Kang
+    <div class="sessao">
+        <h2>Qual personagem é o principal representante da série Street Fighter?</h2>
+        <div class="opcoes">
+            <input type="text" name="grupo1" id="respostaGrupoFliperama1">
+            <div class="input">
+                <div class="nomedasopcoes">1ª Ryu</div>
+                <div class="nomedasopcoes">2ª Scorpion</div>
+                <div class="nomedasopcoes">3ª Terry Bogard</div>
+                <div class="nomedasopcoes">4ª Liu Kang</div>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="sessao">
-    <h2>Qual jogo de luta criado pela Midway ficou famoso pela violência e "Fatalities"?</h2>
-    <div class="opcoes">
-        <input type="radio" name="grupo2" value="opcao1">Mortal Kombat
-        <input type="radio" name="grupo2" value="opcao2">Tekken
-        <input type="radio" name="grupo2" value="opcao3">Street Fighter
-        <input type="radio" name="grupo2" value="opcao4">Virtua Fighter
+    <div class="sessao">
+        <h2>Qual jogo de luta criado pela Midway ficou famoso pela violência e "Fatalities"?</h2>
+        <div class="opcoes">
+            <input type="text" name="grupo2" id="respostaGrupoFliperama2">
+            <div class="input">
+                <div class="nomedasopcoes">1ª Mortal Kombat</div>
+                <div class="nomedasopcoes">2ª Tekken</div>
+                <div class="nomedasopcoes">3ª Street Fighter</div>
+                <div class="nomedasopcoes">4ª Virtua Fighter</div>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="sessao">
-    <h2>Qual jogo de corrida de fliperama é conhecido por seu estilo futurista e trilha sonora eletrônica?</h2>
-    <div class="opcoes">
-        <input type="radio" name="grupo3" value="opcao1">F-Zero
-        <input type="radio" name="grupo3" value="opcao2">OutRun
-        <input type="radio" name="grupo3" value="opcao3">Cruis'n USA
-        <input type="radio" name="grupo3" value="opcao4">Daytona USA
+    <div class="sessao">
+        <h2>Qual jogo de corrida de fliperama é conhecido por seu estilo futurista e trilha sonora eletrônica?</h2>
+        <div class="opcoes">
+            <input type="text" name="grupo3" id="respostaGrupoFliperama3">
+            <div class="input">
+                <div class="nomedasopcoes">1ª F-Zero</div>
+                <div class="nomedasopcoes">2ª OutRun</div>
+                <div class="nomedasopcoes">3ª Cruis'n USA</div>
+                <div class="nomedasopcoes">4ª Daytona USA</div>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="sessao">
-    <h2>Qual jogo de plataforma com um gorila como vilão foi um dos primeiros sucessos da Nintendo nos fliperamas?</h2>
-    <div class="opcoes">
-        <input type="radio" name="grupo4" value="opcao1">Donkey Kong
-        <input type="radio" name="grupo4" value="opcao2">Mario Bros.
-        <input type="radio" name="grupo4" value="opcao3">Bubble Bobble
-        <input type="radio" name="grupo4" value="opcao4">Ghosts 'n Goblins
+    <div class="sessao">
+        <h2>Qual jogo de plataforma com um gorila como vilão foi um dos primeiros sucessos da Nintendo nos fliperamas?</h2>
+        <div class="opcoes">
+            <input type="text" name="grupo4" id="respostaGrupoFliperama4">
+            <div class="input">
+                <div class="nomedasopcoes">1ª Donkey Kong</div>
+                <div class="nomedasopcoes">2ª Mario Bros.</div>
+                <div class="nomedasopcoes">3ª Bubble Bobble</div>
+                <div class="nomedasopcoes">4ª Ghosts 'n Goblins</div>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="sessao">
-    <h2>Qual beat ‘em up clássico da Capcom permitia até 3 jogadores simultaneamente nas ruas de Metro City?</h2>
-    <div class="opcoes">
-        <input type="radio" name="grupo5" value="opcao1">Final Fight
-        <input type="radio" name="grupo5" value="opcao2">Double Dragon
-        <input type="radio" name="grupo5" value="opcao3">Cadillacs and Dinosaurs
-        <input type="radio" name="grupo5" value="opcao4">Golden Axe
+    <div class="sessao">
+        <h2>Qual beat 'em up clássico da Capcom permitia até 3 jogadores simultaneamente nas ruas de Metro City?</h2>
+        <div class="opcoes">
+            <input type="text" name="grupo5" id="respostaGrupoFliperama5">
+            <div class="input">
+                <div class="nomedasopcoes">1ª Final Fight</div>
+                <div class="nomedasopcoes">2ª Double Dragon</div>
+                <div class="nomedasopcoes">3ª Cadillacs and Dinosaurs</div>
+                <div class="nomedasopcoes">4ª Golden Axe</div>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="sessao">
-    <h2>Qual jogo de fliperama da SNK tem como protagonista Terry Bogard?</h2>
-    <div class="opcoes">
-        <input type="radio" name="grupo6" value="opcao1">Fatal Fury
-        <input type="radio" name="grupo6" value="opcao2">Samurai Shodown
-        <input type="radio" name="grupo6" value="opcao3">The King of Fighters
-        <input type="radio" name="grupo6" value="opcao4">World Heroes
+    <div class="sessao">
+        <h2>Qual jogo de fliperama da SNK tem como protagonista Terry Bogard?</h2>
+        <div class="opcoes">
+            <input type="text" name="grupo6" id="respostaGrupoFliperama6">
+            <div class="input">
+                <div class="nomedasopcoes">1ª Fatal Fury</div>
+                <div class="nomedasopcoes">2ª Samurai Shodown</div>
+                <div class="nomedasopcoes">3ª The King of Fighters</div>
+                <div class="nomedasopcoes">4ª World Heroes</div>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="sessao">
-    <h2>Qual jogo da SEGA apresentava motos futuristas em pistas tridimensionais e ficou famoso nos arcades?</h2>
-    <div class="opcoes">
-        <input type="radio" name="grupo7" value="opcao1">Super Hang-On
-        <input type="radio" name="grupo7" value="opcao2">Road Rash
-        <input type="radio" name="grupo7" value="opcao3">Excitebike
-        <input type="radio" name="grupo7" value="opcao4">Enduro Racer
+    <div class="sessao">
+        <h2>Qual jogo da SEGA apresentava motos futuristas em pistas tridimensionais e ficou famoso nos arcades?</h2>
+        <div class="opcoes">
+            <input type="text" name="grupo7" id="respostaGrupoFliperama7">
+            <div class="input">
+                <div class="nomedasopcoes">1ª Super Hang-On</div>
+                <div class="nomedasopcoes">2ª Road Rash</div>
+                <div class="nomedasopcoes">3ª Excitebike</div>
+                <div class="nomedasopcoes">4ª Enduro Racer</div>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="sessao">
-    <h2>Qual jogo arcade tem como objetivo principal comer todos os pontos e fugir dos fantasmas?</h2>
-    <div class="opcoes">
-        <input type="radio" name="grupo8" value="opcao1">Pac-Man
-        <input type="radio" name="grupo8" value="opcao2">Bomberman
-        <input type="radio" name="grupo8" value="opcao3">Dig Dug
-        <input type="radio" name="grupo8" value="opcao4">Q*bert
+    <div class="sessao">
+        <h2>Qual jogo arcade tem como objetivo principal comer todos os pontos e fugir dos fantasmas?</h2>
+        <div class="opcoes">
+            <input type="text" name="grupo8" id="respostaGrupoFliperama8">
+            <div class="input">
+                <div class="nomedasopcoes">1ª Pac-Man</div>
+                <div class="nomedasopcoes">2ª Bomberman</div>
+                <div class="nomedasopcoes">3ª Dig Dug</div>
+                <div class="nomedasopcoes">4ª Q*bert</div>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="sessao">
-    <h2>Qual é o nome do jogo onde dois jogadores pilotam tanques e aviões em um estilo de guerra contra aliens?</h2>
-    <div class="opcoes">
-        <input type="radio" name="grupo9" value="opcao1">Metal Slug
-        <input type="radio" name="grupo9" value="opcao2">Contra
-        <input type="radio" name="grupo9" value="opcao3">1942
-        <input type="radio" name="grupo9" value="opcao4">Gunstar Heroes
+    <div class="sessao">
+        <h2>Qual é o nome do jogo onde dois jogadores pilotam tanques e aviões em um estilo de guerra contra aliens?</h2>
+        <div class="opcoes">
+            <input type="text" name="grupo9" id="respostaGrupoFliperama9">
+            <div class="input">
+                <div class="nomedasopcoes">1ª Metal Slug</div>
+                <div class="nomedasopcoes">2ª Contra</div>
+                <div class="nomedasopcoes">3ª 1942</div>
+                <div class="nomedasopcoes">4ª Gunstar Heroes</div>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="sessao">
-    <h2>Qual jogo de fliperama coloca você na pele de cavaleiros em uma aventura medieval contra mortos-vivos?</h2>
-    <div class="opcoes">
-        <input type="radio" name="grupo10" value="opcao1">Ghosts 'n Goblins
-        <input type="radio" name="grupo10" value="opcao2">Golden Axe
-        <input type="radio" name="grupo10" value="opcao3">Altered Beast
-        <input type="radio" name="grupo10" value="opcao4">Castlevania
+    <div class="sessao">
+        <h2>Qual jogo de fliperama coloca você na pele de cavaleiros em uma aventura medieval contra mortos-vivos?</h2>
+        <div class="opcoes">
+            <input type="text" name="grupo10" id="respostaGrupoFliperama10">
+            <div class="input">
+                <div class="nomedasopcoes">1ª Ghosts 'n Goblins</div>
+                <div class="nomedasopcoes">2ª Golden Axe</div>
+                <div class="nomedasopcoes">3ª Altered Beast</div>
+                <div class="nomedasopcoes">4ª Castlevania</div>
+            </div>
+        </div>
     </div>
-</div>
 
-<button onclick="fimQuiz()" class="buttonQuiz">Terminar Quiz</button>
-        
-            `
+    <button onclick="fimQuizFliperama()" class="buttonQuiz">Terminar Quiz</button>
+   `;
 
         }
     }
-
 
     function jogosEmAlta() {
         reset();
@@ -640,13 +778,205 @@
 
     function reset() {
         msg_home.innerHTML = "";
-    posts.innerHTML = "";
-    class_mensagem.innerHTML = "";
-    div_escolha.innerHTML = "";
-    dash.innerHTML = "";
-    document.querySelector(".class-quiz").innerHTML = "";
+        posts.innerHTML = "";
+        class_mensagem.innerHTML = "";
+        div_escolha.innerHTML = "";
+        dash.innerHTML = "";
+        document.querySelector(".class-quiz").innerHTML = "";
 
     }
+
+    function fimQuizPlaystation() {
+        respostaCerta;
+        porcentagemFinalDeAcertos
+        let porcentagemTexto = Math.round(porcentagemFinalDeAcertos * 100);
+
+        quantidadeDeQuestoes;
+        tentativaIncorreta;
+        RespostaCorreta;
+        RespostaErrada;
+
+        let respostaGrupo1 = respostaGrupoPlaystation1.value;
+        let respostaGrupo2 = respostaGrupoPlaystation2.value;
+        let respostaGrupo3 = respostaGrupoPlaystation3.value;
+        let respostaGrupo4 = respostaGrupoPlaystation4.value;
+        let respostaGrupo5 = respostaGrupoPlaystation5.value;
+        let respostaGrupo6 = respostaGrupoPlaystation6.value;
+        let respostaGrupo7 = respostaGrupoPlaystation7.value;
+        let respostaGrupo8 = respostaGrupoPlaystation8.value;
+        let respostaGrupo9 = respostaGrupoPlaystation9.value;
+        let respostaGrupo10 = respostaGrupoPlaystation10.value;
+        
+        let selecionadaPlataforma;
+        let nomePlataforma;
+
+        respostaUsuario = [];
+
+        respostaUsuario.push(respostaGrupo1, respostaGrupo2, respostaGrupo3, respostaGrupo4, respostaGrupo5, respostaGrupo6, respostaGrupo7, respostaGrupo8, respostaGrupo9, respostaGrupo10)
+
+      
+
+        // console.log(respostaCerta[1].respostas[5])
+
+        for (i = 0; i < respostaCerta.length; i++) {
+
+            if (respostaCerta[i].plataforma == 'playstation') {
+                nomePlataforma = respostaCerta[i].respostas
+
+                for (j = 0; j < respostaUsuario.length; j++) {
+                    if (nomePlataforma[j] == respostaUsuario[j]) {
+                        RespostaCorreta++
+                        pontuacaoFial++
+                    }
+                    else {
+                        RespostaErrada++
+                        tentativaIncorreta++
+                    }
+                }
+            }
+        }
+        let porcentagemFInalDeAcertos = RespostaCorreta / quantidadeDeQuestoes;
+
+        if (porcentagemFInalDeAcertos <= 0.3) {
+            prompt(`Game Over!
+            Você acertou ${porcentagemTexto}% das questões`)
+        }
+        else if (porcentagemFInalDeAcertos > 0.3 && porcentagemFInalDeAcertos < 0.9) {
+            prompt(`Tem que upar mais o seu personagem 
+            Você acertou ${porcentagemTexto}% das questões`);
+        }
+        else if (porcentagemFInalDeAcertos >= 0.9) {
+            prompt(`Você tem evoluido constantemente, parabéns!
+            Você acertou ${porcentagemTexto}% das questões`);
+        }
+
+
+    }
+
+
+    function fimQuizXbox() {
+        respostaUsuario
+        respostaCerta;
+        porcentagemFinalDeAcertos
+        let porcentagemTexto = Math.round(porcentagemFinalDeAcertos * 100);
+        quantidadeDeQuestoes;
+        tentativaIncorreta;
+        RespostaCorreta;
+        RespostaErrada;
+
+        let respostaXbox1 = respostaGrupoXbox1.value;
+        let respostaXbox2 = respostaGrupoXbox2.value;
+        let respostaXbox3 = respostaGrupoXbox3.value;
+        let respostaXbox4 = respostaGrupoXbox4.value;
+        let respostaXbox5 = respostaGrupoXbox5.value;
+        let respostaXbox6 = respostaGrupoXbox6.value;
+        let respostaXbox7 = respostaGrupoXbox7.value;
+        let respostaXbox8 = respostaGrupoXbox8.value;
+        let respostaXbox9 = respostaGrupoXbox9.value;
+        let respostaXbox10 = respostaGrupoXbox10.value;
+
+        let selecionadaPlataforma;
+        let nomePlataforma;
+
+        respostaUsuario.push(respostaXbox1, respostaXbox2, respostaXbox3, respostaXbox4, respostaXbox5, respostaXbox6, respostaXbox7, respostaXbox8, respostaXbox9, respostaXbox10)
+
+
+
+        for (i = 0; i < respostaCerta.length; i++) {
+
+            if (respostaCerta[i].plataforma == 'xbox') {
+                nomePlataforma = respostaCerta[i].respostas
+
+                for (j = 0; j < respostaUsuario.length; j++) {
+                    if (nomePlataforma[j] == respostaUsuario[j]) {
+                        RespostaCorreta++
+                        pontuacaoFial++
+                    }
+                    else {
+                        RespostaErrada++
+                        tentativaIncorreta
+                    }
+                }
+            }
+        }
+        let porcentagemFInalDeAcertos = RespostaCorreta / quantidadeDeQuestoes;
+
+        if (porcentagemFInalDeAcertos <= 0.3) {
+            prompt(`Game Over!
+            Você acertou ${porcentagemTexto}% das questões`)
+        }
+        else if (porcentagemFInalDeAcertos > 0.3 && porcentagemFInalDeAcertos < 0.9) {
+            prompt(`Tem que upar mais o seu personagem 
+            Você acertou ${porcentagemTexto}% das questões`);
+        }
+        else if (porcentagemFInalDeAcertos >= 0.9) {
+            prompt(`Você tem evoluido constantemente, parabéns!
+            Você acertou ${porcentagemTexto}% das questões`);
+        }
+
+
+    }
+    function fimQuizFliperama() {
+    
+        respostaUsuario
+        respostaCerta;
+        porcentagemFinalDeAcertos
+        let porcentagemTexto = Math.round(porcentagemFinalDeAcertos * 100);
+        quantidadeDeQuestoes;
+        tentativaIncorreta;
+        RespostaCorreta;
+        RespostaErrada;
+        
+        let selecionadaPlataforma;
+        let nomePlataforma;
+
+        let respostaFliperama1 = respostaGrupoFliperama1.value;
+        let respostaFliperama2 = respostaGrupoFliperama2.value;
+        let respostaFliperama3 = respostaGrupoFliperama3.value;
+        let respostaFliperama4 = respostaGrupoFliperama4.value;
+        let respostaFliperama5 = respostaGrupoFliperama5.value;
+        let respostaFliperama6 = respostaGrupoFliperama6.value;
+        let respostaFliperama7 = respostaGrupoFliperama7.value;
+        let respostaFliperama8 = respostaGrupoFliperama8.value;
+        let respostaFliperama9 = respostaGrupoFliperama9.value;
+        let respostaFliperama10 = respostaGrupoFliperama10.value;
+
+
+        respostaUsuario.push(respostaFliperama1, respostaFliperama2, respostaFliperama3, respostaFliperama4, respostaFliperama5, respostaFliperama6, respostaFliperama7, respostaFliperama8, respostaFliperama9, respostaFliperama10)
+
+        for (i = 0; i < respostaCerta.length; i++) {
+
+            if (respostaCerta[i].plataforma == 'fliperama') {
+                nomePlataforma = respostaCerta[i].respostas
+
+                for (j = 0; j < respostaUsuario.length; j++) {
+                    if (nomePlataforma[j] == respostaUsuario[j]) {
+                        RespostaCorreta++
+
+                    }
+                    else {
+                        RespostaErrada++
+                    }
+                }
+            }
+        }
+        let porcentagemFInalDeAcertos = RespostaCorreta / quantidadeDeQuestoes;
+
+        if (porcentagemFInalDeAcertos <= 0.3) {
+            prompt(`Game Over!
+            Você acertou ${porcentagemTexto}% das questões`)
+        }
+        else if (porcentagemFInalDeAcertos > 0.3 && porcentagemFInalDeAcertos < 0.9) {
+            prompt(`Tem que upar mais o seu personagem 
+            Você acertou ${porcentagemTexto}% das questões`);
+        }
+        else if (porcentagemFInalDeAcertos >= 0.9) {
+            prompt(`Você tem evoluido constantemente, parabéns!
+            Você acertou ${porcentagemTexto}% das questões`);
+        }
+
+    }
+
 
 
 </script>
