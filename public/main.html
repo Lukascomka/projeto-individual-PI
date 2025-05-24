@@ -36,7 +36,10 @@
         </nav>
         <div class="conteudo">
             <div class="mensagem-bem-vindo-principal"></div>
-            <div class="posts"></div>
+            <div class="posts">
+
+                <div id="aposPost"></div>
+            </div>
             <div class="class_mensagem"></div>
             <div class="class-quiz">
                 <div class="conteudo_options_console"></div>
@@ -72,7 +75,7 @@
 
     let myChart1 = null;
     let myChart2 = null;
-    let nome = "Jogador"; // Definindo um nome padrão
+    let nome = "Jogador";
 
     const divs = document.getElementsByClassName('nav-selection');
     const imgNormal = [
@@ -108,15 +111,34 @@
     const dash = document.querySelector(".dash");
     const div_escolha = document.querySelector(".conteudo_options_console");
     let quiZ = document.querySelector(".class-quiz")
+    let cards = document.querySelector(".cards")
 
-    // Variáveis do quiz - RESETADAS a cada novo quiz
-    let porcentagemFinalDeAcertos =0
+
+    let porcentagemFinalDeAcertos = 0
     let pontuacaoFinal = 0;
     let quantidadeDeQuestoes = 10;
     let tentativaIncorreta = 0;
     let RespostaCorreta = 0;
     let RespostaErrada = 0;
-    let respostaUsuario = [];
+    let conteudoPost
+    
+    
+    
+    
+    const respostaUsuario = [];
+    
+    const posteusuario = [
+        {
+
+            post: [
+                {
+                    conteudo: [],
+                    data: [],
+                }
+            ],
+
+        }
+    ];
 
     const respostaCerta = [
         {
@@ -166,62 +188,103 @@
         }
     ];
 
-    // Função para resetar variáveis do quiz
+
+
+
+
     function resetQuizVariables() {
         pontuacaoFinal = 0;
         tentativaIncorreta = 0;
         RespostaCorreta = 0;
         RespostaErrada = 0;
-        respostaUsuario = [];
+        
     }
+
 
     function homepage() {
         reset();
 
-        msg_home.innerHTML = `<h1>Bem Vindo ${nome}👋</h1>`
+
+        msg_home.innerHTML = `<h1>Bem Vindo ${nome}👋</h1>`;
 
         posts.innerHTML = `
-                <div class="post-header">
-                    <span>nome_post</span> 
-                </div>
-                <div class="post-conteudo">
-                    <span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur quae facilis impedit aliquam ab magni harum possimus assumenda iste, maxime aliquid modi et asperiores accusantium, voluptas eos sed odio autem!</span>
-                </div>
-                <div class="post-footer">
-                    <button>Curtir</button>
-                </div>
-                <div class="post-header">
-                    <span>nome_post</span>
-                </div>
-                <div class="post-conteudo">
-                    <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui, suscipit quos laborum, nisi quia mollitia eos incidunt architecto veritatis sapiente temporibus reiciendis? Provident necessitatibus id debitis incidunt modi possimus corporis.</span>
-
-                </div>
-                <div class="post-footer">
-                    <button>Curtir</button>
-                </div>
-                <div class="post-header">
-                    <span>nome_post</span>
-                </div>
-                <div class="post-conteudo">
-                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit officiis enim impedit ea error magnam molestias suscipit sed nemo repudiandae, quod cumque accusantium fugit quam. Eligendi iusto amet non labore?</span>
-                </div>
-                <div class="post-footer">
-                    <button>Curtir</button>
-                </div>
-                <div class="post-header">
-                    <span>nome_post</span>
-                </div>
-                <div class="post-conteudo">
-                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Temporibus quia deleniti perferendis est vero, placeat debitis similique? Deleniti quibusdam minima corporis est officia error animi odit, placeat perferendis cum voluptates!</span>
-                </div>
-                <div class="post-footer">
-                    <button>Curtir</button>
-                </div>
-            </div>`;
+        <div class="post-header">
+            <span>nome_post</span>
+        </div>
+        <div class="post-conteudo">
+            <textarea type="text" id="ipt_conteudo_postado" placeholder="Poste algo para os amigos"></textarea>
+            <div id="cards"></div>
+        </div>
+        <div class="post-footer">
+            <button onclick="postar()">Postar</button>
+            </div>
+            <div id="aposPost"></div>
+    `;
 
     }
 
+    function postar() {
+
+        conteudoPost = (ipt_conteudo_postado).value;
+
+
+        posteusuario[0].post.push({
+            conteudo: conteudoPost,
+            data: new Date()
+        });
+
+
+        aposPost.innerHTML += `
+        
+            <div id="cards_post">
+                <div class="card">
+                    ${conteudoPost}<br>
+                    
+                </div>
+            </div>
+        </div>
+    `;
+
+
+    fetch("/main/postar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+
+                conteudo: conteudoPost
+                //aqui fica oque sera feito
+                // nomeServer: nomeVar,
+                // emailServer: emailVar,
+                // senhaServer: senhaVar,
+                // idEmpresaVincularServer: idEmpresaVincular
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    console.log("Quiz Respondido com sucesso");
+                
+                } 
+                else {
+                    "Houve um erro ao tentar realizar o quiz!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                reset();
+            });
+
+        return false;
+
+
+
+
+    }
 
     function mensagem() {
         reset();
@@ -265,7 +328,7 @@
 
     function quiz() {
         reset();
-        resetQuizVariables(); // Reset das variáveis do quiz
+        resetQuizVariables();
 
         msg_home.innerHTML = `<h1>Bem vindo ao quiz ${nome} 🕹️</h1>`
         document.querySelector(".class-quiz").innerHTML = `<div class="div_console">
@@ -279,6 +342,7 @@
                     </div>
                     <div class="conteudo_options_console"></div>
                     `;
+
     }
 
     function optconsole() {
@@ -718,7 +782,7 @@
         myChart1 = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ['PLAYSTATION', 'XBOX', 'FLIPERAMA'],
+                labels: ['playstation', 'xbox', 'FLIPERAMA'],
                 datasets: [{
                     label: '# of Votes',
                     data: [12, 19, 3],
@@ -735,7 +799,7 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Preferência de Plataformas'
+                        text: 'Dados do seu quiz'
                     }
                 }
             }
@@ -769,12 +833,36 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Jogos Mais Populares'
+                        text: 'Pontuação Geral'
                     }
                 }
             }
         });
-    }
+    
+        fetch("/pontuacaoFinal/listar", {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        resposta.json().then((empresas) => {
+          empresas.forEach((empresa) => {
+            respostaUsuario.push(empresa);
+
+            console.log("listaEmpresasCadastradas")
+            console.log(listaEmpresasCadastradas[0].codigo_ativacao)
+          });
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
+  function sumirMensagem() {
+    cardErro.style.display = "none";
+  }
+    
+    
+    
 
     function reset() {
         msg_home.innerHTML = "";
@@ -806,7 +894,7 @@
         let respostaGrupo8 = respostaGrupoPlaystation8.value;
         let respostaGrupo9 = respostaGrupoPlaystation9.value;
         let respostaGrupo10 = respostaGrupoPlaystation10.value;
-        
+
         let selecionadaPlataforma;
         let nomePlataforma;
 
@@ -814,7 +902,7 @@
 
         respostaUsuario.push(respostaGrupo1, respostaGrupo2, respostaGrupo3, respostaGrupo4, respostaGrupo5, respostaGrupo6, respostaGrupo7, respostaGrupo8, respostaGrupo9, respostaGrupo10)
 
-      
+
 
         // console.log(respostaCerta[1].respostas[5])
 
@@ -917,7 +1005,7 @@
 
     }
     function fimQuizFliperama() {
-    
+
         respostaUsuario
         respostaCerta;
         porcentagemFinalDeAcertos
@@ -926,7 +1014,7 @@
         tentativaIncorreta;
         RespostaCorreta;
         RespostaErrada;
-        
+
         let selecionadaPlataforma;
         let nomePlataforma;
 
@@ -976,6 +1064,11 @@
         }
 
     }
+
+
+
+
+
 
 
 

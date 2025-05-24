@@ -16,6 +16,16 @@ var path = require("path");
 var PORTA_APP = process.env.APP_PORT;
 var HOST_APP = process.env.APP_HOST;
 
+
+// variavel que estou criando de rota
+
+var postsRouter = require('./src/routes/publicacao')
+// const mainRoutess = require('./routes/main');
+
+
+
+
+
 var app = express();
 
 var indexRouter = require('./src/routes/index');
@@ -37,6 +47,13 @@ app.use('/avisos' , avisosRouter);
 app.use('/medidas' , medidasRouter);
 app.use('/aquarios', aquariosRouter);
 app.use('/empresas', empresasRouter);
+
+
+
+//meu app.use
+app.use("/postar",postsRouter);
+// app.use('/main', mainRoutess);
+
 
 
 app.listen(PORTA_APP, function (){

@@ -171,6 +171,7 @@ div .seta img {
   justify-content: space-evenly;
   align-items: stretch;
   margin: 15px 0;
+  height: auto;
 }
 
 .post-header {
@@ -386,3 +387,45 @@ div .seta img {
   gap: 20px;
 }
 
+.post-conteudo textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  resize: none;
+  border-radius: 30px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  min-height: 31%;
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  font-size: 16px;
+  margin-bottom: 15px;
+  background-color: #fff;
+  box-sizing: border-box;
+  font-size: 22px;
+  justify-content: center;
+}
+
+
+
+#cards_post {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  min-width: 100%;
+  min-height: 31%;
+}
+
+#cards {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px;
+}
