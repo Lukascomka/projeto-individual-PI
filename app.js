@@ -19,7 +19,8 @@ var HOST_APP = process.env.APP_HOST;
 
 // variavel que estou criando de rota
 
-var postsRouter = require('./src/routes/publicacao')
+
+var mainRouter = require('./src/routes/main.js')
 // const mainRoutess = require('./routes/main');
 
 
@@ -51,7 +52,7 @@ app.use('/empresas', empresasRouter);
 
 
 //meu app.use
-app.use("/postar",postsRouter);
+app.use("/main",mainRouter);
 // app.use('/main', mainRoutess);
 
 

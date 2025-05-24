@@ -75,7 +75,7 @@
 
     let myChart1 = null;
     let myChart2 = null;
-    let nome = "Jogador";
+    let nome = "Jogador"; // Definindo um nome padrão
 
     const divs = document.getElementsByClassName('nav-selection');
     const imgNormal = [
@@ -113,32 +113,32 @@
     let quiZ = document.querySelector(".class-quiz")
     let cards = document.querySelector(".cards")
 
-
+    // Variáveis do quiz - RESETADAS a cada novo quiz
     let porcentagemFinalDeAcertos = 0
     let pontuacaoFinal = 0;
     let quantidadeDeQuestoes = 10;
     let tentativaIncorreta = 0;
     let RespostaCorreta = 0;
     let RespostaErrada = 0;
-    let conteudoPost
-    
-    
-    
-    
-    const respostaUsuario = [];
-    
-    const posteusuario = [
-        {
+    let respostaUsuario = [];
 
-            post: [
-                {
-                    conteudo: [],
-                    data: [],
-                }
-            ],
+    
 
-        }
-    ];
+    // posts que o usuario ira fazer
+    let posteusuario = [{
+            post:
+             {
+            conteudo: [],
+            dataPublicacao: [],
+             }
+                 }];
+
+
+
+
+
+
+
 
     const respostaCerta = [
         {
@@ -189,15 +189,12 @@
     ];
 
 
-
-
-
     function resetQuizVariables() {
         pontuacaoFinal = 0;
         tentativaIncorreta = 0;
         RespostaCorreta = 0;
         RespostaErrada = 0;
-        
+        respostaUsuario = [];
     }
 
 
@@ -223,68 +220,67 @@
 
     }
 
+    
     function postar() {
 
-        conteudoPost = (ipt_conteudo_postado).value;
+        const conteudoPost = (ipt_conteudo_postado).value;
+        const dataPublicacao = new Date().toISOString();
+        posteusuario;
 
-
-        posteusuario[0].post.push({
+        posteusuario.push({
             conteudo: conteudoPost,
-            data: new Date()
+            dataPublicacao: dataPublicacao
         });
 
+        fetch("/main", {
+            method: "POST",
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+                
+                    conteudo: conteudoPost,
+                    dataPublicacao: dataPublicacao
 
-        aposPost.innerHTML += `
+             })
+        })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+            if(resposta.ok) {
+                console.log("Post enviado com sucesso para o backend!")
+            } else{
+                resposta.json().then(errorData =>{
+                    console.error("Erro ao enviar post para o back end", errorData)
+                }).catch(() => {
+                    console.error("Erro ao enviar post para o backend. Status do erro: ", resposta.status)
+                })
+            }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+if(typeof aposPost !== 'undefined' && aposPost !== null){
+
+    
+    aposPost.innerHTML += `
         
             <div id="cards_post">
                 <div class="card">
                     ${conteudoPost}<br>
+                    <small>${new Date().toLocaleString()}</small>
+                    </div>
+                    </div>
+                    </div>
+                    `;
+                    }else {
+                        console.error("Elemento aposPost não encontrado. Os post não seram exibidos")
+                    }
+                    if(typeof ipt_conteudo_postado !== 'undefined' && ipt_conteudo_postado !== null ){
+                        ipt_conteudo_postado.value ="";
+                    }
                     
-                </div>
-            </div>
-        </div>
-    `;
-
-
-    fetch("/main/postar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
-
-                conteudo: conteudoPost
-                //aqui fica oque sera feito
-                // nomeServer: nomeVar,
-                // emailServer: emailVar,
-                // senhaServer: senhaVar,
-                // idEmpresaVincularServer: idEmpresaVincular
-            }),
-        })
-            .then(function (resposta) {
-                console.log("resposta: ", resposta);
-
-                if (resposta.ok) {
-                    console.log("Quiz Respondido com sucesso");
-                
-                } 
-                else {
-                    "Houve um erro ao tentar realizar o quiz!";
-                }
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-                reset();
-            });
-
-        return false;
-
-
-
-
-    }
+            }
 
     function mensagem() {
         reset();
@@ -342,7 +338,6 @@
                     </div>
                     <div class="conteudo_options_console"></div>
                     `;
-
     }
 
     function optconsole() {
@@ -782,7 +777,7 @@
         myChart1 = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ['playstation', 'xbox', 'FLIPERAMA'],
+                labels: ['PLAYSTATION', 'XBOX', 'FLIPERAMA'],
                 datasets: [{
                     label: '# of Votes',
                     data: [12, 19, 3],
@@ -799,7 +794,7 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Dados do seu quiz'
+                        text: 'Preferência de Plataformas'
                     }
                 }
             }
@@ -833,36 +828,12 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Pontuação Geral'
+                        text: 'Jogos Mais Populares'
                     }
                 }
             }
         });
-    
-        fetch("/pontuacaoFinal/listar", {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        resposta.json().then((empresas) => {
-          empresas.forEach((empresa) => {
-            respostaUsuario.push(empresa);
-
-            console.log("listaEmpresasCadastradas")
-            console.log(listaEmpresasCadastradas[0].codigo_ativacao)
-          });
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-  }
-
-  function sumirMensagem() {
-    cardErro.style.display = "none";
-  }
-    
-    
-    
+    }
 
     function reset() {
         msg_home.innerHTML = "";
@@ -1064,11 +1035,6 @@
         }
 
     }
-
-
-
-
-
 
 
 

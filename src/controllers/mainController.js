@@ -1,7 +1,7 @@
-var postarModel = require("../models/publicacaoModel");
+var mainModel = require("../models/mainModel");
 
 function listar(req, res) {
-    postarModel.listar()
+    mainModel.listar()
         .then(function (resultado) {
             res.status(200).json(resultado);
         })
@@ -11,12 +11,14 @@ function listar(req, res) {
 }
 
 function cadastrar(req, res) {
-    var Postar = req.body.conteudoPost;
+    var conteudo_publicacao = req.body.conteudo;
+    var dataPublicacao = req.body.dataPublicacao;
+    console.log("Data recebida do frontend:", dataPublicacao);
 
-    if (Postar == undefined) {
+    if (conteudo_publicacao == undefined) {
         res.status(400).send("Você não inseriu nada para ser postado");
     } else {
-        postarModel.cadastrar(Postar)
+        mainModel.cadastrar(conteudo_publicacao, dataPublicacao)
             .then(function () {
                 res.status(201).send("Parabéns por seu post!");
             })
