@@ -6,14 +6,29 @@ var mainController = require("../controllers/mainController");
 
 
 router.post("/", function (req, res) {
-    // função a ser chamada quando acessar /carros/cadastrar
     mainController.cadastrar(req, res);
 });
 
-router.get("/", function (req, res) {
-    // função a ser quando acessar /carros/listar
+router.get("/feed", function (req, res) {
     mainController.listar(req, res);
 });
+
+
+router.post('/quiz', function(req, res){
+    mainController.cadastrarQuiz(req, res);
+});
+
+
+
+
+
+// router.get("/grafico/pizza", function (req, res){
+//     mainController.GraficodePizza(req, res);
+// });
+
+// router.get('/grafico/barra', function (req, res){
+//     mainController.GraficodeBarra(req, res);
+// });
 
 
 

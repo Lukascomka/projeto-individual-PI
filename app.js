@@ -53,7 +53,7 @@ app.use('/empresas', empresasRouter);
 
 //meu app.use
 app.use("/main",mainRouter);
-// app.use('/main', mainRoutess);
+// app.use('/cadastrarQuiz', mainRouter);
 
 
 

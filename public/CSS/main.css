@@ -420,7 +420,6 @@ div .seta img {
   flex-direction: column;
   gap: 15px;
   min-width: 100%;
-  min-height: 31%;
 }
 
 #cards {

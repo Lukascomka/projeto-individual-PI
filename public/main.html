@@ -39,6 +39,7 @@
             <div class="posts">
 
                 <div id="aposPost"></div>
+
             </div>
             <div class="class_mensagem"></div>
             <div class="class-quiz">
@@ -73,8 +74,8 @@
 
 <script>
 
-    let myChart1 = null;
-    let myChart2 = null;
+    // let myChart1 = null;
+    // let myChart2 = null;
     let nome = "Jogador"; // Definindo um nome padrão
 
     const divs = document.getElementsByClassName('nav-selection');
@@ -114,29 +115,69 @@
     let cards = document.querySelector(".cards")
 
     // Variáveis do quiz - RESETADAS a cada novo quiz
+
+    
+
     let porcentagemFinalDeAcertos = 0
+
     let pontuacaoFinal = 0;
     let quantidadeDeQuestoes = 10;
     let tentativaIncorreta = 0;
     let RespostaCorreta = 0;
     let RespostaErrada = 0;
     let respostaUsuario = [];
-
-    
-
-    // posts que o usuario ira fazer
+    let pontuacaoFial = 0;
     let posteusuario = [{
-            post:
-             {
+        post:
+        {
             conteudo: [],
             dataPublicacao: [],
-             }
-                 }];
+        }
+    }];
 
 
 
 
 
+
+
+
+   
+    // function carregarGraficoDePizza() {
+    
+
+    //         fetch("main/grafico")
+    //         .then( function (resposta) {
+    //             console.log("Estou no then do grafico")
+    //             if(resposta.ok){
+    //                 console.log(resposta)
+    //                 resposta.json().then(json => {
+    //                     console.log(json)
+    //                     console.log(JSON.stringify(json));
+
+
+    //                 })
+    //                     throw new Error(`HTTP error! status: ${resposta.status}`);
+    //             }     
+    //                 return resposta.json()
+        
+    //             }). then()
+
+    // }
+    
+
+
+
+
+
+
+
+
+    window.onload = function () {
+        // carregarGraficoDePizza()
+        carregarFeedDePosts();
+
+    }
 
 
 
@@ -188,6 +229,50 @@
         }
     ];
 
+    function carregarFeedDePosts() {
+        fetch("/main/feed")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(posts => {
+                const feedContainer = document.getElementById('feed-de-posts');
+
+                if (feedContainer) {
+                    feedContainer.innerHTML = '';
+                    if (posts.length > 0) {
+                        posts.forEach(post => {
+                            const postContainer = document.createElement('div');
+                            postContainer.id = 'cards_post';
+                            const cardDiv = document.createElement('div');
+                            cardDiv.classList.add('card');
+
+                            cardDiv.innerHTML = `
+                            ${post.nome_usuario ? `<strong>${post.nome_usuario}:</strong> ` : ''}${post.conteudo_publicacao}<br>
+                            <small>${new Date(post.dataPublicacao).toLocaleDateString()} ${new Date(post.dataPublicacao).toLocaleTimeString()}</small>
+                        `;
+
+                            postContainer.appendChild(cardDiv);
+                            feedContainer.appendChild(postContainer);
+                        });
+                    } else {
+                        feedContainer.innerHTML = '<p>Ainda não há posts no feed.</p>';
+                    }
+                } else {
+                    console.error("Elemento 'feed-de-posts' não encontrado no HTML.");
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao carregar o feed de posts:', error);
+                const feedContainer = document.getElementById('feed-de-posts');
+                if (feedContainer) {
+                    feedContainer.innerHTML = '<p>Erro ao carregar o feed.</p>';
+                }
+            });
+    }
+
 
     function resetQuizVariables() {
         pontuacaoFinal = 0;
@@ -201,26 +286,33 @@
     function homepage() {
         reset();
 
+        if (typeof msg_home !== 'undefined' && msg_home !== null) {
+            msg_home.innerHTML = `<h1>Bem Vindo ${nome || 'Convidado'}👋</h1>`;
+        } else {
+            console.error("Elemento 'msg_home' não encontrado.");
+        }
 
-        msg_home.innerHTML = `<h1>Bem Vindo ${nome}👋</h1>`;
-
-        posts.innerHTML = `
-        <div class="post-header">
-            <span>nome_post</span>
-        </div>
-        <div class="post-conteudo">
-            <textarea type="text" id="ipt_conteudo_postado" placeholder="Poste algo para os amigos"></textarea>
-            <div id="cards"></div>
-        </div>
-        <div class="post-footer">
-            <button onclick="postar()">Postar</button>
+        if (typeof posts !== 'undefined' && posts !== null) {
+            posts.innerHTML = `
+            <div class="post-header">
+                <span>nome_post</span> </div>
+            <div class="post-conteudo">
+                <textarea type="text" id="ipt_conteudo_postado" placeholder="Poste algo para os amigos"></textarea>
+                <div id="cards"></div>
             </div>
-            <div id="aposPost"></div>
-    `;
+            <div class="post-footer">
+                <button onclick="postar()">Postar</button>
+            </div>
+            <div id="feed-de-posts"></div> `;
+        } else {
+            console.error("Elemento 'posts' não encontrado.");
+        }
+
+        carregarFeedDePosts();
 
     }
 
-    
+
     function postar() {
 
         const conteudoPost = (ipt_conteudo_postado).value;
@@ -234,36 +326,36 @@
 
         fetch("/main", {
             method: "POST",
-            headers:{
+            headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ 
-                
-                    conteudo: conteudoPost,
-                    dataPublicacao: dataPublicacao
+            body: JSON.stringify({
 
-             })
+                conteudo: conteudoPost,
+                dataPublicacao: dataPublicacao
+
+            })
         })
-        .then(function (resposta) {
-            console.log("resposta: ", resposta);
-            if(resposta.ok) {
-                console.log("Post enviado com sucesso para o backend!")
-            } else{
-                resposta.json().then(errorData =>{
-                    console.error("Erro ao enviar post para o back end", errorData)
-                }).catch(() => {
-                    console.error("Erro ao enviar post para o backend. Status do erro: ", resposta.status)
-                })
-            }
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+                if (resposta.ok) {
+                    console.log("Post enviado com sucesso para o backend!")
+                } else {
+                    resposta.json().then(errorData => {
+                        console.error("Erro ao enviar post para o back end", errorData)
+                    }).catch(() => {
+                        console.error("Erro ao enviar post para o backend. Status do erro: ", resposta.status)
+                    })
+                }
             })
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
             });
 
-if(typeof aposPost !== 'undefined' && aposPost !== null){
+        if (typeof aposPost !== 'undefined' && aposPost !== null) {
 
-    
-    aposPost.innerHTML += `
+
+            aposPost.innerHTML += `
         
             <div id="cards_post">
                 <div class="card">
@@ -273,14 +365,14 @@ if(typeof aposPost !== 'undefined' && aposPost !== null){
                     </div>
                     </div>
                     `;
-                    }else {
-                        console.error("Elemento aposPost não encontrado. Os post não seram exibidos")
-                    }
-                    if(typeof ipt_conteudo_postado !== 'undefined' && ipt_conteudo_postado !== null ){
-                        ipt_conteudo_postado.value ="";
-                    }
-                    
-            }
+        } else {
+            console.error("Elemento aposPost não encontrado. Os post não seram exibidos")
+        }
+        if (typeof ipt_conteudo_postado !== 'undefined' && ipt_conteudo_postado !== null) {
+            ipt_conteudo_postado.value = "";
+        }
+
+    }
 
     function mensagem() {
         reset();
@@ -338,10 +430,15 @@ if(typeof aposPost !== 'undefined' && aposPost !== null){
                     </div>
                     <div class="conteudo_options_console"></div>
                     `;
+
+
+
+
     }
+   
 
     function optconsole() {
-        const select_option = document.getElementById('optconsoleid').value;
+        select_option = document.getElementById('optconsoleid').value;
         const div_escolha = document.querySelector(".conteudo_options_console");
 
         if (select_option === '#') {
@@ -777,7 +874,7 @@ if(typeof aposPost !== 'undefined' && aposPost !== null){
         myChart1 = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ['PLAYSTATION', 'XBOX', 'FLIPERAMA'],
+                labels: ['Playstation', 'Xbox', 'Fliperama'],
                 datasets: [{
                     label: '# of Votes',
                     data: [12, 19, 3],
@@ -794,7 +891,7 @@ if(typeof aposPost !== 'undefined' && aposPost !== null){
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Preferência de Plataformas'
+                        text: 'Grafico de acertos e erros'
                     }
                 }
             }
@@ -828,12 +925,13 @@ if(typeof aposPost !== 'undefined' && aposPost !== null){
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Jogos Mais Populares'
+                        text: 'Ranking de acerto entre os jogadores'
                     }
                 }
             }
         });
     }
+
 
     function reset() {
         msg_home.innerHTML = "";
@@ -846,73 +944,89 @@ if(typeof aposPost !== 'undefined' && aposPost !== null){
     }
 
     function fimQuizPlaystation() {
-        respostaCerta;
-        porcentagemFinalDeAcertos
-        let porcentagemTexto = Math.round(porcentagemFinalDeAcertos * 100);
+    respostaCerta;
+    porcentagemFinalDeAcertos
+    let porcentagemTexto = Math.round(porcentagemFinalDeAcertos * 100);
+    select_option;
+     
+    quantidadeDeQuestoes;
+    tentativaIncorreta;
+    RespostaCorreta = 0; 
+    RespostaErrada = 0;  
 
-        quantidadeDeQuestoes;
-        tentativaIncorreta;
-        RespostaCorreta;
-        RespostaErrada;
+    let respostaGrupo1 = respostaGrupoPlaystation1.value
+    let respostaGrupo2 = respostaGrupoPlaystation2.value
+    let respostaGrupo3 = respostaGrupoPlaystation3.value
+    let respostaGrupo4 = respostaGrupoPlaystation4.value
+    let respostaGrupo5 = respostaGrupoPlaystation5.value
+    let respostaGrupo6 = respostaGrupoPlaystation6.value
+    let respostaGrupo7 = respostaGrupoPlaystation7.value
+    let respostaGrupo8 = respostaGrupoPlaystation8.value
+    let respostaGrupo9 = respostaGrupoPlaystation9.value
+    let respostaGrupo10 = respostaGrupoPlaystation10.value
+    let pontuacaoFial = 0;
+    let selecionadaPlataforma;
+    let nomePlataforma;
 
-        let respostaGrupo1 = respostaGrupoPlaystation1.value;
-        let respostaGrupo2 = respostaGrupoPlaystation2.value;
-        let respostaGrupo3 = respostaGrupoPlaystation3.value;
-        let respostaGrupo4 = respostaGrupoPlaystation4.value;
-        let respostaGrupo5 = respostaGrupoPlaystation5.value;
-        let respostaGrupo6 = respostaGrupoPlaystation6.value;
-        let respostaGrupo7 = respostaGrupoPlaystation7.value;
-        let respostaGrupo8 = respostaGrupoPlaystation8.value;
-        let respostaGrupo9 = respostaGrupoPlaystation9.value;
-        let respostaGrupo10 = respostaGrupoPlaystation10.value;
+    respostaUsuario = [];
 
-        let selecionadaPlataforma;
-        let nomePlataforma;
+    respostaUsuario.push(respostaGrupo1, respostaGrupo2, respostaGrupo3, respostaGrupo4, respostaGrupo5, respostaGrupo6, respostaGrupo7, respostaGrupo8, respostaGrupo9, respostaGrupo10)
 
-        respostaUsuario = [];
-
-        respostaUsuario.push(respostaGrupo1, respostaGrupo2, respostaGrupo3, respostaGrupo4, respostaGrupo5, respostaGrupo6, respostaGrupo7, respostaGrupo8, respostaGrupo9, respostaGrupo10)
-
-
-
-        // console.log(respostaCerta[1].respostas[5])
-
-        for (i = 0; i < respostaCerta.length; i++) {
-
-            if (respostaCerta[i].plataforma == 'playstation') {
-                nomePlataforma = respostaCerta[i].respostas
-
-                for (j = 0; j < respostaUsuario.length; j++) {
-                    if (nomePlataforma[j] == respostaUsuario[j]) {
-                        RespostaCorreta++
-                        pontuacaoFial++
-                    }
-                    else {
-                        RespostaErrada++
-                        tentativaIncorreta++
-                    }
+    for (i = 0; i < respostaCerta.length; i++) {
+        if (respostaCerta[i].plataforma == 'playstation') {
+            nomePlataforma = respostaCerta[i].respostas
+            for (j = 0; j < respostaUsuario.length; j++) {
+                if (nomePlataforma[j] == respostaUsuario[j]) {
+                    RespostaCorreta++;
+                    pontuacaoFial++;
+                } else {
+                    RespostaErrada++;
+                    tentativaIncorreta++;
                 }
             }
         }
-        let porcentagemFInalDeAcertos = RespostaCorreta / quantidadeDeQuestoes;
+    }
+    let porcentagemFInalDeAcertos = RespostaCorreta / quantidadeDeQuestoes;
+    porcentagemFinalDeAcertos = porcentagemFInalDeAcertos; // Atualizar a variável global
 
-        if (porcentagemFInalDeAcertos <= 0.3) {
-            prompt(`Game Over!
-            Você acertou ${porcentagemTexto}% das questões`)
-        }
-        else if (porcentagemFInalDeAcertos > 0.3 && porcentagemFInalDeAcertos < 0.9) {
-            prompt(`Tem que upar mais o seu personagem 
-            Você acertou ${porcentagemTexto}% das questões`);
-        }
-        else if (porcentagemFInalDeAcertos >= 0.9) {
-            prompt(`Você tem evoluido constantemente, parabéns!
-            Você acertou ${porcentagemTexto}% das questões`);
-        }
-
-
+    if (porcentagemFInalDeAcertos <= 0.3) {
+        prompt(`Game Over!\nVocê acertou ${porcentagemTexto}% das questões`);
+    } else if (porcentagemFInalDeAcertos > 0.3 && porcentagemFInalDeAcertos < 0.9) {
+        prompt(`Tem que upar mais o seu personagem \nVocê acertou ${porcentagemTexto}% das questões`);
+    } else if (porcentagemFInalDeAcertos >= 0.9) {
+        prompt(`Você tem evoluido constantemente, parabéns!\nVocê acertou ${porcentagemTexto}% das questões`);
     }
 
+    
 
+    fetch("/main/quiz", { //minha rota da api
+        method: "POST", //tipo de metodo
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ //converter para json
+            RespostaCorreta,
+            RespostaErrada,
+            
+        }) // aqui eu envio as minhas variaveis para serem convertidas em json, pois o back espera em json. Estou no caso enviando as respostas do meu usuario.
+
+    })
+        .then(function (resposta) { //tratamento dos erros e acertos caso seja enviado pelo fetch ou não
+            console.log("resposta: ", resposta);
+            if (resposta.ok) {
+                console.log("Quiz feito pelo usuario enviado com sucesso para o backend");
+            } else {
+                resposta.json().then(errorData => {
+                    console.error("Erro ao enviar quiz para o back end", errorData);
+                }).catch(() => {
+                    console.error("Erro ao enviar quiz para o backend. Status do erro: ", resposta.status);
+                });
+            }
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+}
     function fimQuizXbox() {
         respostaUsuario
         respostaCerta;
@@ -949,7 +1063,7 @@ if(typeof aposPost !== 'undefined' && aposPost !== null){
                 for (j = 0; j < respostaUsuario.length; j++) {
                     if (nomePlataforma[j] == respostaUsuario[j]) {
                         RespostaCorreta++
-                        pontuacaoFial++
+                        pontuacaoFinal++
                     }
                     else {
                         RespostaErrada++
