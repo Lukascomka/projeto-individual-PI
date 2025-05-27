@@ -11,7 +11,7 @@ function listar() {
     FROM usuario
     INNER JOIN publicacao 
     ON usuario.id_usuario = publicacao.Fk_id_usuario
-    order by publicacao.dataPublicacao desc;;
+    order by publicacao.dataPublicacao desc;
     
     `;
 
@@ -32,11 +32,11 @@ function cadastrar(conteudo_publicacao, dataPublicacao) {
 }
 
 function cadastrarQuiz(
-    Fkid_usuario, 
-    Fkid_Quiz, 
-    RespostaCorreta, 
+    Fkid_usuario,
+    Fkid_Quiz,
+    RespostaCorreta,
     RespostaErrada
-    ) {
+) {
 
     var instrucao = `
         INSERT INTO respostaUsuarioQuiz (Fkid_usuario, Fkid_Quiz, acerto, erro)
@@ -49,41 +49,53 @@ function cadastrarQuiz(
 
 
 
+
+function GraficodePizza() {
+    var instrucao = `
+            SELECT 
+            usuario.nome AS nome_usuario,
+            AVG(respostaUsuarioQuiz.acerto) AS total_acertos,
+            AVG(respostaUsuarioQuiz.erro) AS total_erros
+            FROM usuario
+            INNER JOIN respostaUsuarioQuiz
+            ON usuario.id_usuario = respostaUsuarioQuiz.Fkid_usuario
+            WHERE usuario.id_usuario = 1
+            GROUP BY usuario.nome, usuario.id_usuario;
+        `;
+    console.log('Executando a instrução SQL para listar o gráfico individual\n ' + instrucao);
+    return database.executar(instrucao);
+}
+
+function GraficodeBarra() {
+    var instrucao = `
+            SELECT
+    usuario.nome AS nome_usuario, 
+    SUM(respostaUsuarioQuiz.acerto) AS total_acertos,
+    SUM(respostaUsuarioQuiz.erro) AS total_erros,
+    usuario.id_usuario,
+    quiz.tipodeQuiz
+FROM usuario
+INNER JOIN respostaUsuarioQuiz
+    ON usuario.id_usuario = respostaUsuarioQuiz.Fkid_usuario
+INNER JOIN quiz
+    ON respostaUsuarioQuiz.Fkid_Quiz = quiz.idQuiz  
+GROUP BY 
+    usuario.id_usuario, 
+    usuario.nome,
+    quiz.tipodeQuiz
+ORDER BY total_acertos DESC;
+
+        `;
+    console.log('Executando a instrução SQL para listar o gráfico geral \n ' + instrucao);
+    return database.executar(instrucao);
+}
+
+
 module.exports = {
     cadastrar,
     listar,
-    cadastrarQuiz
+    cadastrarQuiz,
+    GraficodeBarra,
+    GraficodePizza
 };
-    // GraficodePizza,
-    // function GraficodePizza() {
-    //     var instrucao = `
-    //         SELECT 
-    //             usuario.nome AS nome_usuario,
-    //             AVG(respostaUsuarioQuiz.acerto) AS total_acertos,
-    //             AVG(respostaUsuarioQuiz.erro) AS total_erros
-    //         FROM usuario
-    //         INNER JOIN respostaUsuarioQuiz
-    //             ON usuario.id_usuario = respostaUsuarioQuiz.Fkid_usuario
-    //         WHERE usuario.id_usuario = 8
-    //         GROUP BY usuario.nome, usuario.id_usuario;
-    //     `;
-    //     console.log('Executando a instrução SQL para listar o gráfico individual\n ' + instrucao);
-    //     return database.executar(instrucao);
-    // }
-    
-    // function GraficodeBarra() {
-    //     var instrucao = `
-    //         SELECT
-    //             usuario.nome AS nome_usuario, 
-    //             SUM(respostaUsuarioQuiz.acerto) AS total_acertos,
-    //             SUM(respostaUsuarioQuiz.erro) AS total_erros
-    //         FROM usuario
-    //         INNER JOIN respostaUsuarioQuiz
-    //             ON usuario.id_usuario = respostaUsuarioQuiz.Fkid_usuario
-    //         GROUP BY usuario.id_usuario, usuario.nome
-    //         ORDER BY total_acertos DESC;
-    //     `;
-    //     console.log('Executando a instrução SQL para listar o gráfico geral \n ' + instrucao);
-    //     return database.executar(instrucao);
-    // }
-    // GraficodeBarra
+

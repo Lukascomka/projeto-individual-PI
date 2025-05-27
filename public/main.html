@@ -74,8 +74,7 @@
 
 <script>
 
-    // let myChart1 = null;
-    // let myChart2 = null;
+
     let nome = "Jogador"; // Definindo um nome padrão
 
     const divs = document.getElementsByClassName('nav-selection');
@@ -116,7 +115,7 @@
 
     // Variáveis do quiz - RESETADAS a cada novo quiz
 
-    
+
 
     let porcentagemFinalDeAcertos = 0
 
@@ -142,9 +141,9 @@
 
 
 
-   
+
     // function carregarGraficoDePizza() {
-    
+
 
     //         fetch("main/grafico")
     //         .then( function (resposta) {
@@ -160,11 +159,11 @@
     //                     throw new Error(`HTTP error! status: ${resposta.status}`);
     //             }     
     //                 return resposta.json()
-        
+
     //             }). then()
 
     // }
-    
+
 
 
 
@@ -272,6 +271,100 @@
                 }
             });
     }
+
+        const nomeUsuario = [];
+        const QtdErros = []
+        const QtdAcertos = []
+        const tipodeQuiz = []
+        const Fliperama = []
+        const Xbox = []
+        const Playstation = []
+    function obterDadosParaQuiz() {
+
+
+fetch('/main/obterDados')
+    .then(function (response) {
+        return response.json();
+    })
+    .then(data => {
+        nomeUsuario;
+        QtdErros;
+        QtdAcertos;
+        tipodeQuiz;
+        Fliperama;
+        Xbox;
+        Playstation
+        for(i=0; i< data.length;i++){
+        if(data[i].nome_usuario && data[i].total_acertos && data[i].total_erros && data[i].tipodeQuiz){
+            nomeUsuario.push(data[i].nome_usuario)
+            QtdAcertos.push(data[i].total_acertos)
+            QtdErros.push(data[i].total_erros)
+            tipodeQuiz.push(data[i].tipodeQuiz)
+            if(tipodeQuiz[i] == 'fliperama'){
+                Fliperama.push(tipodeQuiz[i])
+
+            }
+            else if( tipodeQuiz[i] == 'playstation'){
+                Playstation.push(tipodeQuiz[i])
+            }
+            else if(tipodeQuiz[i] == 'xbox'){
+                Xbox.push(tipodeQuiz[i])
+            }
+
+            console.log('aqui está o nome do usuario', nomeUsuario)
+            console.log('aquiestá o total_de_acertos',QtdAcertos)
+            console.log('aqui esta a quantidade de erros', QtdErros)
+            console.log("Aqui está o tipo de quiz", tipodeQuiz)
+            console.log('Xbox', Xbox)
+            console.log('Playstation', Playstation)
+            console.log('Fliperama', Fliperama)
+                        
+        }
+        }
+
+        console.log("Dados do gráfico de barras:", data)
+        plotarGraficoBarra(data)
+    })
+    .catch(function (error) {
+        console.error(error);
+    });
+
+}
+
+
+function obterDadosParaQuizPizza() {
+
+
+
+fetch('/main/obterDadosPizza')
+    .then(function (response) {
+        return response.json();
+
+    })
+    .then(function (data) {
+        console.log("Dados do gráfico de pizza:", data)
+
+        plotarGraficoPizza(data)
+       
+            if (data.nome_usuario) {
+                console.log('aqui está o nome do usuario', data.nome_usuario)
+                nomeDoUsuario = data[0].nome_usuario
+            }
+
+    
+    })
+
+    .catch(function (error) {
+        console.error(error);
+    });
+
+}
+
+
+
+
+
+
 
 
     function resetQuizVariables() {
@@ -435,7 +528,7 @@
 
 
     }
-   
+
 
     function optconsole() {
         select_option = document.getElementById('optconsoleid').value;
@@ -859,81 +952,17 @@
         }
     }
 
-    function jogosEmAlta() {
-        reset();
-
-        msg_home.innerHTML = `<h1>Bem Vindo ${nome}👋</h1>`
-        dash.innerHTML = ` <div class="conteudo-dash">
-                    <canvas id="myChart"></canvas>
-                    <canvas id="myChart2"></canvas>
-                </div>`;
-
-        const ctx = document.getElementById('myChart');
-        const ctx2 = document.getElementById('myChart2');
-
-        myChart1 = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Playstation', 'Xbox', 'Fliperama'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.7)',
-                        'rgba(54, 162, 235, 0.7)',
-                        'rgba(255, 206, 86, 0.7)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Grafico de acertos e erros'
-                    }
-                }
-            }
-        });
-
-        myChart2 = new Chart(ctx2, {
-            type: 'bar',
-            data: {
-                labels: ['God of War', 'Halo', 'Street Fighter', 'Forza', 'Spider-Man', 'Mortal Kombat'],
-                datasets: [{
-                    label: 'Popularidade dos Jogos',
-                    data: [12, 19, 3, 5, 8, 10],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.5)',
-                        'rgba(54, 162, 235, 0.5)',
-                        'rgba(255, 206, 86, 0.5)',
-                        'rgba(75, 192, 192, 0.5)',
-                        'rgba(153, 102, 255, 0.5)',
-                        'rgba(255, 159, 64, 0.5)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Ranking de acerto entre os jogadores'
-                    }
-                }
-            }
-        });
-    }
-
 
     function reset() {
+        if (myChart) {
+            myChart.destroy();
+            myChart = null;
+        }
+        if (myChart2) {
+            myChart2.destroy();
+            myChart2 = null
+        }
+
         msg_home.innerHTML = "";
         posts.innerHTML = "";
         class_mensagem.innerHTML = "";
@@ -944,89 +973,88 @@
     }
 
     function fimQuizPlaystation() {
-    respostaCerta;
-    porcentagemFinalDeAcertos
-    let porcentagemTexto = Math.round(porcentagemFinalDeAcertos * 100);
-    select_option;
-     
-    quantidadeDeQuestoes;
-    tentativaIncorreta;
-    RespostaCorreta = 0; 
-    RespostaErrada = 0;  
+        respostaCerta;
+        porcentagemFinalDeAcertos
+        let porcentagemTexto = Math.round(porcentagemFinalDeAcertos * 100);
+        select_option;
 
-    let respostaGrupo1 = respostaGrupoPlaystation1.value
-    let respostaGrupo2 = respostaGrupoPlaystation2.value
-    let respostaGrupo3 = respostaGrupoPlaystation3.value
-    let respostaGrupo4 = respostaGrupoPlaystation4.value
-    let respostaGrupo5 = respostaGrupoPlaystation5.value
-    let respostaGrupo6 = respostaGrupoPlaystation6.value
-    let respostaGrupo7 = respostaGrupoPlaystation7.value
-    let respostaGrupo8 = respostaGrupoPlaystation8.value
-    let respostaGrupo9 = respostaGrupoPlaystation9.value
-    let respostaGrupo10 = respostaGrupoPlaystation10.value
-    let pontuacaoFial = 0;
-    let selecionadaPlataforma;
-    let nomePlataforma;
+        quantidadeDeQuestoes;
+        RespostaCorreta = 0;
+        RespostaErrada = 0;
 
-    respostaUsuario = [];
+        let respostaGrupo1 = respostaGrupoPlaystation1.value
+        let respostaGrupo2 = respostaGrupoPlaystation2.value
+        let respostaGrupo3 = respostaGrupoPlaystation3.value
+        let respostaGrupo4 = respostaGrupoPlaystation4.value
+        let respostaGrupo5 = respostaGrupoPlaystation5.value
+        let respostaGrupo6 = respostaGrupoPlaystation6.value
+        let respostaGrupo7 = respostaGrupoPlaystation7.value
+        let respostaGrupo8 = respostaGrupoPlaystation8.value
+        let respostaGrupo9 = respostaGrupoPlaystation9.value
+        let respostaGrupo10 = respostaGrupoPlaystation10.value
+        let pontuacaoFial = 0;
+        let selecionadaPlataforma;
+        let nomePlataforma;
 
-    respostaUsuario.push(respostaGrupo1, respostaGrupo2, respostaGrupo3, respostaGrupo4, respostaGrupo5, respostaGrupo6, respostaGrupo7, respostaGrupo8, respostaGrupo9, respostaGrupo10)
+        respostaUsuario = [];
 
-    for (i = 0; i < respostaCerta.length; i++) {
-        if (respostaCerta[i].plataforma == 'playstation') {
-            nomePlataforma = respostaCerta[i].respostas
-            for (j = 0; j < respostaUsuario.length; j++) {
-                if (nomePlataforma[j] == respostaUsuario[j]) {
-                    RespostaCorreta++;
-                    pontuacaoFial++;
-                } else {
-                    RespostaErrada++;
-                    tentativaIncorreta++;
+        respostaUsuario.push(respostaGrupo1, respostaGrupo2, respostaGrupo3, respostaGrupo4, respostaGrupo5, respostaGrupo6, respostaGrupo7, respostaGrupo8, respostaGrupo9, respostaGrupo10)
+
+        for (i = 0; i < respostaCerta.length; i++) {
+            if (respostaCerta[i].plataforma == 'playstation') {
+                nomePlataforma = respostaCerta[i].respostas
+                for (j = 0; j < respostaUsuario.length; j++) {
+                    if (nomePlataforma[j] == respostaUsuario[j]) {
+                        RespostaCorreta++;
+                        pontuacaoFial++;
+                    } else {
+                        RespostaErrada++;
+                        tentativaIncorreta++;
+                    }
                 }
             }
         }
-    }
-    let porcentagemFInalDeAcertos = RespostaCorreta / quantidadeDeQuestoes;
-    porcentagemFinalDeAcertos = porcentagemFInalDeAcertos; // Atualizar a variável global
+        let porcentagemFInalDeAcertos = RespostaCorreta / quantidadeDeQuestoes;
+        porcentagemFinalDeAcertos = porcentagemFInalDeAcertos; // Atualizar a variável global
 
-    if (porcentagemFInalDeAcertos <= 0.3) {
-        prompt(`Game Over!\nVocê acertou ${porcentagemTexto}% das questões`);
-    } else if (porcentagemFInalDeAcertos > 0.3 && porcentagemFInalDeAcertos < 0.9) {
-        prompt(`Tem que upar mais o seu personagem \nVocê acertou ${porcentagemTexto}% das questões`);
-    } else if (porcentagemFInalDeAcertos >= 0.9) {
-        prompt(`Você tem evoluido constantemente, parabéns!\nVocê acertou ${porcentagemTexto}% das questões`);
-    }
+        if (porcentagemFInalDeAcertos <= 0.3) {
+            prompt(`Game Over!\nVocê acertou ${porcentagemTexto}% das questões`);
+        } else if (porcentagemFInalDeAcertos > 0.3 && porcentagemFInalDeAcertos < 0.9) {
+            prompt(`Tem que upar mais o seu personagem \nVocê acertou ${porcentagemTexto}% das questões`);
+        } else if (porcentagemFInalDeAcertos >= 0.9) {
+            prompt(`Você tem evoluido constantemente, parabéns!\nVocê acertou ${porcentagemTexto}% das questões`);
+        }
 
-    
 
-    fetch("/main/quiz", { //minha rota da api
-        method: "POST", //tipo de metodo
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ //converter para json
-            RespostaCorreta,
-            RespostaErrada,
-            
-        }) // aqui eu envio as minhas variaveis para serem convertidas em json, pois o back espera em json. Estou no caso enviando as respostas do meu usuario.
 
-    })
-        .then(function (resposta) { //tratamento dos erros e acertos caso seja enviado pelo fetch ou não
-            console.log("resposta: ", resposta);
-            if (resposta.ok) {
-                console.log("Quiz feito pelo usuario enviado com sucesso para o backend");
-            } else {
-                resposta.json().then(errorData => {
-                    console.error("Erro ao enviar quiz para o back end", errorData);
-                }).catch(() => {
-                    console.error("Erro ao enviar quiz para o backend. Status do erro: ", resposta.status);
-                });
-            }
+        fetch("/main/quiz", { //minha rota da api
+            method: "POST", //tipo de metodo
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ //converter para json
+                RespostaCorreta,
+                RespostaErrada,
+
+            }) // aqui eu envio as minhas variaveis para serem convertidas em json, pois o back espera em json. Estou no caso enviando as respostas do meu usuario.
+
         })
-        .catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
-}
+            .then(function (resposta) { //tratamento dos erros e acertos caso seja enviado pelo fetch ou não
+                console.log("resposta: ", resposta);
+                if (resposta.ok) {
+                    console.log("Quiz feito pelo usuario enviado com sucesso para o backend");
+                } else {
+                    resposta.json().then(errorData => {
+                        console.error("Erro ao enviar quiz para o back end", errorData);
+                    }).catch(() => {
+                        console.error("Erro ao enviar quiz para o backend. Status do erro: ", resposta.status);
+                    });
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
     function fimQuizXbox() {
         respostaUsuario
         respostaCerta;
@@ -1099,6 +1127,7 @@
         tentativaIncorreta;
         RespostaCorreta;
         RespostaErrada;
+        tentativaIncorreta;
 
         let selecionadaPlataforma;
         let nomePlataforma;
@@ -1149,6 +1178,126 @@
         }
 
     }
+
+
+    let myChart = null;
+    let myChart2 = null;
+
+
+    function jogosEmAlta() {
+        reset();
+
+
+
+        msg_home.innerHTML = `<h1>Bem Vindo ${nome}👋</h1>`
+        dash.innerHTML = ` <div class="conteudo-dash">
+                    <canvas id="myChart"></canvas>
+                    <canvas id="myChart2"></canvas>
+                </div>`;
+
+
+
+        obterDadosParaQuiz();
+        obterDadosParaQuizPizza()
+
+    }
+
+
+    
+
+
+
+    function plotarGraficoPizza(dados) {
+        const ctx = document.getElementById('myChart');
+
+
+        myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Erros', 'Acertos'],
+                datasets: [{
+                    label: 'Respostas Certas',
+                    data: dados,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(54, 162, 235, 0.7)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspecRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Grafico de acertos e erros'
+                    }
+                }
+            }
+        });
+
+    }
+
+    function plotarGraficoBarra(dados) {
+
+        const ctx2 = document.getElementById('myChart2');
+
+
+        myChart2 = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['Playstation'],
+                datasets: [{
+                    label: 'Méida geral do quiz',
+                    data: [QtdErros,QtdAcertos],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+
+                    ],
+                    borderWidth: 1
+                }]
+            },data: {
+                labels: ['Playstation'],
+                datasets: [{
+                    label: 'Méida geral do quiz',
+                    data: [QtdErros,QtdAcertos],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                responsive: true,
+                maintainAspecRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Ranking de acerto entre os jogadores'
+                    }
+                }
+            }
+        });
+
+
+    }
+
+
+
+
+
+
 
 
 

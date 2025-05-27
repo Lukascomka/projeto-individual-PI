@@ -36,6 +36,27 @@ function cadastrar(req, res) {
 }
 
 
+function cadastrarQuiz(req, res) {
+    console.log("Request Body:", req.body);
+    const { RespostaCorreta, RespostaErrada } = req.body;
+
+    
+    const Fkid_usuario = 1; // Substituir pela lógica real do usuário logado
+    const Fkid_Quiz = 2;    // Substituir pela lógica real do quiz atual
+
+    if (RespostaCorreta === undefined || RespostaErrada === undefined || !Fkid_usuario || !Fkid_Quiz) {
+        return res.status(400).send('Dados do quiz incompletos.');
+    }
+
+    mainModel.cadastrarQuiz(Fkid_usuario, Fkid_Quiz, RespostaCorreta, RespostaErrada)
+        .then(() => {
+            res.status(200).send("Quiz Respondido com sucesso!");
+        })
+        .catch(erro => {
+            console.error("Erro ao cadastrar quiz:", erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
 
 
 
@@ -43,7 +64,9 @@ function GraficodePizza(req, res) {
     mainModel.GraficodePizza()
         .then(function (resultado) {
             if (resultado.length > 0) {
-                res.status(200).json(resultado);
+                res.status(200).json(resultado)
+                    
+                ;
             } else {
                 res.status(204).send("Nenhum resultado encontrado para o gráfico de pizza!");
             }
@@ -70,34 +93,12 @@ function GraficodeBarra(req, res) {
 }
 
 
-function cadastrarQuiz(req, res) {
-    console.log("Request Body:", req.body);
-    const { RespostaCorreta, RespostaErrada } = req.body;
-
-    
-    const Fkid_usuario = 1; // Substituir pela lógica real do usuário logado
-    const Fkid_Quiz = 1;    // Substituir pela lógica real do quiz atual
-
-    if (RespostaCorreta === undefined || RespostaErrada === undefined || !Fkid_usuario || !Fkid_Quiz) {
-        return res.status(400).send('Dados do quiz incompletos.');
-    }
-
-    mainModel.cadastrarQuiz(Fkid_usuario, Fkid_Quiz, RespostaCorreta, RespostaErrada)
-        .then(() => {
-            res.status(200).send("Quiz Respondido com sucesso!");
-        })
-        .catch(erro => {
-            console.error("Erro ao cadastrar quiz:", erro);
-            res.status(500).json(erro.sqlMessage);
-        });
-}
-
 module.exports = {
     listar,
     cadastrar,
-    cadastrarQuiz
-    // GraficodePizza,
-    // GraficodeBarra
+    cadastrarQuiz,
+    GraficodePizza,
+    GraficodeBarra
 
 };
 
