@@ -272,93 +272,95 @@
             });
     }
 
-        const nomeUsuario = [];
-        const QtdErros = []
-        const QtdAcertos = []
-        const tipodeQuiz = []
-        const Fliperama = []
-        const Xbox = []
-        const Playstation = []
+    const nomeUsuario = [];
+    const QtdErros = []
+    const QtdAcertos = []
+    const tipodeQuiz = []
+    const Fliperama = []
+    const Xbox = []
+    const Playstation = []
     function obterDadosParaQuiz() {
 
 
-fetch('/main/obterDados')
-    .then(function (response) {
-        return response.json();
-    })
-    .then(data => {
-        nomeUsuario;
-        QtdErros;
-        QtdAcertos;
-        tipodeQuiz;
-        Fliperama;
-        Xbox;
-        Playstation
-        for(i=0; i< data.length;i++){
-        if(  data[i].total_acertos && data[i].total_erros && data[i].tipodeQuiz){
-            
-            QtdAcertos.push(data[i].total_acertos)
-            QtdErros.push(data[i].total_erros)
-            tipodeQuiz.push(data[i].tipodeQuiz)
-            if(tipodeQuiz[i] == 'fliperama'){
-                Fliperama.push(tipodeQuiz[i])
+        fetch('/main/obterDados')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(data => {
+                nomeUsuario;
+                QtdErros;
+                QtdAcertos;
+                tipodeQuiz;
+                Fliperama;
+                Xbox;
+                Playstation
+                for (i = 0; i < data.length; i++) {
+                    if (data[i].total_acertos && data[i].total_erros && data[i].tipodeQuiz) {
 
-            }
-            else if( tipodeQuiz[i] == 'playstation'){
-                Playstation.push(tipodeQuiz[i])
-            }
-            else if(tipodeQuiz[i] == 'xbox'){
-                Xbox.push(tipodeQuiz[i])
-            }
+                        QtdAcertos.push(data[i].total_acertos)
+                        QtdErros.push(data[i].total_erros)
+                        tipodeQuiz.push(data[i].tipodeQuiz)
+                        if (tipodeQuiz[i] == 'fliperama') {
+                            Fliperama.push(tipodeQuiz[i])
 
-            // console.log('aqui está o nome do usuario', nomeUsuario)
-            
-        }
+                        }
+                        else if (tipodeQuiz[i] == 'playstation') {
+                            Playstation.push(tipodeQuiz[i])
+                        }
+                        else if (tipodeQuiz[i] == 'xbox') {
+                            Xbox.push(tipodeQuiz[i])
+                        }
+
+                        // console.log('aqui está o nome do usuario', nomeUsuario)
+
+                    }
+                }
+                console.log('aquiestá o total_de_acertos', QtdAcertos)
+                console.log('aqui esta a quantidade de erros', QtdErros)
+                console.log("Aqui está o tipo de quiz", tipodeQuiz)
+                console.log('Xbox', Xbox)
+                console.log('Playstation', Playstation)
+                console.log('Fliperama', Fliperama)
+                console.log("Dados do gráfico de barras:", data)
+
+                console.log('-------------------------------------------------------------------------------')
+
+                plotarGraficoBarra(data)
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+
     }
-    console.log('aquiestá o total_de_acertos',QtdAcertos)
-    console.log('aqui esta a quantidade de erros', QtdErros)
-    console.log("Aqui está o tipo de quiz", tipodeQuiz)
-    console.log('Xbox', Xbox)
-    console.log('Playstation', Playstation)
-    console.log('Fliperama', Fliperama)
-
-        console.log("Dados do gráfico de barras:", data)
-        plotarGraficoBarra(data)
-    })
-    .catch(function (error) {
-        console.error(error);
-    });
-
-}
 
 
-function obterDadosParaQuizPizza() {
+    function obterDadosParaQuizPizza() {
 
 
 
-fetch('/main/obterDadosPizza')
-    .then(function (response) {
-        return response.json();
+        fetch('/main/obterDadosPizza')
+            .then(function (response) {
+                return response.json();
 
-    })
-    .then(function (data) {
-        console.log("Dados do gráfico de pizza:", data)
+            })
+            .then(function (data) {
+                console.log("Dados do gráfico de pizza:", data)
 
-        plotarGraficoPizza(data)
-       
-            if (data.nome_usuario) {
-                console.log('aqui está o nome do usuario', data.nome_usuario)
-                nomeDoUsuario = data[0].nome_usuario
-            }
+                plotarGraficoPizza(data)
 
-    
-    })
+                if (data.nome_usuario) {
+                    console.log('aqui está o nome do usuario', data.nome_usuario)
+                    nomeDoUsuario = data[0].nome_usuario
+                }
 
-    .catch(function (error) {
-        console.error(error);
-    });
 
-}
+            })
+
+            .catch(function (error) {
+                console.error(error);
+            });
+
+    }
 
 
 
@@ -1203,7 +1205,7 @@ fetch('/main/obterDadosPizza')
     }
 
 
-    
+
 
 
 
@@ -1214,7 +1216,7 @@ fetch('/main/obterDadosPizza')
         myChart = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ['Erros', 'Acertos'],
+                labels: tipodeQuiz,
                 datasets: [{
                     label: 'Respostas Certas',
                     data: dados,
@@ -1247,28 +1249,14 @@ fetch('/main/obterDadosPizza')
         myChart2 = new Chart(ctx2, {
             type: 'bar',
             data: {
-                labels: ['Playstation'],
+                labels: [tipodeQuiz[0], tipodeQuiz[1], tipodeQuiz[2]], 
                 datasets: [{
-                    label: 'Méida geral do quiz',
-                    data: [QtdErros,QtdAcertos],
+                    label: 'Média geral do quiz',
+                    data: [QtdAcertos[0], QtdAcertos[1], QtdAcertos[2]],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.5)',
                         'rgba(54, 162, 235, 0.5)',
-                        'rgba(255, 206, 86, 0.5)',
-
-                    ],
-                    borderWidth: 1
-                }]
-            },data: {
-                labels: ['Playstation'],
-                datasets: [{
-                    label: 'Méida geral do quiz',
-                    data: [QtdErros,QtdAcertos],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.5)',
-                        'rgba(54, 162, 235, 0.5)',
-                        'rgba(255, 206, 86, 0.5)',
-
+                        'rgba(255, 206, 86, 0.5)'
                     ],
                     borderWidth: 1
                 }]
@@ -1280,7 +1268,7 @@ fetch('/main/obterDadosPizza')
                     }
                 },
                 responsive: true,
-                maintainAspecRatio: false,
+                maintainAspectRatio: false,
                 plugins: {
                     title: {
                         display: true,
@@ -1289,7 +1277,6 @@ fetch('/main/obterDadosPizza')
                 }
             }
         });
-
 
     }
 
