@@ -69,21 +69,17 @@ function GraficodePizza() {
 function GraficodeBarra() {
     var instrucao = `
             SELECT
-    usuario.nome AS nome_usuario, 
-    SUM(respostaUsuarioQuiz.acerto) AS total_acertos,
-    SUM(respostaUsuarioQuiz.erro) AS total_erros,
-    usuario.id_usuario,
-    quiz.tipodeQuiz
+	quiz.tipodeQuiz,
+    AVG(respostaUsuarioQuiz.acerto) AS total_acertos,
+    AVG(respostaUsuarioQuiz.erro) AS total_erros
 FROM usuario
 INNER JOIN respostaUsuarioQuiz
     ON usuario.id_usuario = respostaUsuarioQuiz.Fkid_usuario
 INNER JOIN quiz
     ON respostaUsuarioQuiz.Fkid_Quiz = quiz.idQuiz  
 GROUP BY 
-    usuario.id_usuario, 
-    usuario.nome,
     quiz.tipodeQuiz
-ORDER BY total_acertos DESC;
+;
 
         `;
     console.log('Executando a instrução SQL para listar o gráfico geral \n ' + instrucao);

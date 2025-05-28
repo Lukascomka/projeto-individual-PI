@@ -295,8 +295,8 @@ fetch('/main/obterDados')
         Xbox;
         Playstation
         for(i=0; i< data.length;i++){
-        if(data[i].nome_usuario && data[i].total_acertos && data[i].total_erros && data[i].tipodeQuiz){
-            nomeUsuario.push(data[i].nome_usuario)
+        if(  data[i].total_acertos && data[i].total_erros && data[i].tipodeQuiz){
+            
             QtdAcertos.push(data[i].total_acertos)
             QtdErros.push(data[i].total_erros)
             tipodeQuiz.push(data[i].tipodeQuiz)
@@ -311,16 +311,16 @@ fetch('/main/obterDados')
                 Xbox.push(tipodeQuiz[i])
             }
 
-            console.log('aqui está o nome do usuario', nomeUsuario)
-            console.log('aquiestá o total_de_acertos',QtdAcertos)
-            console.log('aqui esta a quantidade de erros', QtdErros)
-            console.log("Aqui está o tipo de quiz", tipodeQuiz)
-            console.log('Xbox', Xbox)
-            console.log('Playstation', Playstation)
-            console.log('Fliperama', Fliperama)
-                        
+            // console.log('aqui está o nome do usuario', nomeUsuario)
+            
         }
-        }
+    }
+    console.log('aquiestá o total_de_acertos',QtdAcertos)
+    console.log('aqui esta a quantidade de erros', QtdErros)
+    console.log("Aqui está o tipo de quiz", tipodeQuiz)
+    console.log('Xbox', Xbox)
+    console.log('Playstation', Playstation)
+    console.log('Fliperama', Fliperama)
 
         console.log("Dados do gráfico de barras:", data)
         plotarGraficoBarra(data)
