@@ -279,9 +279,9 @@
     const Fliperama = []
     const Xbox = []
     const Playstation = []
+
     function obterDadosParaQuiz() {
-
-
+        //Grafico de barra Fetch
         fetch('/main/obterDados')
             .then(function (response) {
                 return response.json();
@@ -321,8 +321,6 @@
                 console.log('Xbox', Xbox)
                 console.log('Playstation', Playstation)
                 console.log('Fliperama', Fliperama)
-                console.log("Dados do gráfico de barras:", data)
-
                 console.log('-------------------------------------------------------------------------------')
 
                 plotarGraficoBarra(data)
@@ -333,10 +331,11 @@
 
     }
 
+    const nomeUsuarioAtual = [];
+    const totalAcertosUsuarioAtual = [];
+    const totalErrosUsuarioAtual = [];
 
     function obterDadosParaQuizPizza() {
-
-
 
         fetch('/main/obterDadosPizza')
             .then(function (response) {
@@ -345,6 +344,19 @@
             })
             .then(function (data) {
                 console.log("Dados do gráfico de pizza:", data)
+
+                if (data[0].nome_usuario && data[0].total_acertos && data[0].total_erros) {
+
+                    nomeUsuarioAtual.push(data[0].nome_usuario)
+                    totalAcertosUsuarioAtual.push(data[0].total_acertos)
+                    totalErrosUsuarioAtual.push(data[0].total_erros)
+                    console.log("Aqui começa os dados do gráfico de pízza")
+                    console.log(nomeUsuarioAtual)
+                    console.log(totalAcertosUsuarioAtual)
+                    console.log(totalErrosUsuarioAtual)
+                }
+
+
 
                 plotarGraficoPizza(data)
 
@@ -1211,18 +1223,25 @@
 
     function plotarGraficoPizza(dados) {
         const ctx = document.getElementById('myChart');
+        nomeUsuarioAtual
+        totalAcertosUsuarioAtual
+        totalErrosUsuarioAtual
+
+
+        // if(tipodeQuiz[0] == 'playstation'){
 
 
         myChart = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: tipodeQuiz,
+                labels:['Resposta_Certa', 'Resposta Errada'] ,
                 datasets: [{
-                    label: 'Respostas Certas',
-                    data: dados,
+                    label: 'Seus acertos e seus',
+                    data: [totalAcertosUsuarioAtual[0],totalErrosUsuarioAtual[0]],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.7)',
                         'rgba(54, 162, 235, 0.7)'
+
                     ],
                     borderWidth: 1
                 }]
@@ -1234,12 +1253,79 @@
                     title: {
                         display: true,
                         text: 'Grafico de acertos e erros'
+                    },tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        const label = context.label || '';
+                        const value = context.parsed;
+                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                        const percentage = ((value / total) * 100).toFixed(1);
+                        return `${label}: ${value} (${percentage}%)`;
                     }
                 }
             }
-        });
-
+        }
     }
+});
+    }
+    // else if ( tipodeQuiz[1] == 'xbox'){
+
+    //     myChart = new Chart(ctx, {
+    //         type: 'pie',
+    //         data: {
+    //             labels: tipodeQuiz[1],
+    //             datasets: [{
+    //                 label: 'Respostas Certas',
+    //                 data: [totalAcertosUsuarioAtual[0], totalErrosUsuarioAtual[0], [totalAcertosUsuarioAtual + totalErrosUsuarioAtual / 10]],
+    //                 backgroundColor: [
+    //                     'rgba(255, 99, 132, 0.7)',
+    //                     'rgba(54, 162, 235, 0.7)'
+    //                 ],
+    //                 borderWidth: 1
+    //             }]
+    //         },
+    //         options: {
+    //             responsive: true,
+    //             maintainAspecRatio: false,
+    //             plugins: {
+    //                 title: {
+    //                     display: true,
+    //                     text: 'Grafico de acertos e erros'
+    //                 }
+    //             }
+    //         }
+    //     });
+
+    // }
+    // else {
+    //     myChart = new Chart(ctx, {
+    //         type: 'pie',
+    //         data: {
+    //             labels: tipodeQuiz[2],
+    //             datasets: [{
+    //                 label: 'Respostas Certas',
+    //                 data: [totalAcertosUsuarioAtual[0], totalErrosUsuarioAtual[0], [totalAcertosUsuarioAtual + totalErrosUsuarioAtual / 10]],
+    //                 backgroundColor: [
+    //                     'rgba(255, 99, 132, 0.7)',
+    //                     'rgba(54, 162, 235, 0.7)'
+    //                 ],
+    //                 borderWidth: 1
+    //             }]
+    //         },
+    //         options: {
+    //             responsive: true,
+    //             maintainAspecRatio: false,
+    //             plugins: {
+    //                 title: {
+    //                     display: true,
+    //                     text: 'Grafico de acertos e erros'
+    //                 }
+    //             }
+    //         }
+    //     });
+
+    // }
+    // }
 
     function plotarGraficoBarra(dados) {
 
@@ -1249,9 +1335,9 @@
         myChart2 = new Chart(ctx2, {
             type: 'bar',
             data: {
-                labels: [tipodeQuiz[0], tipodeQuiz[1], tipodeQuiz[2]], 
+                labels: [tipodeQuiz[0], tipodeQuiz[1], tipodeQuiz[2]],
                 datasets: [{
-                    label: 'Média geral do quiz',
+                    label: 'Média geral de todos os jogadores',
                     data: [QtdAcertos[0], QtdAcertos[1], QtdAcertos[2]],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.5)',
