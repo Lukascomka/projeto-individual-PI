@@ -20,12 +20,12 @@ function listar(req,res) {
 
 function cadastrar(req, res) {
     var conteudo_publicacao = req.body.conteudo;
-    var dataPublicacao = req.body.dataPublicacao;
+    
 
     if (conteudo_publicacao == undefined) {
         res.status(400).send("Você não inseriu nada para ser postado");
     } else {
-        mainModel.cadastrar(conteudo_publicacao, dataPublicacao)
+        mainModel.cadastrar(conteudo_publicacao)
             .then(function () {
                 res.status(201).send("Parabéns por seu post!");
             })

@@ -11,7 +11,7 @@ function listar() {
     FROM usuario
     INNER JOIN publicacao 
     ON usuario.id_usuario = publicacao.Fk_id_usuario
-    order by publicacao.dataPublicacao desc;
+    order by publicacao.dataPublicacao asc;
     
     `;
 
@@ -20,10 +20,10 @@ function listar() {
     return database.executar(instrucao);
 }
 
-function cadastrar(conteudo_publicacao, dataPublicacao) {
+function cadastrar(conteudo_publicacao) {
 
     var instrucao = `
-    INSERT INTO publicacao (conteudo_publicacao, Fk_id_usuario, dataPublicacao) VALUES ('${conteudo_publicacao}',1,'${dataPublicacao}' 
+    INSERT INTO publicacao (conteudo_publicacao, Fk_id_usuario) VALUES ('${conteudo_publicacao}',1 
     );
     `;
 

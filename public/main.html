@@ -129,8 +129,7 @@
     let posteusuario = [{
         post:
         {
-            conteudo: [],
-            dataPublicacao: [],
+            conteudo: []
         }
     }];
 
@@ -250,7 +249,6 @@
 
                             cardDiv.innerHTML = `
                             ${post.nome_usuario ? `<strong>${post.nome_usuario}:</strong> ` : ''}${post.conteudo_publicacao}<br>
-                            <small>${new Date(post.dataPublicacao).toLocaleDateString()} ${new Date(post.dataPublicacao).toLocaleTimeString()}</small>
                         `;
 
                             postContainer.appendChild(cardDiv);
@@ -315,13 +313,13 @@
 
                     }
                 }
-                console.log('aquiestá o total_de_acertos', QtdAcertos)
-                console.log('aqui esta a quantidade de erros', QtdErros)
-                console.log("Aqui está o tipo de quiz", tipodeQuiz)
-                console.log('Xbox', Xbox)
-                console.log('Playstation', Playstation)
-                console.log('Fliperama', Fliperama)
-                console.log('-------------------------------------------------------------------------------')
+                // console.log('aquiestá o total_de_acertos', QtdAcertos)
+                // console.log('aqui esta a quantidade de erros', QtdErros)
+                // console.log("Aqui está o tipo de quiz", tipodeQuiz)
+                // console.log('Xbox', Xbox)
+                // console.log('Playstation', Playstation)
+                // console.log('Fliperama', Fliperama)
+                // console.log('-------------------------------------------------------------------------------')
 
                 plotarGraficoBarra(data)
             })
@@ -343,17 +341,17 @@
 
             })
             .then(function (data) {
-                console.log("Dados do gráfico de pizza:", data)
+                // console.log("Dados do gráfico de pizza:", data)
 
                 if (data[0].nome_usuario && data[0].total_acertos && data[0].total_erros) {
 
                     nomeUsuarioAtual.push(data[0].nome_usuario)
                     totalAcertosUsuarioAtual.push(data[0].total_acertos)
                     totalErrosUsuarioAtual.push(data[0].total_erros)
-                    console.log("Aqui começa os dados do gráfico de pízza")
-                    console.log(nomeUsuarioAtual)
-                    console.log(totalAcertosUsuarioAtual)
-                    console.log(totalErrosUsuarioAtual)
+                    // console.log("Aqui começa os dados do gráfico de pízza")
+                    // console.log(nomeUsuarioAtual)
+                    // console.log(totalAcertosUsuarioAtual)
+                    // console.log(totalErrosUsuarioAtual)
                 }
 
 
@@ -423,12 +421,11 @@
     function postar() {
 
         const conteudoPost = (ipt_conteudo_postado).value;
-        const dataPublicacao = new Date().toISOString();
+        
         posteusuario;
 
         posteusuario.push({
-            conteudo: conteudoPost,
-            dataPublicacao: dataPublicacao
+            conteudo: conteudoPost
         });
 
         fetch("/main", {
@@ -438,8 +435,7 @@
             },
             body: JSON.stringify({
 
-                conteudo: conteudoPost,
-                dataPublicacao: dataPublicacao
+                conteudo: conteudoPost
 
             })
         })
@@ -1239,8 +1235,8 @@
                     label: 'Seus acertos e seus',
                     data: [totalAcertosUsuarioAtual[0],totalErrosUsuarioAtual[0]],
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.7)',
-                        'rgba(54, 162, 235, 0.7)'
+                        'rgb(16, 124, 16)',
+                        'black'
 
                     ],
                     borderWidth: 1
@@ -1268,64 +1264,7 @@
     }
 });
     }
-    // else if ( tipodeQuiz[1] == 'xbox'){
 
-    //     myChart = new Chart(ctx, {
-    //         type: 'pie',
-    //         data: {
-    //             labels: tipodeQuiz[1],
-    //             datasets: [{
-    //                 label: 'Respostas Certas',
-    //                 data: [totalAcertosUsuarioAtual[0], totalErrosUsuarioAtual[0], [totalAcertosUsuarioAtual + totalErrosUsuarioAtual / 10]],
-    //                 backgroundColor: [
-    //                     'rgba(255, 99, 132, 0.7)',
-    //                     'rgba(54, 162, 235, 0.7)'
-    //                 ],
-    //                 borderWidth: 1
-    //             }]
-    //         },
-    //         options: {
-    //             responsive: true,
-    //             maintainAspecRatio: false,
-    //             plugins: {
-    //                 title: {
-    //                     display: true,
-    //                     text: 'Grafico de acertos e erros'
-    //                 }
-    //             }
-    //         }
-    //     });
-
-    // }
-    // else {
-    //     myChart = new Chart(ctx, {
-    //         type: 'pie',
-    //         data: {
-    //             labels: tipodeQuiz[2],
-    //             datasets: [{
-    //                 label: 'Respostas Certas',
-    //                 data: [totalAcertosUsuarioAtual[0], totalErrosUsuarioAtual[0], [totalAcertosUsuarioAtual + totalErrosUsuarioAtual / 10]],
-    //                 backgroundColor: [
-    //                     'rgba(255, 99, 132, 0.7)',
-    //                     'rgba(54, 162, 235, 0.7)'
-    //                 ],
-    //                 borderWidth: 1
-    //             }]
-    //         },
-    //         options: {
-    //             responsive: true,
-    //             maintainAspecRatio: false,
-    //             plugins: {
-    //                 title: {
-    //                     display: true,
-    //                     text: 'Grafico de acertos e erros'
-    //                 }
-    //             }
-    //         }
-    //     });
-
-    // }
-    // }
 
     function plotarGraficoBarra(dados) {
 
@@ -1340,9 +1279,9 @@
                     label: 'Média geral de todos os jogadores',
                     data: [QtdAcertos[0], QtdAcertos[1], QtdAcertos[2]],
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.5)',
-                        'rgba(54, 162, 235, 0.5)',
-                        'rgba(255, 206, 86, 0.5)'
+                        'RGB(218, 41, 28)', //Playstation
+                        'rgb(16, 124, 16)', //xbox,
+                        'RGB(0, 255, 255)' //Fliperama
                     ],
                     borderWidth: 1
                 }]
