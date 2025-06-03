@@ -1,41 +1,39 @@
+-- Criação do banco de dados
+CREATE DATABASE videogames;
+USE videogames;
 
-create database videogames;
-use videogames;
-
-create table usuario (
-id_usuario int auto_increment primary key,
-nome varchar(30),
-sobrenome varchar (30),
-email varchar (30) not null UNIQUE, 
-senha varchar(10));
-
-
-CREATE table quiz( 
-    idQuiz int primary key auto_increment,
-    tipoDeQuiz VARCHAR(45) not null
+-- Tabela usuario
+CREATE TABLE usuario (
+  id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(30),
+  sobrenome VARCHAR(30),
+  email VARCHAR(30) NOT NULL UNIQUE,
+  senha VARCHAR(45)
 );
 
-create table respostaUsuarioQuiz (
-
-    
-    Fkid_usuario int,
-    Fkid_Quiz int, 
-    acerto int,
-    erro int,
-    dataPontuacao DATETIME not NULL,
-    
-    Foreign Key (Fkid_usuario) REFERENCES usuario(id_usuario),
-    Foreign Key (Fkid_Quiz) REFERENCES quiz(idQuiz),
-    PRIMARY key (Fkid_usuario,Fkid_Quiz);
+-- Tabela quiz
+CREATE TABLE quiz (
+  idQuiz INT AUTO_INCREMENT PRIMARY KEY,
+  tipodeQuiz VARCHAR(15)
 );
 
-create table publicacao (
-    idPublicacao int primary key auto_increment,
-    conteudo_publicacao text,
-    dataPublicacao datetime
-    Fk_id_usuario int,
-    Foreign Key (Fk_id_usuario) REFERENCES usuario(id_usuario),
+-- Tabela publicacao
+CREATE TABLE publicacao (
+  idPublicacao INT AUTO_INCREMENT PRIMARY KEY,
+  conteudo_publicacao TEXT,
+  dataPublicacao TIMESTAMP,
+  Fk_id_usuario INT,
+  FOREIGN KEY (Fk_id_usuario) REFERENCES usuario(id_usuario)
 );
 
-
-
+-- Tabela respostaUsuarioQuiz
+CREATE TABLE respostaUsuarioQuiz (
+  Fkid_usuario INT NOT NULL,
+  Fkid_Quiz INT NOT NULL,
+  acerto INT,
+  erro INT,
+  dataPontuacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (Fkid_usuario, Fkid_Quiz),
+  FOREIGN KEY (Fkid_usuario) REFERENCES usuario(id_usuario),
+  FOREIGN KEY (Fkid_Quiz) REFERENCES quiz(idQuiz)
+);

@@ -25,10 +25,7 @@ a {
   text-decoration: none;
 }
 
-.alerta_erro{
-  display: flex;
-  justify-content: flex-end;
-}
+
 
 .card_erro {
   display: none;

@@ -48,6 +48,8 @@
 
             </div>
             <div class="dash">
+                <div class="functionMatematica"></div>
+
             </div>
         </div>
     </div>
@@ -77,33 +79,7 @@
 
     let nome = "Jogador"; // Definindo um nome padrão
 
-    const divs = document.getElementsByClassName('nav-selection');
-    const imgNormal = [
-        './assets/img/home (1) 1.png',
-        './assets/img/mensagens.png',
-        './assets/img/game-controller_17846449.png',
-        './assets/img/dashboard (1) 1.png',
-    ];
 
-    const imgAtivas = [
-        './assets/img/ativo-home-page.png',
-        './assets/img/ativo-mensagem.png',
-        './assets/img/ativo-game-controller.png',
-        './assets/img/ativo-dashboard.png'
-    ];
-
-    for (let i = 0; i < divs.length; i++) {
-        divs[i].addEventListener('click', function () {
-
-            for (let o = 0; o < divs.length; o++) {
-                divs[o].classList.remove('ativo');
-                divs[o].querySelector('img').src = imgNormal[o];
-            }
-
-            divs[i].classList.add('ativo');
-            divs[i].querySelector('img').src = imgAtivas[i];
-        });
-    }
 
     const class_mensagem = document.querySelector(".class_mensagem");
     const posts = document.querySelector(".posts");
@@ -141,27 +117,7 @@
 
 
 
-    // function carregarGraficoDePizza() {
-
-
-    //         fetch("main/grafico")
-    //         .then( function (resposta) {
-    //             console.log("Estou no then do grafico")
-    //             if(resposta.ok){
-    //                 console.log(resposta)
-    //                 resposta.json().then(json => {
-    //                     console.log(json)
-    //                     console.log(JSON.stringify(json));
-
-
-    //                 })
-    //                     throw new Error(`HTTP error! status: ${resposta.status}`);
-    //             }     
-    //                 return resposta.json()
-
-    //             }). then()
-
-    // }
+   
 
 
 
@@ -820,7 +776,7 @@
     </div>
     <button onclick="fimQuizXbox()" class="buttonQuiz">Terminar Quiz</button>
     <div class="FinalQuiz" id="FinalQuiz">
-    </div>`;
+    </div>`;       
 
         }
         else if (select_option == 'fliperama') {
@@ -958,10 +914,8 @@
 
     <button onclick="fimQuizFliperama()" class="buttonQuiz">Terminar Quiz</button>
    `;
-
         }
     }
-
 
     function reset() {
         if (myChart) {
@@ -1045,6 +999,7 @@
             body: JSON.stringify({ //converter para json
                 RespostaCorreta,
                 RespostaErrada,
+                
 
             }) // aqui eu envio as minhas variaveis para serem convertidas em json, pois o back espera em json. Estou no caso enviando as respostas do meu usuario.
 
@@ -1126,6 +1081,37 @@
         }
 
 
+
+        fetch("/main/quiz", { //minha rota da api
+            method: "POST", //tipo de metodo
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ //converter para json
+                RespostaCorreta,
+                RespostaErrada,
+                
+
+            }) // aqui eu envio as minhas variaveis para serem convertidas em json, pois o back espera em json. Estou no caso enviando as respostas do meu usuario.
+
+        })
+            .then(function (resposta) { //tratamento dos erros e acertos caso seja enviado pelo fetch ou não
+                console.log("resposta: ", resposta);
+                if (resposta.ok) {
+                    console.log("Quiz feito pelo usuario enviado com sucesso para o backend");
+                } else {
+                    resposta.json().then(errorData => {
+                        console.error("Erro ao enviar quiz para o back end", errorData);
+                    }).catch(() => {
+                        console.error("Erro ao enviar quiz para o backend. Status do erro: ", resposta.status);
+                    });
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+
     }
     function fimQuizFliperama() {
 
@@ -1186,6 +1172,34 @@
             prompt(`Você tem evoluido constantemente, parabéns!
             Você acertou ${porcentagemTexto}% das questões`);
         }
+        fetch("/main/quiz", { //minha rota da api
+            method: "POST", //tipo de metodo
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ //converter para json
+                RespostaCorreta,
+                RespostaErrada,
+                
+
+            }) // aqui eu envio as minhas variaveis para serem convertidas em json, pois o back espera em json. Estou no caso enviando as respostas do meu usuario.
+
+        })
+            .then(function (resposta) { //tratamento dos erros e acertos caso seja enviado pelo fetch ou não
+                console.log("resposta: ", resposta);
+                if (resposta.ok) {
+                    console.log("Quiz feito pelo usuario enviado com sucesso para o backend");
+                } else {
+                    resposta.json().then(errorData => {
+                        console.error("Erro ao enviar quiz para o back end", errorData);
+                    }).catch(() => {
+                        console.error("Erro ao enviar quiz para o backend. Status do erro: ", resposta.status);
+                    });
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
 
     }
 
@@ -1207,6 +1221,7 @@
 
 
 
+
         obterDadosParaQuiz();
         obterDadosParaQuizPizza()
 
@@ -1222,10 +1237,6 @@
         nomeUsuarioAtual
         totalAcertosUsuarioAtual
         totalErrosUsuarioAtual
-
-
-        // if(tipodeQuiz[0] == 'playstation'){
-
 
         myChart = new Chart(ctx, {
             type: 'pie',

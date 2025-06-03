@@ -46,10 +46,6 @@ function cadastrarQuiz(
     return database.executar(instrucao);
 }
 
-
-
-
-
 function GraficodePizza() {
     var instrucao = `
             SELECT 
@@ -86,12 +82,23 @@ GROUP BY
     return database.executar(instrucao);
 }
 
+// function InserirTipoDeQuiz(select_option){
+//     var instrucao = `
+//     INSERT INTO quiz (tipodeQuiz) VALUES ('${select_option}');
+//     `;
+
+//     console.log("Executando a instrução SQL: \n" + instrucao);
+//     return database.executar(instrucao);
+
+// }
+
 
 module.exports = {
     cadastrar,
     listar,
     cadastrarQuiz,
     GraficodeBarra,
-    GraficodePizza
+    GraficodePizza,
+    // InserirTipoDeQuiz
 };
 

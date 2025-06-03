@@ -1,62 +1,61 @@
--- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
--- Você precisa executar os comandos no banco de dados para criar as tabelas,
--- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
+-- -----------------------------------------------------
+-- Schema videogames
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `videogames` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `videogames` ;
 
-/*
-comandos para mysql server
-*/
+-- -----------------------------------------------------
+-- Table `videogames`.`usuario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `videogames`.`usuario` (
+  `id_usuario` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(30) NULL DEFAULT NULL,
+  `sobrenome` VARCHAR(30) NULL DEFAULT NULL,
+  `email` VARCHAR(30) NOT NULL,
+  `senha` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`id_usuario`),
+  UNIQUE INDEX `email` (`email` ASC) VISIBLE)
+) ENGINE = InnoDB AUTO_INCREMENT = 21 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
-CREATE DATABASE aquatech;
+-- -----------------------------------------------------
+-- Table `videogames`.`publicacao`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `videogames`.`publicacao` (
+  `idPublicacao` INT NOT NULL AUTO_INCREMENT,
+  `conteudo_publicacao` TEXT NULL DEFAULT NULL,
+  `dataPublicacao` TIMESTAMP NULL DEFAULT NULL,
+  `Fk_id_usuario` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`idPublicacao`),
+  INDEX `Fk_id_usuario` (`Fk_id_usuario` ASC) VISIBLE,
+  CONSTRAINT `publicacao_ibfk_1`
+    FOREIGN KEY (`Fk_id_usuario`)
+    REFERENCES `videogames`.`usuario` (`id_usuario`)
+) ENGINE = InnoDB AUTO_INCREMENT = 27 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
-USE aquatech;
+-- -----------------------------------------------------
+-- Table `videogames`.`quiz`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `videogames`.`quiz` (
+  `idQuiz` INT NOT NULL AUTO_INCREMENT,
+  `tipodeQuiz` VARCHAR(15) NULL DEFAULT NULL,
+  PRIMARY KEY (`idQuiz`)
+) ENGINE = InnoDB AUTO_INCREMENT = 21 DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
-CREATE TABLE empresa (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj CHAR(14),
-	codigo_ativacao VARCHAR(50)
-);
-
-CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
-);
-
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
-);
-
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
-);
-
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
-
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
-);
-
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 1', 'ED145B');
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 2', 'A1B2C3');
-insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
-insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2);
+-- -----------------------------------------------------
+-- Table `videogames`.`respostaUsuarioQuiz`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `videogames`.`respostaUsuarioQuiz` (
+  `Fkid_usuario` INT NOT NULL,
+  `Fkid_Quiz` INT NOT NULL,
+  `acerto` INT NULL DEFAULT NULL,
+  `erro` INT NULL DEFAULT NULL,
+  `dataPontuacao` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`Fkid_usuario`, `Fkid_Quiz`),
+  INDEX `Fkid_Quiz` (`Fkid_Quiz` ASC) VISIBLE,
+  CONSTRAINT `respostaUsuarioQuiz_ibfk_1`
+    FOREIGN KEY (`Fkid_usuario`)
+    REFERENCES `videogames`.`usuario` (`id_usuario`),
+  CONSTRAINT `respostaUsuarioQuiz_ibfk_2`
+    FOREIGN KEY (`Fkid_Quiz`)
+    REFERENCES `videogames`.`quiz` (`idQuiz`)
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;

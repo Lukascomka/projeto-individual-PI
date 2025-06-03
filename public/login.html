@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="./CSS/globals.css" />
     <link rel="stylesheet" href="./CSS/login.css">
     <link rel="shortcut icon" href=".//assets/img/favicon.ico"/>
-    <script src="./js/sessao.js"></script>
-    <script src="./js/alerta.js"></script>
+    
 
     <title>Login</title>
 </head>
@@ -27,15 +26,8 @@
 
                     <div class="botao-and-text">
                         <button onclick="entrar()">Login</button>
-                        <div class="alerta_erro">
-                            <div class="card_erro" id="cardErro">
-                                <span id="mensagem_erro"></span>
-                            </div>
-                        </div>
 
-                        <div id="div_aguardar" class="loading-div">
-                            <img src="../public/assets/circle-loading.gif" id="loading-gif" />
-                          </div>
+                       
 
 
                         <h2>ou continue com</h2>
@@ -75,20 +67,18 @@
 
 
     function entrar() {
-        aguardar();
+        
 
         var emailVar = email_input.value;
         var senhaVar = senha_input.value;
 
         if (emailVar == "" || senhaVar == "") {
-            cardErro.style.display = "block"
+           console.log('Email e senha vazios')
             mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-            finalizarAguardar();
+            
             return false;
         }
-        else {
-            setInterval(sumirMensagem, 5000)
-        }
+        
 
         console.log("FORM LOGIN: ", emailVar);
         console.log("FORM SENHA: ", senhaVar);
@@ -114,7 +104,6 @@
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.id;
-                    //sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
 
                     setTimeout(function () {
                         window.location = "./main.html";
@@ -128,7 +117,6 @@
 
                 resposta.text().then(texto => {
                     console.error(texto);
-                    finalizarAguardar(texto);
                 });
             }
 
@@ -139,8 +127,5 @@
         return false;
     }
 
-    function sumirMensagem() {
-        cardErro.style.display = "none"
-    }
-
+   
 </script>

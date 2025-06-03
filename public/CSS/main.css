@@ -88,13 +88,28 @@ body {
   transition: box-shadow 0.3s ease;
 }
 
-.conteudo-nav div.nav-selection.ativo {
-  width: 90%;
+.conteudo-nav div.nav-selection{
+
+ width: 90%;
   height: 10%;
-  color: #000000;
-  background-color: #D2FF69;
+  color: #fff;
+  background-color: #000000; 
+  
+  transition: box-shadow 0.9s ease;
+  margin-top: 50px;
+  margin-bottom: 0px;
 
 }
+
+
+
+
+.conteudo-nav div.nav-selection:hover{
+ 
+  box-shadow: 0 0 5px 5px #D2FF69;
+    
+}
+
 
 .conteudo-nav img {
   width: 15%;
@@ -331,22 +346,28 @@ div .seta img {
 }
 
 .dash {
-  display: flex;
-  flex-direction: row;
-  margin: 15px 0;
-  gap: 15px;
-  background-color: #FFFDF5;
-  width: 100%;
-  justify-content: space-around;
+      display: flex;
+      flex-direction: column;
+      margin: 15px 0;
+      gap: 15px;
+      background-color: #FFFDF5;
+      min-width: 100%;
+      justify-content: space-around;
+      min-height: 100%;
+}
+
+.functionMatematica{
+  background-color: red;
 }
 
 .conteudo-dash {
   flex-direction: row;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
-  margin: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+    margin: 10px;
+    gap: 30px;
 }
 
 .class-quiz {

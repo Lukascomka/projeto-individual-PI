@@ -25,6 +25,10 @@ router.get('/obterDados', function (req, res){
     mainController.GraficodeBarra(req, res);
 });
 
+// router.post('/inserirQuiz', function (req, res){
+//     mainController.InserirTipoDeQuiz(req,res)
+// });
+
 
 
 
