@@ -20,10 +20,10 @@ function listar() {
     return database.executar(instrucao);
 }
 
-function cadastrar(conteudo_publicacao) {
+function cadastrar(conteudo_publicacao, Fkid_usuario) {
 
     var instrucao = `
-    INSERT INTO publicacao (conteudo_publicacao, Fk_id_usuario) VALUES ('${conteudo_publicacao}',1 
+    INSERT INTO publicacao (conteudo_publicacao, Fkid_usuario) VALUES ('${conteudo_publicacao}','${Fkid_usuario}' 
     );
     `;
 
@@ -37,30 +37,40 @@ function cadastrarQuiz(
     RespostaCorreta,
     RespostaErrada
 ) {
-
+    console.log(Fkid_Quiz)
+    console.log(Fkid_usuario)
+    console.log(RespostaCorreta)
+    console.log(RespostaErrada)
+    
     var instrucao = `
-        INSERT INTO respostaUsuarioQuiz (Fkid_usuario, Fkid_Quiz, acerto, erro)
-        VALUES (${Fkid_usuario}, ${Fkid_Quiz}, ${RespostaCorreta}, ${RespostaErrada})
-    `;
+    INSERT INTO respostaUsuarioQuiz (Fkid_usuario, Fkid_Quiz, acerto, erro)
+    VALUES (${Fkid_usuario}, ${Fkid_Quiz}, ${RespostaCorreta}, ${RespostaErrada})
+`;
     console.log('Executando a instrução SQL para inserir dados do quiz no banco', instrucao);
     return database.executar(instrucao);
 }
 
-function GraficodePizza() {
+function GraficodePizza(id_usuario) {
+    console.log(id_usuario)
     var instrucao = `
-            SELECT 
-            usuario.nome AS nome_usuario,
+   SELECT 
+            usuario.nome AS nome,
             AVG(respostaUsuarioQuiz.acerto) AS total_acertos,
             AVG(respostaUsuarioQuiz.erro) AS total_erros
-            FROM usuario
-            INNER JOIN respostaUsuarioQuiz
+        FROM usuario
+        INNER JOIN respostaUsuarioQuiz
             ON usuario.id_usuario = respostaUsuarioQuiz.Fkid_usuario
-            WHERE usuario.id_usuario = 1
-            GROUP BY usuario.nome, usuario.id_usuario;
+        WHERE usuario.id_usuario = ${id_usuario}
+        GROUP BY usuario.nome, usuario.id_usuario;
+   
+   
         `;
-    console.log('Executando a instrução SQL para listar o gráfico individual\n ' + instrucao);
+
+    console.log('Executando a instrução SQL para listar o gráfico individual:\n' + instrucao);
     return database.executar(instrucao);
 }
+
+
 
 function GraficodeBarra() {
     var instrucao = `
@@ -82,15 +92,7 @@ GROUP BY
     return database.executar(instrucao);
 }
 
-// function InserirTipoDeQuiz(select_option){
-//     var instrucao = `
-//     INSERT INTO quiz (tipodeQuiz) VALUES ('${select_option}');
-//     `;
 
-//     console.log("Executando a instrução SQL: \n" + instrucao);
-//     return database.executar(instrucao);
-
-// }
 
 
 module.exports = {

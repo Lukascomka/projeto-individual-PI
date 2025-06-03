@@ -17,7 +17,7 @@ router.get("/feed", function (req, res) {
     mainController.listar(req, res);
 });
 
-router.get("/obterDadosPizza", function (req, res){
+router.get("/obterDadosPizza/:id_usuario/:Fkid_Quiz", function (req, res){
     mainController.GraficodePizza(req, res);
 });
 
@@ -25,9 +25,6 @@ router.get('/obterDados', function (req, res){
     mainController.GraficodeBarra(req, res);
 });
 
-// router.post('/inserirQuiz', function (req, res){
-//     mainController.InserirTipoDeQuiz(req,res)
-// });
 
 
 

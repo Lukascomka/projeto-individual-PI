@@ -117,7 +117,7 @@
 
 
 
-   
+
 
 
 
@@ -285,32 +285,31 @@
 
     }
 
-    const nomeUsuarioAtual = [];
-    const totalAcertosUsuarioAtual = [];
-    const totalErrosUsuarioAtual = [];
+    function obterDadosParaQuizPizza(idDoQuiz) {
 
-    function obterDadosParaQuizPizza() {
 
-        fetch('/main/obterDadosPizza')
-            .then(function (response) {
+        fetch(`/main/obterDadosPizza/${sessionStorage.ID_USUARIO}/${idDoQuiz}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
                 return response.json();
-
             })
-            .then(function (data) {
-                // console.log("Dados do gráfico de pizza:", data)
+            .then(data => {
+                console.log("Dados do gráfico de pizza:", data[0])
 
                 if (data[0].nome_usuario && data[0].total_acertos && data[0].total_erros) {
 
-                    nomeUsuarioAtual.push(data[0].nome_usuario)
+                    // nomeUsuarioAtual.push(data[0].nome_usuario)
                     totalAcertosUsuarioAtual.push(data[0].total_acertos)
                     totalErrosUsuarioAtual.push(data[0].total_erros)
+                    nomeUsuario = ""
+
                     // console.log("Aqui começa os dados do gráfico de pízza")
                     // console.log(nomeUsuarioAtual)
                     // console.log(totalAcertosUsuarioAtual)
                     // console.log(totalErrosUsuarioAtual)
                 }
-
-
 
                 plotarGraficoPizza(data)
 
@@ -377,7 +376,7 @@
     function postar() {
 
         const conteudoPost = (ipt_conteudo_postado).value;
-        
+
         posteusuario;
 
         posteusuario.push({
@@ -506,6 +505,7 @@
         }
 
         if (select_option == 'playstation') {
+            sessionStorage.setItem('Selected_QUIZ_ID', 1)
             div_escolha.innerHTML = ""
             div_escolha.innerHTML += `
                        <div class="sessao">                             
@@ -643,6 +643,7 @@
 
         }
         else if (select_option == 'xbox') {
+            sessionStorage.setItem('Selected_QUIZ_ID', 2)
             div_escolha.innerHTML = ""
             div_escolha.innerHTML += `
     <div class="sessao">
@@ -776,10 +777,11 @@
     </div>
     <button onclick="fimQuizXbox()" class="buttonQuiz">Terminar Quiz</button>
     <div class="FinalQuiz" id="FinalQuiz">
-    </div>`;       
+    </div>`;
 
         }
         else if (select_option == 'fliperama') {
+            sessionStorage.setItem('Selected_QUIZ_ID', 3)
             div_escolha.innerHTML = ""
             div_escolha.innerHTML += `
     <div class="sessao">
@@ -997,9 +999,12 @@
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ //converter para json
+
                 RespostaCorreta,
                 RespostaErrada,
-                
+                id_usuario: sessionStorage.getItem('ID_USUARIO'),
+                Fkid_Quiz: 1
+
 
             }) // aqui eu envio as minhas variaveis para serem convertidas em json, pois o back espera em json. Estou no caso enviando as respostas do meu usuario.
 
@@ -1020,6 +1025,9 @@
                 console.log(`#ERRO: ${resposta}`);
             });
     }
+
+
+
     function fimQuizXbox() {
         respostaUsuario
         respostaCerta;
@@ -1088,9 +1096,12 @@
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ //converter para json
+
                 RespostaCorreta,
                 RespostaErrada,
-                
+                id_usuario: sessionStorage.getItem('ID_USUARIO'),
+                Fkid_Quiz: 2
+
 
             }) // aqui eu envio as minhas variaveis para serem convertidas em json, pois o back espera em json. Estou no caso enviando as respostas do meu usuario.
 
@@ -1110,9 +1121,10 @@
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
             });
-
-
     }
+
+
+
     function fimQuizFliperama() {
 
         respostaUsuario
@@ -1178,9 +1190,12 @@
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ //converter para json
+
                 RespostaCorreta,
                 RespostaErrada,
-                
+                id_usuario: sessionStorage.getItem('ID_USUARIO'),
+                Fkid_Quiz: 3
+
 
             }) // aqui eu envio as minhas variaveis para serem convertidas em json, pois o back espera em json. Estou no caso enviando as respostas do meu usuario.
 
@@ -1200,8 +1215,9 @@
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
             });
-
     }
+
+
 
 
     let myChart = null;
@@ -1210,8 +1226,8 @@
 
     function jogosEmAlta() {
         reset();
-
-
+        const idDoQuiz = sessionStorage.getItem("Selected_QUIZ_ID")
+        console.log('jogos em alta foi chamado', idDoQuiz)
 
         msg_home.innerHTML = `<h1>Bem Vindo ${nome}👋</h1>`
         dash.innerHTML = ` <div class="conteudo-dash">
@@ -1223,7 +1239,7 @@
 
 
         obterDadosParaQuiz();
-        obterDadosParaQuizPizza()
+        obterDadosParaQuizPizza(idDoQuiz)
 
     }
 
@@ -1234,17 +1250,18 @@
 
     function plotarGraficoPizza(dados) {
         const ctx = document.getElementById('myChart');
-        nomeUsuarioAtual
-        totalAcertosUsuarioAtual
-        totalErrosUsuarioAtual
+
+        let nomeUsuarioAtual = dados[0].nome
+        let totalAcertosUsuarioAtual = dados[0].total_acertos
+        let totalErrosUsuarioAtual = dados[0].total_erros;
 
         myChart = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels:['Resposta_Certa', 'Resposta Errada'] ,
+                labels: ['Resposta_Certa', 'Resposta Errada'],
                 datasets: [{
                     label: 'Seus acertos e seus',
-                    data: [totalAcertosUsuarioAtual[0],totalErrosUsuarioAtual[0]],
+                    data: [totalAcertosUsuarioAtual[0], totalErrosUsuarioAtual[0]],
                     backgroundColor: [
                         'rgb(16, 124, 16)',
                         'black'
@@ -1260,20 +1277,23 @@
                     title: {
                         display: true,
                         text: 'Grafico de acertos e erros'
-                    },tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        const label = context.label || '';
-                        const value = context.parsed;
-                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                        const percentage = ((value / total) * 100).toFixed(1);
-                        return `${label}: ${value} (${percentage}%)`;
+                    }, tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                const label = context.label || '';
+                                const value = context.parsed;
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = ((value / total) * 100).toFixed(1);
+                                return `${label}: ${value} (${percentage}%)`;
+                            }
+                        }
                     }
                 }
+
             }
-        }
-    }
-});
+        });
+
+        console.log(ctx);
     }
 
 

@@ -35,11 +35,10 @@ function cadastrar(req, res) {
 
 function cadastrarQuiz(req, res) {
     console.log("Request Body:", req.body);
-    const { RespostaCorreta, RespostaErrada } = req.body;
+    const { RespostaCorreta, RespostaErrada, id_usuario, Fkid_Quiz } = req.body;
 
     
-    const Fkid_usuario = 1; // Substituir pela lógica real do usuário logado
-    const Fkid_Quiz = 2;    // Substituir pela lógica real do quiz atual
+    const Fkid_usuario = id_usuario
 
     if (RespostaCorreta === undefined || RespostaErrada === undefined || !Fkid_usuario || !Fkid_Quiz) {
         return res.status(400).send('Dados do quiz incompletos.');
@@ -56,13 +55,17 @@ function cadastrarQuiz(req, res) {
 }
 
 function GraficodePizza(req, res) {
-    mainModel.GraficodePizza()
+    var id_usuario = req.params.id_usuario;
+    var Fkid_Quiz = req.params.Fkid_Quiz;
+
+    
+    mainModel.GraficodePizza(id_usuario, Fkid_Quiz)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado)
                     
                 ;
-            } else {
+            } else if (resultado.length == 0){
                 res.status(204).send("Nenhum resultado encontrado para o gráfico de pizza!");
             }
         }).catch(function (erro) {
@@ -87,20 +90,7 @@ function GraficodeBarra(req, res) {
         });
 }
 
-// function InserirTipoDeQuiz(req, res){
-//     mainModel.InserirTipoDeQuiz()
-//     .then(function (resultado){
-//         if(resultado.length > 0){
-//             res.status(200).json(resultado);
-//         }else {
-//             res.status(204).send("Nenhum resultado encontrado para o tipo de Quiz selecionado");
-//         }
-//     }).catch(function (erro){
-//         console.log(erro);
-//         console.log("Houve um erro a buscar o tipo de quiz selecionado ", erro.sqlMessage);
-//         res.status(500).json(erro.sqlMessage);
-//     });
-// }
+
 
 module.exports = {
     listar,
