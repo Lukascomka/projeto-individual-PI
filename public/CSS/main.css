@@ -44,6 +44,7 @@ body {
   align-items: flex-start;
   overflow-y: auto;
   overflow-x: hidden;
+  padding-top: 50px;
 
 }
 
@@ -54,8 +55,9 @@ body {
 
 .conteudo h1 {
   font-size: 70px;
-  font-style: italic;
-  font-weight: 400;
+    font-style: italic;
+    font-weight: 400;
+    padding: 60px;
 }
 
 .conteudo-nav {
@@ -112,10 +114,9 @@ body {
 
 
 .conteudo-nav img {
-  width: 15%;
+  width: 20%;
   height: auto;
-  padding: 8px;
-
+  padding: 4px;
 }
 
 /* Footer */
@@ -236,7 +237,9 @@ div .seta img {
   font-style: oblique;
   color: #2563EB;
   font-weight: 500;
-  margin: 10px
+  font-size: 30px;
+  margin: 20px;
+  
 }
 
 .conteudo_mensagem {
@@ -449,4 +452,14 @@ div .seta img {
   width: 100%;
   margin: 0 auto;
   padding: 10px;
+}
+a{
+  color: #fff;
+  display: flex;
+  align-items: center;
+  font-style: oblique;
+}
+
+.caixa-mensagens{
+  padding: 50px;
 }

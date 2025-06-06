@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <link rel="stylesheet" href="./CSS/main.css" />
+    <link rel="stylesheet" href="./CSS/globals.css">
+    <link rel="stylesheet" href="./CSS/style.css">
+    <link rel="stylesheet" href="./assets/img/favicon.ico">
+
+    <script src="js/variaveisGlobais.js"></script>
+    <script src="js/optQuiz.js"></script>
+    <script src="js/homePage.js"></script>
+    <script src="js/reset.js"></script>
+    <script src="js/obterDadosDash.js"></script>
+    <script src="js/graficos.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container-main">
+
+        <nav class="nav">
+            <div class="conteudo-nav">
+
+                <span id="nome">Usuário</span>
+                
+                <div class="nav-selection"><a href="./homePage.html"><img src="./assets/img/home (1) 1.png" alt="">Home Page</a>
+                
+                </div>
+                <div onclick="mensagem()" class="nav-selection"><a href="./mensagem.html"><img src="./assets/img/mensagens.png" alt="">Mensagem</a>
+                
+                </div>
+                <div onclick="quiz()" class="nav-selection"><a href="./quiz.html"><img src="./assets/img/game-controller_17846449.png"
+                        alt="">Quiz</a>
+                    </div>
+                <div onclick="jogosEmAlta()" class="nav-selection"><a href="./jogosEmAlta.html"><img src="./assets/img/dashboard (1) 1.png"
+                        alt="">Jogos em alta</a>
+                    
+                </div>
+                <div class="seta"><a href="./login.html"><img src="./assets/img/Frame 1.png" alt=""></a></div>
+            </div>
+        </nav>
+    <div class="conteudo">
+        <div class="mensagem-bem-vindo-principal">
+            <h1 id="msg_home"></h1>
+        </div>
+
+        <div class="posts">
+            <div class="post-header">
+                <span>nome_post</span>
+            </div>
+            <div class="post-conteudo">
+                <textarea id="ipt_conteudo_postado" placeholder="Poste algo para os amigos"></textarea>
+                <div id="cards"></div>
+            </div>
+            <div class="post-footer">
+                <button id="btn_postar">Postar</button>
+            </div>
+            <div id="feed-de-posts">
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <footer class="footer">
+        <div class="social-icons">
+            <img class="social-icon" src=".//assets/img/twitch.png" />
+            <img class="social-icon" src=".//assets/img/github.png" />
+            <img class="social-icon" src=".//assets/img/discord.png" />
+        </div>
+        <div class="footer-logo">
+            <img class="footer-icon" src=".//assets/img/logo.png" />
+            <div class="footer-radio">Game-History</div>
+        </div>
+    </footer>
+
+   
+</body>
+</html>
