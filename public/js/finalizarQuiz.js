@@ -220,7 +220,7 @@ function fimQuizFliperama() {
 window.porcentagemFinalDeAcertos = porcentagemFInalDeAcertosDoQuiz;
 window.pontuacaoFinal = pontuacaoLocalQuiz;
 
-let porcentagemTexto = Math.round(porcentagemFInalDeAcertosDoQuiz * 100);
+let porcentagemTexto = Math.round((porcentagemFInalDeAcertosDoQuiz /10)*100);
 
 if (Math.abs(porcentagemFInalDeAcertosDoQuiz - 1) < 0.0001) {
     prompt(`Você tem evoluído constantemente, parabéns!\nVocê acertou 100% das questões`);

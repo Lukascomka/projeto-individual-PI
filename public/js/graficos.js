@@ -12,7 +12,7 @@ export function plotarGraficoPizza(dados) {
             datasets: [{
                 label: 'Seus acertos e erros',
                 data: [totalAcertosUsuarioAtual, totalErrosUsuarioAtual],
-                backgroundColor: ['rgb(16, 124, 16)', 'black'],
+                backgroundColor: ['rgb(209,254,104)', 'black'],
                 borderWidth: 1
             }]
         },
@@ -51,9 +51,9 @@ export function plotarGraficoBarra(dados) {
                 label: 'Média geral de todos os jogadores',
                 data: QtdAcertos.slice(0, 3),
                 backgroundColor: [
-                    'RGB(218, 41, 28)', 
-                    'rgb(16, 124, 16)', 
-                    'RGB(0, 255, 255)'  
+                    'rgb(227,24,36)', 
+                    'rgb(209,254,104)', 
+                    'rgb(74,144,226)'
                 ],
                 borderWidth: 1
             }]

@@ -1,18 +1,28 @@
 var database = require('../database/config');
 
 
-function GraficodePizza(id_usuario) {
+function GraficodePizza(id_usuario, tipodeQuiz) {
     console.log(id_usuario)
     var instrucao = `
-   SELECT 
-            usuario.nome AS nome,
-            AVG(respostaUsuarioQuiz.acerto) AS total_acertos,
-            AVG(respostaUsuarioQuiz.erro) AS total_erros
-        FROM usuario
-        INNER JOIN respostaUsuarioQuiz
-            ON usuario.id_usuario = respostaUsuarioQuiz.Fkid_usuario
-        WHERE usuario.id_usuario = ${id_usuario}
-        GROUP BY usuario.nome, usuario.id_usuario;
+  
+
+
+
+            SELECT 
+            quiz.tipodeQuiz,
+            usuario.nome,
+            SUM(respostaUsuarioQuiz.acerto) AS total_acertos,
+            SUM(respostaUsuarioQuiz.erro) AS total_erros
+            FROM quiz
+            INNER JOIN 
+                respostaUsuarioQuiz ON respostaUsuarioQuiz.Fkid_Quiz = quiz.idQuiz
+            INNER JOIN 
+                usuario ON usuario.id_usuario = respostaUsuarioQuiz.Fkid_usuario
+            WHERE 
+                respostaUsuarioQuiz.Fkid_usuario = ${id_usuario}
+                AND quiz.idQuiz = ${tipodeQuiz}
+            GROUP BY 
+            quiz.tipodeQuiz, usuario.nome;
    
    
         `;
