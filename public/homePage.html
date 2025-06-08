@@ -5,17 +5,18 @@
     <link rel="stylesheet" href="./CSS/style.css">
     <link rel="stylesheet" href="./assets/img/favicon.ico">
 
-    <script src="js/variaveisGlobais.js"></script>
-    <script src="js/optQuiz.js"></script>
-    <script src="js/homePage.js"></script>
-    <script src="js/reset.js"></script>
-    <script src="js/obterDadosDash.js"></script>
-    <script src="js/graficos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="js/variaveisGlobais.js"></script>
+    <script type="module" src="js/optQuiz.js"></script>
+    <script type="module" src="js/homePage.js"></script>
+    <script type="module" src="js/reset.js"></script>
+    <script type="module" src="js/obterDadosDash.js"></script>
+    <script type="module" src="js/graficos.js"></script>
+    <script type="module" src="js/finalizarQuiz.js"></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container-main">
@@ -48,16 +49,17 @@
 
         <div class="posts">
             <div class="post-header">
-                <span>nome_post</span>
+                <span>Conteudo a ser publicado</span>
             </div>
             <div class="post-conteudo">
                 <textarea id="ipt_conteudo_postado" placeholder="Poste algo para os amigos"></textarea>
                 <div id="cards"></div>
             </div>
             <div class="post-footer">
-                <button id="btn_postar">Postar</button>
+                <button id="btn_postar" onclick="postar()">Publicar</button>
             </div>
-            <div id="feed-de-posts">
+            <div id="feed_de_posts">
+                
             </div>
         </div>
     </div>

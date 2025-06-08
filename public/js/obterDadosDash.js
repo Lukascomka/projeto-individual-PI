@@ -1,5 +1,7 @@
-function obterDadosParaQuiz() {
-    fetch('/main/obterDados')
+import { plotarGraficoBarra, plotarGraficoPizza } from "./graficos.js";
+
+async function obterDadosParaQuiz() {
+    await fetch('/jogosEmAlta/obterDados')
         .then(response => response.json())
         .then(data => {
             nomeUsuario = [];
@@ -32,8 +34,8 @@ function obterDadosParaQuiz() {
 }
 
 
-function obterDadosParaQuizPizza(idDoQuiz) {
-    fetch(`/main/obterDadosPizza/${sessionStorage.ID_USUARIO}/${idDoQuiz}`)
+async function obterDadosParaQuizPizza(idDoQuiz) {
+   await fetch(`/jogosEmAlta/obterDadosPizza/${sessionStorage.ID_USUARIO}/${sessionStorage.Selected_QUIZ_ID}`)
         .then(response => {
             if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
             return response.json();
@@ -49,3 +51,5 @@ function obterDadosParaQuizPizza(idDoQuiz) {
         })
         .catch(console.error);
 }
+obterDadosParaQuizPizza();
+obterDadosParaQuiz();

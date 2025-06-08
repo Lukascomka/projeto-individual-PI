@@ -1,3 +1,4 @@
+const quiZ = document.querySelector(".class-quiz");
 function optconsole() {
     const selectElement = document.querySelector('#optconsoleid');
     const select_option = selectElement.value;
@@ -9,6 +10,8 @@ function optconsole() {
     }
 
     if (select_option == 'playstation') {
+        
+        
         sessionStorage.setItem('Selected_QUIZ_ID', 1)
         div_escolha.innerHTML = `
                    <div class="sessao">                             
@@ -146,6 +149,8 @@ function optconsole() {
 
     }
     else if (select_option == 'xbox') {
+        
+        
         sessionStorage.setItem('Selected_QUIZ_ID', 2)
         div_escolha.innerHTML = `
 <div class="sessao">
@@ -283,6 +288,8 @@ function optconsole() {
 
     }
     else if (select_option == 'fliperama') {
+        
+        
         sessionStorage.setItem('Selected_QUIZ_ID', 3)
         div_escolha.innerHTML = `
 <div class="sessao">
@@ -418,5 +425,6 @@ function optconsole() {
 <button onclick="fimQuizFliperama()" class="buttonQuiz">Terminar Quiz</button>
 `;
     }
+    
 }
-
+window.optconsole = optconsole;

@@ -8,12 +8,17 @@
     <link rel="stylesheet" href="./CSS/style.css">
     <link rel="stylesheet" href="./assets/img/favicon.ico">
 
-    <script src="js/variaveisGlobais.js"></script>
-    <script src="js/optQuiz.js"></script>
-    <script src="js/homePage.js"></script>
-    <script src="js/reset.js"></script>
-    <script src="js/obterDadosDash.js"></script>
-    <script src="js/graficos.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="js/variaveisGlobais.js"></script>
+    <script type="module" src="js/optQuiz.js"></script>
+    <script type="module" src="js/homePage.js"></script>
+    <script type="module" src="js/reset.js"></script>
+    <script type="module" src="js/obterDadosDash.js"></script>
+    <script type="module" src="js/graficos.js"></script>
+    <script type="module" src="js/finalizarQuiz.js"></script>
+    <script type="module" src="js/msg.js"></script>
+    
   <title>Mensagens - Game History</title>
 </head>
 <body>
@@ -30,7 +35,7 @@
     </nav>
 
     <div class="conteudo">
-      <h1>Essas são suas mensagens Jogador 👋</h1>
+      <div id="msg_topo"></div>
 
       <div class="caixa-mensagens">
         <div class="mensagem">

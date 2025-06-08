@@ -55,9 +55,9 @@ body {
 
 .conteudo h1 {
   font-size: 70px;
-    font-style: italic;
-    font-weight: 400;
-    padding: 60px;
+  font-style: italic;
+  font-weight: 400;
+  padding: 60px;
 }
 
 .conteudo-nav {
@@ -90,13 +90,13 @@ body {
   transition: box-shadow 0.3s ease;
 }
 
-.conteudo-nav div.nav-selection{
+.conteudo-nav div.nav-selection {
 
- width: 90%;
+  width: 90%;
   height: 10%;
   color: #fff;
-  background-color: #000000; 
-  
+  background-color: #000000;
+
   transition: box-shadow 0.9s ease;
   margin-top: 50px;
   margin-bottom: 0px;
@@ -106,10 +106,10 @@ body {
 
 
 
-.conteudo-nav div.nav-selection:hover{
- 
+.conteudo-nav div.nav-selection:hover {
+
   box-shadow: 0 0 5px 5px #D2FF69;
-    
+
 }
 
 
@@ -239,7 +239,7 @@ div .seta img {
   font-weight: 500;
   font-size: 30px;
   margin: 20px;
-  
+
 }
 
 .conteudo_mensagem {
@@ -349,28 +349,31 @@ div .seta img {
 }
 
 .dash {
-      display: flex;
-      flex-direction: column;
-      margin: 15px 0;
-      gap: 15px;
-      background-color: #FFFDF5;
-      min-width: 100%;
-      justify-content: space-around;
-      min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  gap: 15px;
+  background-color: #FFFDF5;
+  min-width: 100%;
+  justify-content: space-around;
+  min-height: 100%;
 }
 
-.functionMatematica{
+.functionMatematica {
   background-color: red;
 }
 
 .conteudo-dash {
-  flex-direction: row;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 50%;
-    margin: 10px;
-    gap: 30px;
+  flex-direction: column;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 514px;
+  height: 363px;
+  margin: 10px;
+  gap: 30px;
+  min-height: unset;
+  min-width: unset;
 }
 
 .class-quiz {
@@ -422,19 +425,19 @@ div .seta img {
 
 .card {
   display: flex;
-    flex-direction: column;
-    min-width: 100%;
-    min-height: 31%;
-    padding: 14px;
-    border: 1px solid #ccc;
-    border-radius: 30px;
-    margin-bottom: 15px;
-    background-color: #fff;
-    box-sizing: border-box;
-    font-size: 22px;
-    justify-content: center;
-    gap: 20px;
-    font-style: oblique;
+  flex-direction: column;
+  min-width: 100%;
+  min-height: 31%;
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  margin-bottom: 15px;
+  background-color: #fff;
+  box-sizing: border-box;
+  font-size: 22px;
+  justify-content: center;
+  gap: 20px;
+  font-style: oblique;
 }
 
 
@@ -453,13 +456,14 @@ div .seta img {
   margin: 0 auto;
   padding: 10px;
 }
-a{
+
+a {
   color: #fff;
   display: flex;
   align-items: center;
   font-style: oblique;
 }
 
-.caixa-mensagens{
+.caixa-mensagens {
   padding: 50px;
 }

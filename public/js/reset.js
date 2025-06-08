@@ -20,6 +20,6 @@ function reset() {
     posts.innerHTML = "";
     class_mensagem.innerHTML = "";
     div_escolha.innerHTML = "";
-    dash.innerHTML = "";
+    
     document.querySelector(".class-quiz").innerHTML = "";
 }

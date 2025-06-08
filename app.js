@@ -20,7 +20,10 @@ var HOST_APP = process.env.APP_HOST;
 // variavel que estou criando de rota
 
 
-var mainRouter = require('./src/routes/main.js')
+// var mainRouter = require('./src/routes/main.js');
+var jogosEmAltaRouter = require('./src/routes/jogosEmAlta.js');
+var homePageRouter = require('./src/routes/homePage.js');
+var quizRouter = require('./src/routes/quiz.js');
 // const mainRoutess = require('./routes/main');
 
 
@@ -44,8 +47,10 @@ app.use('/usuarios' , usuarioRouter);
 
 
 //meu app.use
-app.use("/main",mainRouter);
-// app.use('/cadastrarQuiz', mainRouter);
+app.use('/jogosEmAlta',jogosEmAltaRouter); //dashboard
+app.use('/homePage',homePageRouter); //posts
+app.use('/quiz',quizRouter); //quiz
+// app.use("/main",mainRouter);
 
 
 

@@ -1,10 +1,11 @@
-function plotarGraficoPizza(dados) {
+
+export function plotarGraficoPizza(dados) {
     const ctx = document.getElementById('myChart');
     const nomeUsuarioAtual = dados[0].nome;
     const totalAcertosUsuarioAtual = dados[0].total_acertos;
     const totalErrosUsuarioAtual = dados[0].total_erros;
 
-    myChart = new Chart(ctx, {
+    window.myChart = new Chart(ctx, {
         type: 'pie',
         data: {
             labels: ['Resposta Certa', 'Resposta Errada'],
@@ -39,10 +40,10 @@ function plotarGraficoPizza(dados) {
     });
 }
 
-function plotarGraficoBarra(dados) {
+export function plotarGraficoBarra(dados) {
     const ctx2 = document.getElementById('myChart2');
 
-    myChart2 = new Chart(ctx2, {
+    window.myChart2 = new Chart(ctx2, {
         type: 'bar',
         data: {
             labels: tipodeQuiz.slice(0, 3),

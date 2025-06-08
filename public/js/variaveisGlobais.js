@@ -1,14 +1,12 @@
-// export const class_mensagem = document.querySelector(".class_mensagem");
-// export const posts = document.querySelector(".posts");
-// export const msg_home = document.querySelector(".mensagem-bem-vindo-principal");
 // export const dash = document.querySelector(".dash");
 // export const div_escolha = document.querySelector(".conteudo_options_console");
-// export const quiZ = document.querySelector(".class-quiz");
+
 // export const cards = document.querySelector(".cards");
 
 // export let nome = "Jogador";
 
-export const respostaCerta = [
+
+const respostaCerta = [
     {
         plataforma: 'playstation',
         respostas: [
@@ -56,33 +54,43 @@ export const respostaCerta = [
     }
 ];
 
-export const nomeUsuario = [];
-export const QtdErros = [];
-export const QtdAcertos = [];
-export const tipodeQuiz = [];
-export const Fliperama = [];
-export const Xbox = [];
-export const Playstation = [];
+const nomeUsuario = [];
+const QtdErros = [];
+const QtdAcertos = [];
+const tipodeQuiz = [];
+const Fliperama = [];
+const Xbox = [];
+const Playstation = [];
 
-export let myChart = null;
-export let myChart2 = null;
+let myChart = null;
+let myChart2 = null;
 
-export let porcentagemFinalDeAcertos = 0;
-export let pontuacaoFinal = 0;
-export let quantidadeDeQuestoes = 10;
-export let tentativaIncorreta = 0;
-export let RespostaCorreta = 0;
-export let RespostaErrada = 0;
-export let respostaUsuario = [];
-export let pontuacaoFial = 0;
+let porcentagemFinalDeAcertos = 0;
+let pontuacaoFinal = 0;
+let quantidadeDeQuestoes = 10;
+let tentativaIncorreta = 0;
+let RespostaCorreta = 0;
+let RespostaErrada = 0;
+let respostaUsuario = [];
 
-export const posteusuario = [
-    {
-        post: {
-            conteudo: []
-        }
-    }
-];
+
+window.respostaCerta = respostaCerta;
+window.nomeUsuario = nomeUsuario;
+window.QtdErros = QtdErros;
+window.QtdAcertos = QtdAcertos;
+window.tipodeQuiz = tipodeQuiz;
+window.Fliperama = Fliperama;
+window.Xbox = Xbox;
+window.Playstation = Playstation;
+window.porcentagemFinalDeAcertos = porcentagemFinalDeAcertos
+window.pontuacaoFinal = pontuacaoFinal
+window.quantidadeDeQuestoes = quantidadeDeQuestoes
+window.tentativaIncorreta = tentativaIncorreta;
+window.RespostaCorreta = RespostaCorreta;
+window.RespostaErrada = RespostaErrada;
+window.respostaUsuario = respostaUsuario
+
+
 
  
 
