@@ -39,12 +39,12 @@ function GraficodeBarra() {
 	quiz.tipodeQuiz,
     AVG(respostaUsuarioQuiz.acerto) AS total_acertos,
     AVG(respostaUsuarioQuiz.erro) AS total_erros
-FROM usuario
-INNER JOIN respostaUsuarioQuiz
+    FROM usuario
+    INNER JOIN respostaUsuarioQuiz
     ON usuario.id_usuario = respostaUsuarioQuiz.Fkid_usuario
-INNER JOIN quiz
+    INNER JOIN quiz
     ON respostaUsuarioQuiz.Fkid_Quiz = quiz.idQuiz  
-GROUP BY 
+    GROUP BY 
     quiz.tipodeQuiz
 ;
 
